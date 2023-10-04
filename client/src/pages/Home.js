@@ -1,6 +1,6 @@
 import React from 'react'
 import { Grid } from '@mui/material'
-import { Sidebar } from '../components/sidebar'
+import { Sidebar } from '../components/Sidebar'
 
 const Home = () => {
   return (
