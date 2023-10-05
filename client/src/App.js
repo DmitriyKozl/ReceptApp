@@ -14,14 +14,6 @@ const App = () => {
       primary: {
         main: '#fff',
       },
-      secondary: {
-        main: '#2a425b',
-        light: '#385699',
-      },
-      text: {
-        primary: '#000',
-        secondary: '#fff',
-      },
     },
     typography: { fontFamily: ['Poppins', 'sans-serif'].join(',') },
   })

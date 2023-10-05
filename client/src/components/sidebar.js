@@ -10,12 +10,12 @@ export const Sidebar = (selected) => {
   return (
     <Grid sx={{ backgroundColor: 'background.default', width: 100, textAlign: 'center' }}>
       <Button
-        onClick={() => navigate('/recepten')}
-        sx={{ mt: 5, width: '100%', backgroundColor: selected.title === 'recepten' ? '#035e8b' : 'background.default' }}
+        onClick={() => navigate('/recipe')}
+        sx={{ mt: 5, width: '100%', backgroundColor: selected.title === 'recipe' ? '#035e8b' : 'background.default' }}
       >
         <Grid>
           <RestaurantMenuIcon />
-          <Typography>Recepten</Typography>
+          <Typography>recipe</Typography>
         </Grid>
       </Button>
       <Button

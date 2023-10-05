@@ -1,11 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Box, Button, Divider, Grid, Typography } from '@mui/material'
+import { Box, Button, Dialog, DialogActions, Divider, Grid, Typography } from '@mui/material'
 import { Sidebar } from '../components/Sidebar'
-import { ReceptenList } from '../components/ReceptenList'
+import { RecipeList } from '../components/RecipeList'
+import { Popup } from '../components/Popup'
 
 const Admin = () => {
   const { title } = useParams()
+
+  const [open, setOpen] = useState(false)
+
+  const handleClose = () => {
+    setOpen(false)
+  }
 
   return (
     <Grid container height='100vh'>
@@ -17,12 +24,30 @@ const Admin = () => {
         <Divider />
         <Grid container sx={{ width: '100%' }} justifyContent={'space-between'}>
           <Box>
-            <Typography sx={{ m: 1 }}>Recepten</Typography>
+            <Typography sx={{ m: 1 }}>{title}</Typography>
             <Divider />
           </Box>
-          <Button sx={{ color: 'background.default', border: 1, borderRadius: 10, m: 1 }}>+ voeg een recept toe</Button>
+          <Button
+            onClick={() => {
+              setOpen(true)
+            }}
+            sx={{ color: 'background.default', border: 1, borderRadius: 10, m: 1 }}
+          >
+            {title === 'recipe' ? '+ add a recipe' : '+ add a ingredient'}
+          </Button>
         </Grid>
-        <ReceptenList title={title} />
+        <RecipeList title={title} />
+        <Dialog open={open} onClose={handleClose}>
+          <Popup title={title} />
+          <DialogActions>
+            <Button onClick={handleClose} sx={{ color: 'background.default' }}>
+              close
+            </Button>
+            <Button onClick={handleClose} sx={{ color: 'background.default' }} autoFocus>
+              save
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Grid>
     </Grid>
   )

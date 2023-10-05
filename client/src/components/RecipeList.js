@@ -17,7 +17,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 
-export const ReceptenList = (tab) => {
+export const RecipeList = (tab) => {
   const dummydata = [
     {
       id: 1,
@@ -57,7 +57,7 @@ export const ReceptenList = (tab) => {
           <TableCell>{row.name}</TableCell>
           <TableCell>{row.url}</TableCell>
           <TableCell align='right'>
-            {tab.title === 'recepten' ? (
+            {tab.title === 'recipe' ? (
               <IconButton onClick={() => {}}>
                 <EditIcon />
               </IconButton>
