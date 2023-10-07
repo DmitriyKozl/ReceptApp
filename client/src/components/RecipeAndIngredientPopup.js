@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
 import { Box, DialogContent, DialogTitle, TextField } from '@mui/material'
 
-export const RecipePopup = (props) => {
-  const { values } = props
+export const RecipeAndIngredientPopup = (props) => {
+  const { title, values } = props
 
   const [name, setName] = useState(values?.name)
   const [url, setUrl] = useState(values?.url)
+  const [brand, setBrand] = useState(values?.brand)
 
   return (
     <React.Fragment>
-      <DialogTitle>Recipe</DialogTitle>
+      <DialogTitle>{title}</DialogTitle>
       <DialogContent dividers='true'>
         <Box display={'grid'}>
           <TextField
@@ -21,9 +22,9 @@ export const RecipePopup = (props) => {
             sx={{ width: 500 }}
           />
           <TextField
-            label='url'
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
+            label={title === 'recipe' ? 'url' : 'brand'}
+            value={title === 'recipe' ? url : brand}
+            onChange={(e) => (title === 'recipe' ? setUrl(e.target.value) : setBrand(e.target.value))}
             variant='filled'
             margin='normal'
             sx={{ width: 500 }}

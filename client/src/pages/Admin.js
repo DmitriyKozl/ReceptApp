@@ -3,17 +3,19 @@ import { useParams } from 'react-router-dom'
 import { Box, Button, Dialog, DialogActions, Divider, Grid, Typography } from '@mui/material'
 import { Sidebar } from '../components/Sidebar'
 import { RecipeList } from '../components/RecipeList'
-import { RecipePopup } from '../components/RecipePopup'
-import { IngredientPopup } from '../components/IngredientPopup'
+import { RecipeAndIngredientPopup } from '../components/RecipeAndIngredientPopup'
+import { TimingPopup } from '../components/TimingPopup'
 
 const Admin = () => {
   const { title } = useParams()
 
   const [openPopup, setOpenPopup] = useState(false)
+  const [openTimingPopup, setOpenTimingPopup] = useState(false)
   const [values, setValues] = useState({})
 
   const handleClose = () => {
     setOpenPopup(false)
+    setOpenTimingPopup(false)
   }
 
   return (
@@ -39,9 +41,21 @@ const Admin = () => {
             {title === 'recipe' ? '+ add a recipe' : '+ add a ingredient'}
           </Button>
         </Grid>
-        <RecipeList title={title} setValues={setValues} setOpenPopup={setOpenPopup} />
+        <RecipeList
+          title={title}
+          setValues={setValues}
+          setOpenPopup={setOpenPopup}
+          setOpenTimingPopup={setOpenTimingPopup}
+        />
         <Dialog open={openPopup} onClose={handleClose}>
-          {title === 'recipe' ? <RecipePopup values={values} /> : <IngredientPopup values={values} />}
+          <RecipeAndIngredientPopup title={title} values={values} />
+          <DialogActions>
+            <Button onClick={handleClose}>close</Button>
+            <Button onClick={handleClose}>save</Button>
+          </DialogActions>
+        </Dialog>
+        <Dialog open={openTimingPopup} onClose={setOpenTimingPopup}>
+          <TimingPopup values={values} />
           <DialogActions>
             <Button onClick={handleClose}>close</Button>
             <Button onClick={handleClose}>save</Button>

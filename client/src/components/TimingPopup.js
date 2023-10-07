@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Box, DialogContent, DialogTitle, TextField } from '@mui/material'
 
-export const IngredientPopup = (props) => {
+export const TimingPopup = (props) => {
   const { values } = props
 
   const [name, setName] = useState(values?.name)
@@ -18,6 +18,7 @@ export const IngredientPopup = (props) => {
             label='name'
             value={name}
             onChange={(e) => setName(e.target.value)}
+            disabled={!values.new}
             variant='filled'
             margin='normal'
             sx={{ width: 500 }}
@@ -26,6 +27,7 @@ export const IngredientPopup = (props) => {
             label='brand'
             value={brand}
             onChange={(e) => setBrand(e.target.value)}
+            disabled={!values.new}
             variant='filled'
             margin='normal'
             sx={{ width: 500 }}

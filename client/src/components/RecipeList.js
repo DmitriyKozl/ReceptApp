@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import {
   Box,
+  Button,
   Collapse,
   Grid,
   IconButton,
@@ -18,7 +19,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 
 export const RecipeList = (props) => {
-  const { title, setValues, setOpenPopup } = props
+  const { title, setValues, setOpenPopup, setOpenTimingPopup } = props
   const dummydata = [
     {
       id: 1,
@@ -77,9 +78,20 @@ export const RecipeList = (props) => {
           <TableCell sx={{ pb: 0, pt: 0 }} colSpan={6}>
             <Collapse in={open} timeout='auto' unmountOnExit>
               <Box sx={{ margin: 1 }}>
+              <Grid container sx={{ width: '100%' }} justifyContent={'space-between'}>
                 <Typography variant='h6' gutterBottom component='div'>
                   Ingredients
                 </Typography>
+                <Button
+                  onClick={() => {
+                    setValues({ new: true })
+                    setOpenTimingPopup(true)
+                  }}
+                  sx={{ border: 1, borderRadius: 10, m: 1 }}
+                >
+                  + add a timing
+                </Button>
+                </Grid>
                 <Table>
                   <TableHead>
                     <TableRow>
@@ -101,7 +113,7 @@ export const RecipeList = (props) => {
                           <IconButton
                             onClick={() => {
                               setValues({ name: item.name, brand: item.brand, from: item.from, till: item.till })
-                              setOpenPopup(true)
+                              setOpenTimingPopup(true)
                             }}
                           >
                             <EditIcon />
