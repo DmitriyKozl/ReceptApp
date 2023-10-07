@@ -17,7 +17,8 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 
-export const RecipeList = (tab) => {
+export const RecipeList = (props) => {
+  const { title, setValues, setOpenPopup } = props
   const dummydata = [
     {
       id: 1,
@@ -40,13 +41,13 @@ export const RecipeList = (tab) => {
   ]
 
   function Row(props) {
-    const { row } = props
+    const { row, setValues } = props
     const [open, setOpen] = useState(false)
 
     return (
       <React.Fragment>
         <TableRow>
-          {tab.title === 'timing' ? (
+          {title === 'timing' ? (
             <TableCell>
               <IconButton onClick={() => setOpen(!open)}>
                 {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
@@ -57,8 +58,13 @@ export const RecipeList = (tab) => {
           <TableCell>{row.name}</TableCell>
           <TableCell>{row.url}</TableCell>
           <TableCell align='right'>
-            {tab.title === 'recipe' ? (
-              <IconButton onClick={() => {}}>
+            {title === 'recipe' ? (
+              <IconButton
+                onClick={() => {
+                  setValues({ name: row.name, url: row.url })
+                  setOpenPopup(true)
+                }}
+              >
                 <EditIcon />
               </IconButton>
             ) : null}
@@ -81,6 +87,7 @@ export const RecipeList = (tab) => {
                       <TableCell>Brand</TableCell>
                       <TableCell>From</TableCell>
                       <TableCell>Till</TableCell>
+                      <TableCell align='right'></TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -91,7 +98,12 @@ export const RecipeList = (tab) => {
                         <TableCell>{item.from}</TableCell>
                         <TableCell>{item.till}</TableCell>
                         <TableCell align='right'>
-                          <IconButton onClick={() => {}}>
+                          <IconButton
+                            onClick={() => {
+                              setValues({ name: item.name, brand: item.brand, from: item.from, till: item.till })
+                              setOpenPopup(true)
+                            }}
+                          >
                             <EditIcon />
                           </IconButton>
                           <IconButton onClick={() => {}}>
@@ -116,7 +128,7 @@ export const RecipeList = (tab) => {
         <Table>
           <TableHead>
             <TableRow>
-              {tab.title === 'timing' ? <TableCell></TableCell> : null}
+              {title === 'timing' ? <TableCell></TableCell> : null}
               <TableCell>img</TableCell>
               <TableCell>name</TableCell>
               <TableCell>url</TableCell>
@@ -125,7 +137,7 @@ export const RecipeList = (tab) => {
           </TableHead>
           <TableBody>
             {dummydata.map((row) => (
-              <Row key={row.id} row={row} />
+              <Row key={row.id} row={row} setValues={setValues} />
             ))}
           </TableBody>
         </Table>

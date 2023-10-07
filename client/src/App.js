@@ -12,7 +12,7 @@ const App = () => {
         default: '#0587C7',
       },
       primary: {
-        main: '#fff',
+        main: '#0587C7',
       },
     },
     typography: { fontFamily: ['Poppins', 'sans-serif'].join(',') },

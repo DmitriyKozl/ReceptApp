@@ -3,15 +3,17 @@ import { useParams } from 'react-router-dom'
 import { Box, Button, Dialog, DialogActions, Divider, Grid, Typography } from '@mui/material'
 import { Sidebar } from '../components/Sidebar'
 import { RecipeList } from '../components/RecipeList'
-import { Popup } from '../components/Popup'
+import { RecipePopup } from '../components/RecipePopup'
+import { IngredientPopup } from '../components/IngredientPopup'
 
 const Admin = () => {
   const { title } = useParams()
 
-  const [open, setOpen] = useState(false)
+  const [openPopup, setOpenPopup] = useState(false)
+  const [values, setValues] = useState({})
 
   const handleClose = () => {
-    setOpen(false)
+    setOpenPopup(false)
   }
 
   return (
@@ -29,23 +31,20 @@ const Admin = () => {
           </Box>
           <Button
             onClick={() => {
-              setOpen(true)
+              setValues({})
+              setOpenPopup(true)
             }}
-            sx={{ color: 'background.default', border: 1, borderRadius: 10, m: 1 }}
+            sx={{ border: 1, borderRadius: 10, m: 1 }}
           >
             {title === 'recipe' ? '+ add a recipe' : '+ add a ingredient'}
           </Button>
         </Grid>
-        <RecipeList title={title} />
-        <Dialog open={open} onClose={handleClose}>
-          <Popup title={title} />
+        <RecipeList title={title} setValues={setValues} setOpenPopup={setOpenPopup} />
+        <Dialog open={openPopup} onClose={handleClose}>
+          {title === 'recipe' ? <RecipePopup values={values} /> : <IngredientPopup values={values} />}
           <DialogActions>
-            <Button onClick={handleClose} sx={{ color: 'background.default' }}>
-              close
-            </Button>
-            <Button onClick={handleClose} sx={{ color: 'background.default' }} autoFocus>
-              save
-            </Button>
+            <Button onClick={handleClose}>close</Button>
+            <Button onClick={handleClose}>save</Button>
           </DialogActions>
         </Dialog>
       </Grid>
