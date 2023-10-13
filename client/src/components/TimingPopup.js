@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Box, DialogContent, DialogTitle, TextField } from '@mui/material'
+import { Box, DialogContent, DialogTitle, MenuItem, Select, TextField } from '@mui/material'
 
 export const TimingPopup = (props) => {
   const { values } = props
@@ -14,24 +14,27 @@ export const TimingPopup = (props) => {
       <DialogTitle>Ingredient</DialogTitle>
       <DialogContent dividers='true'>
         <Box display={'grid'}>
-          <TextField
-            label='name'
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            disabled={!values.new}
-            variant='filled'
-            margin='normal'
-            sx={{ width: 500 }}
-          />
-          <TextField
-            label='brand'
-            value={brand}
-            onChange={(e) => setBrand(e.target.value)}
-            disabled={!values.new}
-            variant='filled'
-            margin='normal'
-            sx={{ width: 500 }}
-          />
+          {!values?.new ? (
+            <>
+              <TextField label='name' value={name} disabled variant='filled' margin='normal' sx={{ width: 500 }} />
+              <TextField label='brand' value={brand} disabled variant='filled' margin='normal' sx={{ width: 500 }} />
+            </>
+          ) : (
+            <Select
+              value={name}
+              label='name - brand'
+              onChange={(e) => {
+                setName(e.target.value)
+              }}
+              variant='filled'
+              margin='normal'
+            >
+              <MenuItem value={'choclade'}>choclade - boni</MenuItem>
+              <MenuItem value={'gehakt'}>gehakt - boni</MenuItem>
+              <MenuItem value={'aardbeien'}>aardbeien - boni</MenuItem>
+            </Select>
+          )}
+
           <TextField
             label='from'
             value={from}
