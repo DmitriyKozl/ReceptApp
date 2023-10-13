@@ -10,7 +10,7 @@ export const RecipeAndIngredientPopup = (props) => {
 
   return (
     <React.Fragment>
-      <DialogTitle>{title}</DialogTitle>
+      <DialogTitle>{title === 'recipe' ? title : 'ingredient'}</DialogTitle>
       <DialogContent dividers='true'>
         <Box display={'grid'}>
           <TextField
