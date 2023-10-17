@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Box, DialogContent, DialogTitle, MenuItem, Select, TextField } from '@mui/material'
+import { Box, DialogContent, DialogTitle, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material'
 
 export const TimingPopup = (props) => {
   const { values } = props
@@ -20,19 +20,21 @@ export const TimingPopup = (props) => {
               <TextField label='brand' value={brand} disabled variant='filled' margin='normal' sx={{ width: 500 }} />
             </>
           ) : (
-            <Select
-              value={name}
-              label='name - brand'
-              onChange={(e) => {
-                setName(e.target.value)
-              }}
-              variant='filled'
-              margin='normal'
-            >
-              <MenuItem value={'choclade'}>choclade - boni</MenuItem>
-              <MenuItem value={'gehakt'}>gehakt - boni</MenuItem>
-              <MenuItem value={'aardbeien'}>aardbeien - boni</MenuItem>
-            </Select>
+            <FormControl>
+              <InputLabel>name - brand</InputLabel>
+              <Select
+                value={name}
+                onChange={(e) => {
+                  setName(e.target.value)
+                }}
+                variant='filled'
+                margin='normal'
+              >
+                <MenuItem value={'choclade'}>choclade - boni</MenuItem>
+                <MenuItem value={'gehakt'}>gehakt - boni</MenuItem>
+                <MenuItem value={'aardbeien'}>aardbeien - boni</MenuItem>
+              </Select>
+            </FormControl>
           )}
 
           <TextField
