@@ -1,0 +1,12 @@
+C:\Users\bertd\Documents\Hogent 2023-2024\Sem1\Projectwerk\Videoplayer.Domain\VideoplayerProject.Datalayer\bin\Debug\net6.0\VideoplayerProject.Datalayer.deps.json
+C:\Users\bertd\Documents\Hogent 2023-2024\Sem1\Projectwerk\Videoplayer.Domain\VideoplayerProject.Datalayer\bin\Debug\net6.0\VideoplayerProject.Datalayer.dll
+C:\Users\bertd\Documents\Hogent 2023-2024\Sem1\Projectwerk\Videoplayer.Domain\VideoplayerProject.Datalayer\bin\Debug\net6.0\VideoplayerProject.Datalayer.pdb
+C:\Users\bertd\Documents\Hogent 2023-2024\Sem1\Projectwerk\Videoplayer.Domain\VideoplayerProject.Datalayer\obj\Debug\net6.0\VideoplayerProject.Datalayer.csproj.AssemblyReference.cache
+C:\Users\bertd\Documents\Hogent 2023-2024\Sem1\Projectwerk\Videoplayer.Domain\VideoplayerProject.Datalayer\obj\Debug\net6.0\VideoplayerProject.Datalayer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\bertd\Documents\Hogent 2023-2024\Sem1\Projectwerk\Videoplayer.Domain\VideoplayerProject.Datalayer\obj\Debug\net6.0\VideoplayerProject.Datalayer.AssemblyInfoInputs.cache
+C:\Users\bertd\Documents\Hogent 2023-2024\Sem1\Projectwerk\Videoplayer.Domain\VideoplayerProject.Datalayer\obj\Debug\net6.0\VideoplayerProject.Datalayer.AssemblyInfo.cs
+C:\Users\bertd\Documents\Hogent 2023-2024\Sem1\Projectwerk\Videoplayer.Domain\VideoplayerProject.Datalayer\obj\Debug\net6.0\VideoplayerProject.Datalayer.csproj.CoreCompileInputs.cache
+C:\Users\bertd\Documents\Hogent 2023-2024\Sem1\Projectwerk\Videoplayer.Domain\VideoplayerProject.Datalayer\obj\Debug\net6.0\VideoplayerProject.Datalayer.dll
+C:\Users\bertd\Documents\Hogent 2023-2024\Sem1\Projectwerk\Videoplayer.Domain\VideoplayerProject.Datalayer\obj\Debug\net6.0\refint\VideoplayerProject.Datalayer.dll
+C:\Users\bertd\Documents\Hogent 2023-2024\Sem1\Projectwerk\Videoplayer.Domain\VideoplayerProject.Datalayer\obj\Debug\net6.0\VideoplayerProject.Datalayer.pdb
+C:\Users\bertd\Documents\Hogent 2023-2024\Sem1\Projectwerk\Videoplayer.Domain\VideoplayerProject.Datalayer\obj\Debug\net6.0\ref\VideoplayerProject.Datalayer.dll

@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "VideoplayerProject.Datalayer/1.0.0": {
+        "runtime": {
+          "VideoplayerProject.Datalayer.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "VideoplayerProject.Datalayer/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
