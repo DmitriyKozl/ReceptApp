@@ -8,6 +8,7 @@ export const TimingPopup = (props) => {
   const [brand, setBrand] = useState(values?.brand)
   const [from, setFrom] = useState(values?.from)
   const [till, setTill] = useState(values?.till)
+  const [selected, setSelected] = useState()
 
   return (
     <React.Fragment>
@@ -23,16 +24,16 @@ export const TimingPopup = (props) => {
             <FormControl>
               <InputLabel>name - brand</InputLabel>
               <Select
-                value={name}
+                value={selected}
                 onChange={(e) => {
-                  setName(e.target.value)
+                  setSelected(e.target.value)
                 }}
                 variant='filled'
                 margin='normal'
               >
-                <MenuItem value={'choclade'}>choclade - boni</MenuItem>
-                <MenuItem value={'gehakt'}>gehakt - boni</MenuItem>
-                <MenuItem value={'aardbeien'}>aardbeien - boni</MenuItem>
+                <MenuItem value={1}>choclade - boni</MenuItem>
+                <MenuItem value={2}>gehakt - boni</MenuItem>
+                <MenuItem value={3}>aardbeien - boni</MenuItem>
               </Select>
             </FormControl>
           )}
