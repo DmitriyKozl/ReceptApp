@@ -40,9 +40,11 @@ namespace VideoplayerProject.Datalayer.Repositories
                         {
                             while (reader.Read())
                             {
-                                string name = reader["IngredientName"].ToString();
-                                string brand = reader["Brand"].ToString();
-                                ingredients.Add(new Ingredient(name, brand));
+                                string name = (string)reader["IngredientName"];
+                                string brand = (string)reader["Brand"];
+                                int id = (int)reader["Brand"];
+                                decimal price = (decimal)reader["Price"];
+                                ingredients.Add(new Ingredient(id,name,price, brand));
                             }
                         }
                     }
@@ -78,9 +80,11 @@ namespace VideoplayerProject.Datalayer.Repositories
                         {
                             while (reader.Read())
                             {
-                                string name = reader["IngredientName"].ToString();
-                                string brand = reader["Brand"].ToString();
-                                ingredients.Add(new Ingredient(name, brand)) ;
+                                string name = (string)reader["IngredientName"];
+                                string brand = (string)reader["Brand"];
+                                int id = (int)reader["Brand"];
+                                decimal price = (decimal)reader["Price"];
+                                ingredients.Add(new Ingredient(id, name, price, brand));
                             }
                         }
                     }
