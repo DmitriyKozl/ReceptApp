@@ -8,11 +8,13 @@ using VideoplayerProject.Domain.Exceptions;
 namespace VideoplayerProject.Domain.Models {
     public class Ingredient {
 
-        public Ingredient(string name, decimal price, string brand) {
+        public Ingredient(int id, string name, decimal price, string brand) {
+            Id = id;
             Name = name;
             Price = price;
             Brand = brand;
         }
+        public int Id { get; set; }
 
         private string _name;
 
@@ -41,7 +43,7 @@ namespace VideoplayerProject.Domain.Models {
 
         private string _brand;        
 
-        public string Brand {
+        public string? Brand {
             get { return _brand; }
             set {
                 if (!string.IsNullOrEmpty(value)) {

@@ -7,6 +7,10 @@ using VideoplayerProject.Domain.Models;
 
 namespace VideoplayerProject.Domain.Interfaces {
     public interface IUtensilRepository {
-        public List<Utensil> GetUtelsils(string filter);
+        public List<Utensil> GetAllUtensils(string filter);
+        public List<Utensil> GetUtensilsFromRecipe(int recipeId);
+        public void AddUtensil(int id, string name);
+        public void UpdateUtensil(int id, string newName);
+        public void RemoveUtensil(int id);
     }
 }
