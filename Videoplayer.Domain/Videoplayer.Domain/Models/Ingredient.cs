@@ -28,7 +28,7 @@ namespace VideoplayerProject.Domain.Models {
 
         private string _brand;        
 
-        public string Brand {
+        public string? Brand {
             get { return _brand; }
             set {
                 if (!string.IsNullOrEmpty(value)) {

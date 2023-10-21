@@ -8,6 +8,8 @@ using VideoplayerProject.Domain.Exceptions;
 namespace VideoplayerProject.Domain.Models {
     public class Utensil {
 
+        public int Id { get; set; }
+        
         private string _name;
 
         public string Name {
