@@ -7,9 +7,11 @@ using VideoplayerProject.Domain.Exceptions;
 
 namespace VideoplayerProject.Domain.Models {
     public class Recipe {
-        public Recipe(string name, string videoLink) {
-            _name = name;
-            _videoLink = videoLink;
+        public Recipe(string name, int servings, string videoLink, TimeSpan cookingTime) {
+            Name = name;
+            Servings = servings;
+            VideoLink = videoLink;
+            CookingTime = cookingTime;
         }
 
         private string _name;
@@ -21,6 +23,18 @@ namespace VideoplayerProject.Domain.Models {
                     _name = value;
                 } else {
                     throw new RecipeException("Please enter a recipe name");
+                }
+            }
+        }
+
+        private int _servings;
+
+        public int Servings {
+            get { return _servings; }
+            set { if (value > 0) {
+                    _servings = value;    
+                } else {
+                    throw new RecipeException("Invalid ammount of servings");
                 }
             }
         }
@@ -38,17 +52,36 @@ namespace VideoplayerProject.Domain.Models {
             }
         }
 
+        private TimeSpan _cookingTime;
+
+        public TimeSpan CookingTime  {
+            get { return _cookingTime; }
+            set {  if(value > TimeSpan.Zero) {
+                    _cookingTime = value;
+                } else {
+                    throw new RecipeException("Cooking time can't be negative.");
+                }
+            }
+        }        
+
         public Dictionary<Ingredient, List<Timestamp>> IngredientToTimestamp = new();
         public Dictionary<Utensil, List<Timestamp>> UtensilToTimestamp = new();
 
         // Add ingredient with a timestamp to recipe
-        public void AddIngredientWithTimeStampToRecipe(Ingredient ingredient, string beginTime, string endTime) {
-            List<Timestamp> timestamps = new List<Timestamp>();
-            Timestamp timestamp = new(beginTime, endTime);
-            timestamps.Add(timestamp);
+        public void AddIngredientWithTimeStampToRecipe(Ingredient ingredient, Timestamp timestamp) {
+            // If the ingredient has already been used in the recipe, simply add the timestamp to the existing list
+            if(IngredientToTimestamp.ContainsKey(ingredient)) {
+                IngredientToTimestamp[ingredient].Add(timestamp);
+            } 
+            // Otherwise, create a new List of timestamps for the ingredient, and add both to the dictionary
+            else {
+                List<Timestamp> timestamps = new List<Timestamp>();
+                timestamps.Add(timestamp);
+                IngredientToTimestamp.Add(ingredient, timestamps);
+            }
 
             // Additional check to ensure that only one ingredient popup can be shown in a second
-            IngredientToTimestamp.Add(ingredient, timestamps);
+            
         }
 
         // Remove ingredient from recipe (and all its timestamps)
@@ -88,9 +121,8 @@ namespace VideoplayerProject.Domain.Models {
         }
 
         // Add ingredient with a timestamp to recipe
-        public void AddUtensilWithTimeStampToRecipe(Utensil utensil, string beginTime, string endTime) {
+        public void AddUtensilWithTimeStampToRecipe(Utensil utensil, Timestamp timestamp) {
             List<Timestamp> timestamps = new List<Timestamp>();
-            Timestamp timestamp = new(beginTime, endTime);
             timestamps.Add(timestamp);
 
             // Additional check to ensure that only one ingredient popup can be shown in a second
