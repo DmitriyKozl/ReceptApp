@@ -1,15 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "AaEmgV8qPnwyDhVAz+uZ1qZ7G25Zcv9LeaCty1nNnmzIrPeULZ1W288qICZ31Gt5k9H8I3QsU/s7Dpz/Ut8ctg==",
+  "dgSpecHash": "obXkBqB6u8lmQCww2T2lfSe4dUsRibFNobA7uwzFV5bE6nJU5BG6QBXbvRlqsfrpbUJxF5pugQtkRhSsZXajUw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ncorn\\Desktop\\Projectwerk\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\VideoplayerProject.Domain.csproj",
+  "projectFilePath": "C:\\Users\\bertd\\Documents\\Hogent 2023-2024\\Sem1\\Projectwerk\\ReceptApp\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\VideoplayerProject.Domain.csproj",
   "expectedPackageFiles": [],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file C:\\Users\\ncorn\\Desktop\\Projectwerk\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  "logs": []
 }

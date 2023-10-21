@@ -14,6 +14,16 @@ namespace VideoplayerProject.Domain.Models {
             CookingTime = cookingTime;
         }
 
+        private int _id;
+
+        public int Id {
+            get { return _id; }
+            set { if (value > 0) {
+                    _id = value;                
+                } 
+            }
+        }
+
         private string _name;
 
         public string Name {
