@@ -93,7 +93,6 @@ namespace VideoplayerProject.Datalayer.Repositories
                 {
                     Console.WriteLine($"Error: {e.Message}");
                 }
-
             }
 
             return ingredients;
