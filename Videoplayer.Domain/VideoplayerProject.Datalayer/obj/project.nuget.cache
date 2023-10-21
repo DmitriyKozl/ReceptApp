@@ -1,8 +1,14 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "l2JKpMaHfXSd+dWiZmMM/nk/+dTrjFjAqwTEdJ2z2/TSl1VDDPASW3cDSrHdugSws7j9AUYzpwI2tuGWZuLmMg==",
   "success": true,
   "projectFilePath": "C:\\Users\\ncorn\\Desktop\\Projectwerk\\receptapp\\Videoplayer.Domain\\VideoplayerProject.Datalayer\\VideoplayerProject.Datalayer.csproj",
+=======
+  "dgSpecHash": "3M2eYpZS41d+2TiiZmpqkrseFhNr46/j5qpFmvpiHjdoNaveB2f7BI4+u9gnn9pzLPCtjcr/+n6BjbFQWtjlAw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\bertd\\Documents\\Hogent 2023-2024\\Sem1\\Projectwerk\\ReceptApp\\receptapp\\Videoplayer.Domain\\VideoplayerProject.Datalayer\\VideoplayerProject.Datalayer.csproj",
+>>>>>>> 1466540107c3a843b8108cd503e396968f121707
   "expectedPackageFiles": [
     "C:\\Users\\ncorn\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\ncorn\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",

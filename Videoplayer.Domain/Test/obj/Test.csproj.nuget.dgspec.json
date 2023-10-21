@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "C:\\Users\\ncorn\\Desktop\\Projectwerk\\receptapp\\Videoplayer.Domain\\Test\\Test.csproj": {}
   },
   "projects": {
@@ -12,6 +13,19 @@
         "projectPath": "C:\\Users\\ncorn\\Desktop\\Projectwerk\\receptapp\\Videoplayer.Domain\\Test\\Test.csproj",
         "packagesPath": "C:\\Users\\ncorn\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\ncorn\\Desktop\\Projectwerk\\receptapp\\Videoplayer.Domain\\Test\\obj\\",
+=======
+    "C:\\Users\\bertd\\Documents\\Hogent 2023-2024\\Sem1\\Projectwerk\\ReceptApp\\receptapp\\Videoplayer.Domain\\Test\\Test.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\bertd\\Documents\\Hogent 2023-2024\\Sem1\\Projectwerk\\ReceptApp\\receptapp\\Videoplayer.Domain\\Test\\Test.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\bertd\\Documents\\Hogent 2023-2024\\Sem1\\Projectwerk\\ReceptApp\\receptapp\\Videoplayer.Domain\\Test\\Test.csproj",
+        "projectName": "Test",
+        "projectPath": "C:\\Users\\bertd\\Documents\\Hogent 2023-2024\\Sem1\\Projectwerk\\ReceptApp\\receptapp\\Videoplayer.Domain\\Test\\Test.csproj",
+        "packagesPath": "C:\\Users\\bertd\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\bertd\\Documents\\Hogent 2023-2024\\Sem1\\Projectwerk\\ReceptApp\\receptapp\\Videoplayer.Domain\\Test\\obj\\",
+>>>>>>> 1466540107c3a843b8108cd503e396968f121707
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ncorn\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,8 +42,13 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
+<<<<<<< HEAD
               "C:\\Users\\ncorn\\Desktop\\Projectwerk\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\VideoplayerProject.Domain.csproj": {
                 "projectPath": "C:\\Users\\ncorn\\Desktop\\Projectwerk\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\VideoplayerProject.Domain.csproj"
+=======
+              "C:\\Users\\bertd\\Documents\\Hogent 2023-2024\\Sem1\\Projectwerk\\ReceptApp\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\VideoplayerProject.Domain.csproj": {
+                "projectPath": "C:\\Users\\bertd\\Documents\\Hogent 2023-2024\\Sem1\\Projectwerk\\ReceptApp\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\VideoplayerProject.Domain.csproj"
+>>>>>>> 1466540107c3a843b8108cd503e396968f121707
               }
             }
           }
@@ -63,6 +82,7 @@
         }
       }
     },
+<<<<<<< HEAD
     "C:\\Users\\ncorn\\Desktop\\Projectwerk\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\VideoplayerProject.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -71,6 +91,16 @@
         "projectPath": "C:\\Users\\ncorn\\Desktop\\Projectwerk\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\VideoplayerProject.Domain.csproj",
         "packagesPath": "C:\\Users\\ncorn\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\ncorn\\Desktop\\Projectwerk\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\obj\\",
+=======
+    "C:\\Users\\bertd\\Documents\\Hogent 2023-2024\\Sem1\\Projectwerk\\ReceptApp\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\VideoplayerProject.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\bertd\\Documents\\Hogent 2023-2024\\Sem1\\Projectwerk\\ReceptApp\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\VideoplayerProject.Domain.csproj",
+        "projectName": "VideoplayerProject.Domain",
+        "projectPath": "C:\\Users\\bertd\\Documents\\Hogent 2023-2024\\Sem1\\Projectwerk\\ReceptApp\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\VideoplayerProject.Domain.csproj",
+        "packagesPath": "C:\\Users\\bertd\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\bertd\\Documents\\Hogent 2023-2024\\Sem1\\Projectwerk\\ReceptApp\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\obj\\",
+>>>>>>> 1466540107c3a843b8108cd503e396968f121707
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ncorn\\AppData\\Roaming\\NuGet\\NuGet.Config",

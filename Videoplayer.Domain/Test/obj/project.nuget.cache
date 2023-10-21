@@ -1,8 +1,14 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "L82yRlj402xdAfAPyQw//M1KlyqnxcNbdRa9/nyfMLKQ2GaSFsa5G8XH/e6PhtWzHCyyAUYDINrBLOHAff93IA==",
   "success": true,
   "projectFilePath": "C:\\Users\\ncorn\\Desktop\\Projectwerk\\receptapp\\Videoplayer.Domain\\Test\\Test.csproj",
+=======
+  "dgSpecHash": "1ukKrGeAYkstJgKthh7LNYEztQkG73rfVzUaHU5C/FYb+gMmkQzlsqPsBMLGTUaI0xk4BJg14JrY53Nm/YazPA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\bertd\\Documents\\Hogent 2023-2024\\Sem1\\Projectwerk\\ReceptApp\\receptapp\\Videoplayer.Domain\\Test\\Test.csproj",
+>>>>>>> 1466540107c3a843b8108cd503e396968f121707
   "expectedPackageFiles": [],
   "logs": []
 }

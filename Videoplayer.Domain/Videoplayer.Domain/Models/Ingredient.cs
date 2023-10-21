@@ -8,8 +8,9 @@ using VideoplayerProject.Domain.Exceptions;
 namespace VideoplayerProject.Domain.Models {
     public class Ingredient {
 
-        public Ingredient(string name, string brand) {
+        public Ingredient(string name, decimal price, string brand) {
             Name = name;
+            Price = price;
             Brand = brand;
         }
 
@@ -22,6 +23,18 @@ namespace VideoplayerProject.Domain.Models {
                     _name = value;
                 } else {
                     throw new IngredientException("Please enter an ingredient name");
+                }
+            }
+        }
+
+        private Decimal _price;
+
+        public Decimal Price {
+            get { return _price; }
+            set { if (value > 0) {
+                    _price = value;
+                } else {
+                    throw new IngredientException("Price must be bigger than 0.");
                 }
             }
         }

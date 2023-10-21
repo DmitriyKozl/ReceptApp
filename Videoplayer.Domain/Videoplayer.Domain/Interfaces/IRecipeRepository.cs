@@ -7,6 +7,8 @@ using VideoplayerProject.Domain.Models;
 
 namespace VideoplayerProject.Domain.Interfaces {
     public interface IRecipeRepository {
-        public List<Recipe> GetAllRecipes();
+        public List<Recipe> GetAllRecipes(string filter);
+        public void DeleteRecipe(Recipe recipe);
+        public void AddRecipe(Recipe recipe);
     }
 }
