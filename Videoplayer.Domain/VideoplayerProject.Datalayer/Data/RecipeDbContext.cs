@@ -36,8 +36,6 @@ public class RecipeDbContext : DbContext {
         modelBuilder.Entity<RecipeUtensil>()
             .HasKey(ru => new { ru.RecipeID, ru.UtensilID });
     }
-    // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
-    //     optionsBuilder.UseSqlServer("Server=tcp:receptendb.database.windows.net,1433;Initial Catalog=receptdb;Persist Security Info=False;User ID=receptdblogin;Password=qLW7yJZHyNU4zJP;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
-    // }
+
     
 }
