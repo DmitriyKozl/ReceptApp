@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VideoplayerProject.Domain.Models;
+﻿using VideoplayerProject.Domain.Models;
 
-namespace VideoplayerProject.Domain.Interfaces {
+namespace VideoplayerProject.Domain.Interfaces;
     public interface IIngredientRepository {
         public List<Ingredient> GetIngredients(string filter);
         public List<Ingredient> GetIngredientsFromRecipe(int recipeId);
-        public void AddIngredient(string name, string brand);
-        public void UpdateIngredient(int id, string newName);
+        public void CreateIngredient(string name, string brand);
+        
+        // TO DO : add variables for updating ingredient
+        public void UpdateIngredient(int id, string newName, string newBrand);
         public void RemoveIngredient(int id);
     }
-}
+

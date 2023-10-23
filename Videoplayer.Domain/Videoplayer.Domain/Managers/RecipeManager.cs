@@ -3,27 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VideoplayerProject.Datalayer.Interfaces;
 using VideoplayerProject.Domain.Interfaces;
 using VideoplayerProject.Domain.Models;
 
-namespace VideoplayerProject.Domain.Managers {
-    public class RecipeManager : IRecipeRepository {
-        private IRecipeRepository _recipeRepo;
+namespace VideoplayerProject.Domain.Managers;
+    public class RecipeManager : IRecipeService {
+        private IRecipeRepository _recipeRepository;
 
-        public RecipeManager(IRecipeRepository recipeRepo) {
-            _recipeRepo = recipeRepo;
-        }
-
-        public void AddRecipe(Recipe recipe) {
-            _recipeRepo.AddRecipe(recipe);
-        }
-
-        public void DeleteRecipe(Recipe recipe) {
-            _recipeRepo.DeleteRecipe(recipe);
+        public RecipeManager(IRecipeRepository recipeRepository) {
+            _recipeRepository = recipeRepository;
         }
 
         public List<Recipe> GetAllRecipes(string filter) {
-            return _recipeRepo.GetAllRecipes(filter);
+            return _recipeRepository.GetAllRecipes(filter);
+        }
+
+        public Recipe GetRecipeById(int id) {
+            return _recipeRepository.GetRecipeById(id);
+        }
+
+
+        public void CreateRecipe(Recipe recipe) {
+            _recipeRepository.CreateRecipe(recipe);
+        }
+
+        public void UpdateRecipe(int id, Recipe recipe) {
+            _recipeRepository.UpdateRecipe(id, recipe);
+        }
+        
+        public void  RemoveRecipe(int id) {
+            _recipeRepository.RemoveRecipe(id);
         }
     }
-}

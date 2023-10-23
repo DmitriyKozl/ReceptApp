@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VideoplayerProject.Domain.Models;
+﻿using VideoplayerProject.Domain.Models;
 
-namespace VideoplayerProject.Domain.Interfaces {
+namespace VideoplayerProject.Datalayer.Interfaces {
     public interface IRecipeRepository {
-        public List<Recipe> GetAllRecipes(string filter);
-        public void DeleteRecipe(Recipe recipe);
-        public void AddRecipe(Recipe recipe);
+        List<Recipe> GetAllRecipes(string filter);
+        Recipe GetRecipeById(int id); 
+        void CreateRecipe(Recipe recipe);
+        void UpdateRecipe(int id, Recipe recipe); 
+        void  RemoveRecipe(int id);
     }
 }

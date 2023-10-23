@@ -7,24 +7,24 @@ using VideoplayerProject.Domain.Interfaces;
 using VideoplayerProject.Domain.Models;
 
 namespace VideoplayerProject.Domain.Managers {
-    public class UtensilManager : IUtensilRepository {
-        private IUtensilRepository _utensilRepository;
+    public class UtensilManager : IUtensilService {
+        private IUtensilRepository  _utensilRepository;
         public UtensilManager(IUtensilRepository repo) 
         {
             _utensilRepository = repo;
         }
 
-        public void AddUtensil(int id, string name)
+        public void CreateUtensil( string name)
         {
-            _utensilRepository.AddUtensil(id, name);
+            _utensilRepository.CreateUtensil(name);
         }
 
-        public List<Utensil> GetAllUtensils(string filter)
+        public List<Utensils> GetAllUtensils(string filter)
         {
             return _utensilRepository.GetAllUtensils(filter);
         }
 
-        public List<Utensil> GetUtensilsFromRecipe(int recipeId)
+        public List<Utensils> GetUtensilsFromRecipe(int recipeId)
         {
             return _utensilRepository.GetUtensilsFromRecipe(recipeId);
         }
