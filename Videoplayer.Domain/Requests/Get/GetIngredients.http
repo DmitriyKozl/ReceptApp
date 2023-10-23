@@ -1,0 +1,17 @@
+﻿GET /api/ingredients
+Content-Type: application/json
+
+[
+  {
+    "id": 1,
+    "name": "Sugar ",
+    "brand": " Sweetness Inc"
+  }, 
+  {
+    "id": 2,
+    "name": "Salt",
+    "brand": " Salty Inc"
+  }
+  
+  
+]

@@ -1,0 +1,42 @@
+﻿GET /api/recipes
+Content-Type: application/json
+
+[
+  {
+    "id": 1,
+    "img": "http://example.com/image1.jpg",
+    "name": "Strawberry Cake",
+    "url": "http://recipe-link1.com",
+    "ingredients": [
+      {
+        "id": 1,
+        "name": "Sugar",
+        "brand": "Sweetness Inc",
+        "from": "00:10:00",
+        "till": "00:20:00"
+      },
+      {
+        "id": 2,
+        "name": "Strawberries",
+        "brand": "Berry Farms",
+        "from": "00:05:00",
+        "till": "00:15:00"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "img": "http://example.com/image2.jpg",
+    "name": "Blueberry Pie",
+    "url": "http://recipe-link2.com",
+    "ingredients": [
+      {
+        "id": 3,
+        "name": "Blueberries",
+        "brand": "Berry Delight",
+        "from": "00:00:00",
+        "till": "00:30:00"
+      }
+    ]
+  }
+]

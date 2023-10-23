@@ -1,0 +1,7 @@
+﻿POST /api/recipes/1/timestamps
+Content-Type: application/json
+
+{
+  "status": "success",
+  "message": "Timestamp added successfully."
+}

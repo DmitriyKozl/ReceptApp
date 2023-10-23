@@ -1,0 +1,7 @@
+﻿PUT /api/recipes/1
+Content-Type: application/json
+
+{
+  "status": "success",
+  "message": "Recipe updated successfully."
+}

@@ -1,0 +1,7 @@
+﻿DELETE /api/recipes/1/timestamps/1
+Content-Type: application/json
+
+{
+  "status": "success",
+  "message": "Timestamp deleted successfully."
+}
