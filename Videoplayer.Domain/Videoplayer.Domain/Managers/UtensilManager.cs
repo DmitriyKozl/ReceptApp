@@ -7,16 +7,16 @@ using VideoplayerProject.Domain.Interfaces;
 using VideoplayerProject.Domain.Models;
 
 namespace VideoplayerProject.Domain.Managers {
-    public class UtensilManager : IUtensilRepository {
-        private IUtensilRepository _utensilRepository;
-        public UtensilManager(IUtensilRepository repo) 
+    public class UtensilManager : IUtensilService {
+        private IUtensilService  _utensilRepository;
+        public UtensilManager(IUtensilService repo) 
         {
             _utensilRepository = repo;
         }
 
-        public void AddUtensil(int id, string name)
+        public void CreateUtensil( string name)
         {
-            _utensilRepository.AddUtensil(id, name);
+            _utensilRepository.CreateUtensil(name);
         }
 
         public List<Utensil> GetAllUtensils(string filter)

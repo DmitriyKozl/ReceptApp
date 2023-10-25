@@ -1,171 +1,51 @@
-﻿using System.Data.SqlClient;
-using System.Data;
+﻿using VideoplayerProject.Datalayer.Data;
+using VideoplayerProject.Datalayer.Interfaces;
 using VideoplayerProject.Domain.Interfaces;
 using VideoplayerProject.Domain.Models;
+using Ingredient = VideoplayerProject.Datalayer.Models.Ingredient;
 
-namespace VideoplayerProject.Datalayer.Repositories
-{
-    public class IngredientRepository : IIngredientRepository {
-        private string connectionString;
-        public IngredientRepository(string connectionString)
-        {
-            this.connectionString = connectionString;
-        }
+namespace VideoplayerProject.Datalayer.Repositories;
 
-        public List<Ingredient> GetIngredients(string filter)
-        {
-            List<Ingredient> ingredients = new List<Ingredient>();
+public class IngredientRepository : IIngredientRepository {
+    private readonly RecipeDbContext _context;
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
+    public IngredientRepository(RecipeDbContext context) {
+        _context = context ?? throw new ArgumentNullException(nameof(context));
+    }
 
-                    string query = "SELECT IngredientID, IngredientName, Price, Brand FROM Ingredients";
+    public List<Ingredient> GetIngredients(string filter) {
+        return string.IsNullOrEmpty(filter)
+            ? _context.Ingredients.ToList()
+            : _context.Ingredients.Where(i => i.IngredientName.Contains(filter)).ToList();
+    }
 
-                    if (!string.IsNullOrEmpty(filter))
-                    {
-                        query += " WHERE IngredientName LIKE @filter";
-                    }
+    public List<Ingredient> GetIngredientsFromRecipe(int recipeId) {
+        return _context.RecipeIngredient.Where(ri => ri.RecipeID == recipeId).Select(ri => ri.Ingredient).ToList();
+    }
+    
+    
 
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        if (!string.IsNullOrEmpty(filter))
-                        {
-                            command.Parameters.Add(new SqlParameter("@filter", SqlDbType.NVarChar, 255)).Value = "%" + filter + "%";
-                        }
+    public void CreateIngredient(string name, string brand) {
+        var ingredient = new Ingredient
+        { IngredientName = name, Brand = brand };
+        _context.Ingredients.Add(ingredient);
+        _context.SaveChanges();
+    }
 
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                string name = (string)reader["IngredientName"];
-                                string brand = (string)reader["Brand"];
-                                int id = (int)reader["Brand"];
-                                decimal price = (decimal)reader["Price"];
-                                ingredients.Add(new Ingredient(id,name,price, brand));
-                            }
-                        }
-                    }
-                }
-                catch (SqlException e)
-                {
-                    Console.WriteLine($"Error: {e.Message}");
-                }
-            }
-            return ingredients;
-        }
+    public void UpdateIngredient(int id, string newName, string newBrand) {
+        var ingredient = _context.Ingredients.Find(id);
+        if (ingredient == null) return;
 
-        public List<Ingredient> GetIngredientsFromRecipe(int recipeId)
-        {
-            List<Ingredient> ingredients = new List<Ingredient>();
+        ingredient.IngredientName = newName;
+        ingredient.Brand = newBrand;
+        _context.SaveChanges();
+    }
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
+    public void RemoveIngredient(int id) {
+        var ingredient = _context.Ingredients.Find(id);
+        if (ingredient == null) return;
 
-                    string query = "SELECT Ingredients.* " +
-                                   "FROM Ingredients " +
-                                   "JOIN RecipeIngredient ON Ingredients.IngredientID = RecipeIngredient.IngredientID " +
-                                   "WHERE RecipeIngredient.RecipeID = @RecipeID";
-
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@RecipeID", recipeId);
-
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                string name = (string)reader["IngredientName"];
-                                string brand = (string)reader["Brand"];
-                                int id = (int)reader["Brand"];
-                                decimal price = (decimal)reader["Price"];
-                                ingredients.Add(new Ingredient(id, name, price, brand));
-                            }
-                        }
-                    }
-                }
-                catch (SqlException e)
-                {
-                    Console.WriteLine($"Error: {e.Message}");
-                }
-            }
-
-            return ingredients;
-        }
-        public void AddIngredient(string name, string brand)
-        {
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-
-                    string query = "INSERT INTO Ingredients (IngredientName, Brand) VALUES (@IngredientName, @Brand)";
-
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@IngredientName", name);
-                        command.Parameters.AddWithValue("@Brand", brand);
-                        command.ExecuteNonQuery();
-                    }
-                }
-                catch (SqlException e)
-                {
-                    Console.WriteLine($"Error: {e.Message}");
-                }
-
-            }
-        }
-        public void RemoveIngredient(int id)
-        {
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-
-                    string query = "DELETE FROM Ingredients WHERE IngredientID = @IngredientID";
-
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@IngredientID", id);
-                        command.ExecuteNonQuery();
-                    }
-                }
-                catch (SqlException e)
-                {
-                    Console.WriteLine($"Error: {e.Message}");
-                }
-            }
-        }
-
-        public void UpdateIngredient(int id, string newName)
-        {
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-
-                    string query = "UPDATE Ingredients SET IngredientName = @NewName WHERE IngredientID = @IngredientID";
-
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@NewName", newName);
-                        command.Parameters.AddWithValue("@IngredientID", id);
-                        command.ExecuteNonQuery();
-                    }
-                }
-                catch (SqlException e)
-                {
-                    Console.WriteLine($"Error: {e.Message}");
-                }
-            }
-        }
+        _context.Ingredients.Remove(ingredient);
+        _context.SaveChanges();
     }
 }

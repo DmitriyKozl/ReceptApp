@@ -1,0 +1,7 @@
+﻿POST /api/ingredients
+Content-Type: application/json
+
+{
+  "status": "success",
+  "message": "Ingredient added successfully."
+}

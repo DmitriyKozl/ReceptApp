@@ -1,19 +1,23 @@
 ﻿using VideoplayerProject.Domain.Interfaces;
 using VideoplayerProject.Domain.Models;
 
+    
+
 namespace VideoplayerProject.Domain.Managers
 {
-    public class IngredientManager : IIngredientRepository
+    public class IngredientManager : IIngredientService
     {
-        private IIngredientRepository _ingredientRepo;
+        private readonly IIngredientService _ingredientRepo;
 
-        public IngredientManager(IIngredientRepository ingredientRepo) {
+        public IngredientManager(IIngredientService ingredientRepo)
+        {
             _ingredientRepo = ingredientRepo;
         }
 
-        public void AddIngredient(string name, string brand)
+
+        public void CreateIngredient(string name, string brand)
         {
-            _ingredientRepo.AddIngredient(name, brand);
+            _ingredientRepo.CreateIngredient(name, brand);
         }
 
         public List<Ingredient> GetIngredients(string filter) {
@@ -30,9 +34,11 @@ namespace VideoplayerProject.Domain.Managers
             _ingredientRepo.RemoveIngredient(id);
         }
 
-        public void UpdateIngredient(int id, string newName)
+        public void UpdateIngredient(int id, string newName, string newBrand)
         {
-            _ingredientRepo.UpdateIngredient(id, newName);
+            _ingredientRepo.UpdateIngredient(id, newName, newBrand);
         }
+        
     }
+
 }
