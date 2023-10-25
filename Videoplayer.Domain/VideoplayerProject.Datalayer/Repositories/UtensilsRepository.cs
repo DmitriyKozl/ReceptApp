@@ -1,6 +1,7 @@
 ﻿using VideoplayerProject.Datalayer.Data;
 using VideoplayerProject.Domain.Interfaces;
 using VideoplayerProject.Domain.Models;
+using Utensils = VideoplayerProject.Datalayer.Models.Utensils;
 
 namespace VideoplayerProject.Datalayer.Repositories;
 
@@ -21,7 +22,7 @@ public class UtensilsRepository: IUtensilRepository {
         var recipe = _context.Recipes.Find(recipeId);
         if (recipe == null) throw new ArgumentNullException("Recipe not found.");
 
-        return recipe.RecipeUtensils.Select(ru => ru.Utensils).ToList();
+        return recipe.RecipeUtensils.Select(ru => ru.Utensil).ToList();
     }
 
     public void CreateUtensil( string name) {
@@ -32,7 +33,7 @@ public class UtensilsRepository: IUtensilRepository {
 
     public void UpdateUtensil(int id, string newName) {
         var utensil = _context.Utensils.Find(id);
-        if (utensil == null) throw new ArgumentNullException("Utensils not found.");
+        if (utensil == null) throw new ArgumentNullException("Utensil not found.");
 
         utensil.UtensilName = newName;
         _context.SaveChanges();
@@ -40,7 +41,7 @@ public class UtensilsRepository: IUtensilRepository {
 
     public void RemoveUtensil(int id) {
         var utensil = _context.Utensils.Find(id);
-        if (utensil == null) throw new ArgumentNullException("Utensils not found.");
+        if (utensil == null) throw new ArgumentNullException("Utensil not found.");
 
         _context.Utensils.Remove(utensil);
         _context.SaveChanges();

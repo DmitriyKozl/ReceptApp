@@ -8,8 +8,8 @@ using VideoplayerProject.Domain.Models;
 
 namespace VideoplayerProject.Domain.Managers {
     public class UtensilManager : IUtensilService {
-        private IUtensilRepository  _utensilRepository;
-        public UtensilManager(IUtensilRepository repo) 
+        private IUtensilService  _utensilRepository;
+        public UtensilManager(IUtensilService repo) 
         {
             _utensilRepository = repo;
         }
@@ -19,12 +19,12 @@ namespace VideoplayerProject.Domain.Managers {
             _utensilRepository.CreateUtensil(name);
         }
 
-        public List<Utensils> GetAllUtensils(string filter)
+        public List<Utensil> GetAllUtensils(string filter)
         {
             return _utensilRepository.GetAllUtensils(filter);
         }
 
-        public List<Utensils> GetUtensilsFromRecipe(int recipeId)
+        public List<Utensil> GetUtensilsFromRecipe(int recipeId)
         {
             return _utensilRepository.GetUtensilsFromRecipe(recipeId);
         }

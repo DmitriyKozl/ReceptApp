@@ -1,4 +1,5 @@
 ﻿using VideoplayerProject.Domain.Models;
+using Utensils = VideoplayerProject.Datalayer.Models.Utensils;
 
 namespace VideoplayerProject.Domain.Interfaces {
     public interface IUtensilRepository {

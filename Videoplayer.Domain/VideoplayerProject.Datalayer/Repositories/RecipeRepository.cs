@@ -1,6 +1,7 @@
 ﻿using VideoplayerProject.Datalayer.Data;
 using VideoplayerProject.Datalayer.Interfaces;
 using VideoplayerProject.Domain.Models;
+using Recipe = VideoplayerProject.Datalayer.Models.Recipe;
 
 namespace VideoplayerProject.Datalayer.Repositories; 
 
@@ -38,8 +39,7 @@ public class RecipeRepository : IRecipeRepository {
         var recipe = _context.Recipes.Find(id);
 
         if (recipe == null) {
-            // Optionally, handle the case when the recipe is not found
-            // throw new InvalidOperationException("Recipe not found");
+   
             Console.WriteLine("Recipe not found");
             return;
         }

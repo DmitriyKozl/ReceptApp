@@ -1,4 +1,5 @@
 ﻿using VideoplayerProject.Domain.Models;
+using Recipe = VideoplayerProject.Datalayer.Models.Recipe;
 
 namespace VideoplayerProject.Datalayer.Interfaces {
     public interface IRecipeRepository {

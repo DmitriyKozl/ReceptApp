@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using VideoplayerProject.Datalayer.Interfaces;
 using VideoplayerProject.Domain.Interfaces;
 using VideoplayerProject.Domain.Models;
 
 namespace VideoplayerProject.Domain.Managers;
     public class RecipeManager : IRecipeService {
-        private IRecipeRepository _recipeRepository;
+        private IRecipeService _recipeRepository;
 
-        public RecipeManager(IRecipeRepository recipeRepository) {
+        public RecipeManager(IRecipeService recipeRepository) {
             _recipeRepository = recipeRepository;
         }
 

@@ -104,7 +104,7 @@ PUT /ingredients/{{id}}
 "brand": "HealthyOats"
 }
 ```
-
+[RecipeApi.md](RecipeApi.md)
 ## Delete Ingredient
 
 ### Delete Ingredient Request

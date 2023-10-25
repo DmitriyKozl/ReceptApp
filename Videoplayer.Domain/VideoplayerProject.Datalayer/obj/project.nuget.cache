@@ -1,14 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "OtgmFpa9kEne8KSqQmLO6AZfSkQvyABbjQ25E47S6NzTLMsAn6f1U58vXS40pxMJX1N06A9NPjNU4jJWkYCA9A==",
+  "dgSpecHash": "Et0HJesAMgsV7+riXhFWGk5UvHISYUAakgBpsJezInZ4jwjPrNrbqrIJRYmJ4ZWpmCz3NFdYa6+CPDzfIxOOsg==",
   "success": true,
   "projectFilePath": "D:\\CursusPB\\Jaar_2\\Projectwerk\\RecipeApp\\receptapp\\Videoplayer.Domain\\VideoplayerProject.Datalayer\\VideoplayerProject.Datalayer.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Dmitriy\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\Dmitriy\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\Dmitriy\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\Dmitriy\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
     "C:\\Users\\Dmitriy\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Dmitriy\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
-    "C:\\Users\\Dmitriy\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
+    "C:\\Users\\Dmitriy\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\Dmitriy\\.nuget\\packages\\microsoft.data.sqlclient\\5.1.1\\microsoft.data.sqlclient.5.1.1.nupkg.sha512",
     "C:\\Users\\Dmitriy\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\5.1.0\\microsoft.data.sqlclient.sni.runtime.5.1.0.nupkg.sha512",
     "C:\\Users\\Dmitriy\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.12\\microsoft.entityframeworkcore.7.0.12.nupkg.sha512",

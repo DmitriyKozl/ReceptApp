@@ -22,7 +22,7 @@ namespace VideoplayerProject.Datalayer.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Utensils", b =>
+            modelBuilder.Entity("Utensil", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -36,7 +36,7 @@ namespace VideoplayerProject.Datalayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Utensils", (string)null);
+                    b.ToTable("Utensil", (string)null);
                 });
 
             modelBuilder.Entity("VideoplayerProject.Domain.Models.Ingredient", b =>
@@ -159,7 +159,7 @@ namespace VideoplayerProject.Datalayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Utensils", "Utensils")
+                    b.HasOne("Utensil", "Utensil")
                         .WithMany("RecipeUtensils")
                         .HasForeignKey("UtensilId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -167,10 +167,10 @@ namespace VideoplayerProject.Datalayer.Migrations
 
                     b.Navigation("Recipe");
 
-                    b.Navigation("Utensils");
+                    b.Navigation("Utensil");
                 });
 
-            modelBuilder.Entity("Utensils", b =>
+            modelBuilder.Entity("Utensil", b =>
                 {
                     b.Navigation("RecipeUtensils");
                 });

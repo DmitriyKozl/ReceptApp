@@ -1,5 +1,4 @@
-﻿using VideoplayerProject.Datalayer.Interfaces;
-using VideoplayerProject.Domain.Interfaces;
+﻿using VideoplayerProject.Domain.Interfaces;
 using VideoplayerProject.Domain.Models;
 
     
@@ -8,9 +7,9 @@ namespace VideoplayerProject.Domain.Managers
 {
     public class IngredientManager : IIngredientService
     {
-        private readonly IIngredientRepository _ingredientRepo;
+        private readonly IIngredientService _ingredientRepo;
 
-        public IngredientManager(IIngredientRepository ingredientRepo)
+        public IngredientManager(IIngredientService ingredientRepo)
         {
             _ingredientRepo = ingredientRepo;
         }
