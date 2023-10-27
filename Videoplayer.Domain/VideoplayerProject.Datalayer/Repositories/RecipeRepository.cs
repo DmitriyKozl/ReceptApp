@@ -13,7 +13,11 @@ public class RecipeRepository : IRecipeRepository {
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
-    public List<Recipe> GetAllRecipes(string filter) {
+    public List<Recipe> GetAllRecipes() {
+        return _context.Recipes.ToList();
+    }
+
+    public List<Recipe> GetFilteredRecipes(string filter) {
         
        // condition to check: string.IsNullOrEmpty(filter).
         return string.IsNullOrEmpty(filter)
