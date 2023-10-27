@@ -1,20 +1,81 @@
 import React, { useState } from 'react'
-import { Box, DialogContent, DialogTitle, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material'
+import {
+  DialogContent,
+  DialogTitle,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  OutlinedInput,
+  Select,
+  Stack,
+} from '@mui/material'
 
 export const TimingPopup = (props) => {
   const { values } = props
 
-  const [name, setName] = useState(values?.name)
-  const [brand, setBrand] = useState(values?.brand)
+  const [id, setId] = useState(values?.id)
   const [from, setFrom] = useState(values?.from)
   const [till, setTill] = useState(values?.till)
-  const [selected, setSelected] = useState()
 
   return (
     <React.Fragment>
-      <DialogTitle>Ingredient</DialogTitle>
-      <DialogContent dividers='true'>
-        <Box display={'grid'}>
+      <DialogTitle variant='h4' m={1}>
+        Timing
+      </DialogTitle>
+      <DialogContent>
+        <Stack justifyContent='space-evenly' alignItems='stretch' spacing={3} width={550}>
+          <FormControl>
+            {id ? '' : <InputLabel shrink={false}>name</InputLabel>}
+            <Select
+              value={id}
+              onChange={(e) => {
+                setId(e.target.value)
+                setId(e.target.value)
+              }}
+              margin='normal'
+              sx={{ borderRadius: '20px' }}
+            >
+              <MenuItem value={1}>choclade</MenuItem>
+              <MenuItem value={2}>gehakt</MenuItem>
+              <MenuItem value={3}>aardbeien</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl>
+            {id ? '' : <InputLabel shrink={false}>brand</InputLabel>}
+            <Select
+              value={id}
+              onChange={(e) => {
+                setId(e.target.value)
+                setId(e.target.value)
+              }}
+              margin='normal'
+              sx={{ borderRadius: '20px' }}
+            >
+              <MenuItem value={1}>boni</MenuItem>
+              <MenuItem value={2}>boni</MenuItem>
+              <MenuItem value={3}>boni</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl>
+            {from ? '' : <InputLabel shrink={false}>from</InputLabel>}
+            <OutlinedInput
+              value={from}
+              onChange={(e) => setFrom(e.target.value)}
+              margin='normal'
+              sx={{ borderRadius: '20px' }}
+            />
+          </FormControl>
+          <FormControl>
+            {till ? '' : <InputLabel shrink={false}>till</InputLabel>}
+            <OutlinedInput
+              value={till}
+              onChange={(e) => setTill(e.target.value)}
+              margin='normal'
+              sx={{ borderRadius: '20px' }}
+            />
+          </FormControl>
+        </Stack>
+        {/* <Box display={'grid'}>
           {!values?.new ? (
             <>
               <TextField label='name' value={name} disabled variant='filled' margin='normal' sx={{ width: 500 }} />
@@ -54,7 +115,7 @@ export const TimingPopup = (props) => {
             margin='normal'
             sx={{ width: 500 }}
           />
-        </Box>
+        </Box> */}
       </DialogContent>
     </React.Fragment>
   )

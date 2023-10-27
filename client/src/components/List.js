@@ -20,7 +20,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 
 export const List = (props) => {
-  const { title, setValues, setOpenPopup, setOpenTimingPopup } = props
+  const { title, setValues, setOpenRecipePopup, setOpenTimingPopup, setOpenIngredientPopup } = props
   const dummydataRecipe = [
     {
       id: 1,
@@ -110,7 +110,7 @@ export const List = (props) => {
 
     return (
       <React.Fragment>
-        <TableRow>
+        <TableRow sx={{ boxShadow: '0px 20px 25px -15px RGB(213 217 219)' }}>
           {title === 'recipe' ? (
             <>
               <TableCell sx={{ borderBottom: 0, borderRadius: '20px 0 0 20px' }}>
@@ -147,9 +147,14 @@ export const List = (props) => {
           <TableCell align='right' sx={{ borderBottom: 0, borderRadius: '0 20px 20px 0' }}>
             <IconButton
               onClick={() => {
-                if (title === 'recipe') setValues({ name: row.name, url: row.url })
-                if (title === 'ingedient') setValues({ name: row.name, url: row.brand })
-                setOpenPopup(true)
+                if (title === 'recipe') {
+                  setValues({ name: row.name, url: row.url })
+                  setOpenRecipePopup(true)
+                }
+                if (title === 'ingredient') {
+                  setValues({ name: row.name, brand: row.brand })
+                  setOpenIngredientPopup(true)
+                }
               }}
             >
               <EditIcon />
@@ -208,7 +213,7 @@ export const List = (props) => {
                           <TableCell align='right'>
                             <IconButton
                               onClick={() => {
-                                setValues({ name: item.name, brand: item.brand, from: item.from, till: item.till })
+                                setValues({ id: item.id, from: item.from, till: item.till })
                                 setOpenTimingPopup(true)
                               }}
                             >
@@ -237,7 +242,7 @@ export const List = (props) => {
     <Grid>
       <TableContainer>
         <Table sx={{ borderCollapse: 'separate', borderSpacing: '0 10px', border: 'transparent' }}>
-          <TableHead sx={{ backgroundColor: '#fff' }}>
+          <TableHead sx={{ backgroundColor: '#fff', boxShadow: '0px 20px 25px -15px RGB(213 217 219)' }}>
             <TableRow>
               {title === 'recipe' ? (
                 <>
