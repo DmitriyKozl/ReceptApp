@@ -56,7 +56,15 @@ public class RecipeRepository : IRecipeRepository {
         _context.SaveChanges();
     }
 
-    public void UpdateRecipe(int id, Recipe recipe) {
-        throw new NotImplementedException();
+    public void UpdateRecipe(int id, Recipe updatedRecipe) {
+        var recipe = _context.Recipes.Find(id);
+        if (recipe == null) {
+            Console.WriteLine("Recipe not found");
+            return;
+        }
+
+        recipe.RecipeName = updatedRecipe.RecipeName;
+    
+        _context.SaveChanges();
     }
 }

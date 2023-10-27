@@ -20,11 +20,12 @@ public class IngredientRepository : IIngredientRepository {
     }
 
     public List<Ingredient> GetIngredientsFromRecipe(int recipeId) {
-        return _context.RecipeIngredient.Where(ri => ri.RecipeID == recipeId).Select(ri => ri.Ingredient).ToList();
+        return _context.RecipeIngredient
+            .Where(ri => ri.RecipeID == recipeId)
+            .Select(ri => ri.Ingredient)
+            .ToList();
     }
     
-    
-
     public void CreateIngredient(string name, string brand) {
         var ingredient = new Ingredient
         { IngredientName = name, Brand = brand };
