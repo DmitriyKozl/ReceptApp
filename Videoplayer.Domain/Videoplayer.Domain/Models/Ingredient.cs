@@ -14,7 +14,21 @@ namespace VideoplayerProject.Domain.Models {
             Price = price;
             Brand = brand;
         }
-        public int Id { get; set; }
+
+        private int _id;
+
+        public int Id
+        {
+            get { return _id; }
+            set
+            {
+                if (value > 0) { _id = value; }
+                else
+                {
+                    throw new IngredientException("Invalid ID!");
+                }
+            }
+        }
 
         private string _name;
 

@@ -11,11 +11,11 @@ public class Recipe {
 
     [Required]
     [MaxLength(255)]
-    public string RecipeName { get; set; }
+    public string? RecipeName { get; set; }
 
     public int? Servings { get; set; }
 
-    public string VideoLink { get; set; }
+    public string? VideoLink { get; set; }
 
     [Required]
     public TimeSpan CookingTime { get; set; }

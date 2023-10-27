@@ -11,8 +11,11 @@ public class UtensilsRepository: IUtensilRepository {
     public UtensilsRepository(RecipeDbContext context) {
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }
+    public List<Utensils> GetAllUtensils() {
+        return _context.Utensils.ToList();
+    }
 
-    public List<Utensils> GetAllUtensils(string filter) {
+    public List<Utensils> GetFilteredUtensils(string filter) {
         return string.IsNullOrEmpty(filter)
             ? _context.Utensils.ToList()
             : _context.Utensils.Where(u => u.UtensilName.Contains(filter)).ToList();
