@@ -13,9 +13,10 @@ const App = () => {
       },
       primary: {
         main: '#0587C7',
+        dark: '#035e8b',
       },
     },
-    typography: { fontFamily: ['Poppins', 'sans-serif'].join(',') },
+    typography: { fontFamily: ['Red Hat Display', 'sans-serif'].join(',') },
   })
 
   return (

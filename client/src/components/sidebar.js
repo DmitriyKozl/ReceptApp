@@ -2,7 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button, Grid, Typography } from '@mui/material'
 import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu'
-import TimerIcon from '@mui/icons-material/Timer'
+import IngredientIcon from '@mui/icons-material/ShoppingBasket'
 
 export const Sidebar = (selected) => {
   const navigate = useNavigate()
@@ -14,8 +14,11 @@ export const Sidebar = (selected) => {
         sx={{
           mt: 5,
           width: '100%',
-          backgroundColor: selected.title === 'recipe' ? '#035e8b' : 'background.default',
+          backgroundColor: selected.title === 'recipe' ? 'primary.dark' : 'background.default',
           color: '#fff',
+          ':hover': {
+            backgroundColor: selected.title === 'recipe' ? 'primary.dark' : 'background.default',
+          },
         }}
       >
         <Grid>
@@ -24,17 +27,20 @@ export const Sidebar = (selected) => {
         </Grid>
       </Button>
       <Button
-        onClick={() => navigate('/timing')}
+        onClick={() => navigate('/ingredient')}
         sx={{
           mt: 2,
           width: '100%',
-          backgroundColor: selected.title === 'timing' ? '#035e8b' : 'background.default',
+          backgroundColor: selected.title === 'ingredient' ? 'primary.dark' : 'background.default',
           color: '#fff',
+          ':hover': {
+            backgroundColor: selected.title === 'ingredient' ? 'primary.dark' : 'background.default',
+          },
         }}
       >
         <Grid>
-          <TimerIcon />
-          <Typography>Timing</Typography>
+          <IngredientIcon />
+          <Typography>Ingredient</Typography>
         </Grid>
       </Button>
     </Grid>
