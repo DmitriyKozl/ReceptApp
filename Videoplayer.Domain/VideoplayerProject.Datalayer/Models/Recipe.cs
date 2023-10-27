@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using VideoplayerProject.Domain.Models;
 
 namespace VideoplayerProject.Datalayer.Models; 
 

@@ -12,7 +12,8 @@ public class Utensils {
     [MaxLength(255)]
     public string UtensilName { get; set; }
 
-    public string ImgUrl { get; set; }
+    public string? ImgUrl { get; set; }
 
     public ICollection<RecipeUtensil> RecipeUtensils { get; set; }
+
 }

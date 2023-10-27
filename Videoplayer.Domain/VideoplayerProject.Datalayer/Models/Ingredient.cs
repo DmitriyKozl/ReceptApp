@@ -19,7 +19,7 @@ public class Ingredient {
     [MaxLength(255)]
     public string Brand { get; set; }
 
-    public string ImageThumbnail { get; set; }
+    public string? ImageThumbnail { get; set; }
 
     public ICollection<RecipeIngredient> RecipeIngredients { get; set; }
 }
