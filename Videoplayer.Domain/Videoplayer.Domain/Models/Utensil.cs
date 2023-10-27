@@ -13,8 +13,21 @@ namespace VideoplayerProject.Domain.Models {
             Name = name;
         }
 
-        public int Id { get; set; }
-        
+        private int _id;
+
+        public int Id
+        {
+            get { return _id; }
+            set
+            {
+                if (value > 0)
+                {
+                    _id = value;
+                }
+                else { throw new UtensilException("Invalid ID!"); }
+            }
+        }
+
         private string _name;
 
         public string Name {
