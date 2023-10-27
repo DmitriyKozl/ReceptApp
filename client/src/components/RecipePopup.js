@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
-import { DialogContent, DialogTitle, FormControl, InputLabel, OutlinedInput, Stack } from '@mui/material'
+import { Button, DialogContent, DialogTitle, FormControl, InputLabel, OutlinedInput, Stack } from '@mui/material'
+import { VisuallyHiddenInput } from './VisuallyHiddenInput'
+import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 
 export const RecipePopup = (props) => {
   const { values } = props
@@ -14,6 +16,20 @@ export const RecipePopup = (props) => {
       </DialogTitle>
       <DialogContent>
         <Stack justifyContent='space-evenly' alignItems='stretch' spacing={3} width={550}>
+          <Button
+            component='label'
+            startIcon={<CloudUploadIcon />}
+            sx={{
+              p: '15px 50px',
+              borderRadius: '20px',
+              color: '#fff',
+              backgroundColor: 'primary.main',
+              ':hover': { backgroundColor: 'primary.main' },
+            }}
+          >
+            Upload Image
+            <VisuallyHiddenInput />
+          </Button>
           <FormControl>
             {name ? '' : <InputLabel shrink={false}>name</InputLabel>}
             <OutlinedInput

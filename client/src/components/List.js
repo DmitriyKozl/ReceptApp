@@ -164,7 +164,7 @@ export const List = (props) => {
             </IconButton>
           </TableCell>
         </TableRow>
-        <TableRow>
+        <TableRow sx={{ boxShadow: '0px 20px 25px -15px RGB(213 217 219)' }}>
           {title === 'recipe' ? (
             <TableCell sx={{ pb: 0, pt: 0, borderBottom: 0, borderRadius: '20px' }} colSpan={6}>
               <Collapse in={open} timeout='auto' unmountOnExit>
