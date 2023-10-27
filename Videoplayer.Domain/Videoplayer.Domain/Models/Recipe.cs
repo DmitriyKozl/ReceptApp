@@ -20,7 +20,7 @@ namespace VideoplayerProject.Domain.Models {
             get { return _id; }
             set { if (value > 0) {
                     _id = value;                
-                } 
+                } else { throw new RecipeException("Invalid ID!"); }
             }
         }
 

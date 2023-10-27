@@ -9,9 +9,26 @@ using VideoplayerProject.Domain.Exceptions;
 namespace VideoplayerProject.Domain.Models {
     public class Timestamp {
 
-        public Timestamp(TimeSpan startTime, TimeSpan endTime) {
+        public Timestamp(TimeSpan startTime, TimeSpan endTime, int ingredientId)
+        {
             StartTime = startTime;
             EndTime = endTime;
+            IngredientId = ingredientId;
+        }
+
+        private int _ingredientId;
+
+        public int IngredientId
+        {
+            get { return _ingredientId; }
+            set
+            {
+                if (value > 0)
+                {
+                    _ingredientId = value;
+                }
+                else { throw new TimestampException("Invalid ID!"); }
+            }
         }
 
         private TimeSpan _startTime;

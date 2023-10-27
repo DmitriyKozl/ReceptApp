@@ -25,6 +25,7 @@ POST /recipes
 ```json
 {
 "name": "Vegan Sunshine",
+"img": "https://images.unsplash.com/photo-1571748982800-fa51082c2224?auto=format&fit=crop&q=80&w=2071&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
 "url": "http://recipe-link.com",
 "ingredients": [
 {
@@ -60,6 +61,7 @@ Location: {{host}}/Recipes/{{id}}
 {
 "id": "00000000-0000-0000-0000-000000000000",
 "name": "Vegan Sunshine",
+"img": "https://images.unsplash.com/photo-1571748982800-fa51082c2224?auto=format&fit=crop&q=80&w=2071&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
 "url": "http://recipe-link.com",
 "lastModifiedDateTime": "2022-04-06T12:00:00",
 "ingredients": [
@@ -99,20 +101,25 @@ GET /recipes/{{id}}
 {
 "id": "00000000-0000-0000-0000-000000000000",
 "name": "Vegan Sunshine",
+"img": "https://images.unsplash.com/photo-1571748982800-fa51082c2224?auto=format&fit=crop&q=80&w=2071&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
 "url": "http://recipe-link.com",
 "lastModifiedDateTime": "2022-04-06T12:00:00",
 "ingredients": [
 {
             "id": 1,
             "name": "Oatmeal",
+            "img": "https://images.unsplash.com/photo-1571748982800-fa51082c2224?auto=format&fit=crop&q=80&w=2071&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             "brand": "HealthyOats",
+            "brandImg": "https://images.unsplash.com/photo-1571748982800-fa51082c2224?auto=format&fit=crop&q=80&w=2071&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             "from": "00:10:00",
             "till": "00:20:00"
             },
             {
             "id": 2,
             "name": "Avocado",
+            "img": "https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?auto=format&fit=crop&q=80&w=1975&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             "brand": "AvocadoBrand",
+            "brandImg": "https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?auto=format&fit=crop&q=80&w=1975&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             "from": "00:15:00",
             "till": "00:25:00"
             }
@@ -131,6 +138,7 @@ PUT /recipes/{{id}}
 ```json
 {
 "name": "Vegan Sunshine Deluxe",
+"img": "https://images.unsplash.com/photo-1571748982800-fa51082c2224?auto=format&fit=crop&q=80&w=2071&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
 "url": "http://new-recipe-link.com",
 "ingredients": [
   {
