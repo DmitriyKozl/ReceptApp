@@ -27,7 +27,7 @@ const Home = () => {
       <Paper elevation={3} sx={{ p: 5 }}>
         <Stack sx={{ alignContent: 'center', justifyContent: 'center' }}>
           <Typography variant='h2' sx={{ m: 2, color: 'primary.dark', textAlign: 'center' }}>
-            Login
+            Admin
           </Typography>
           <FormControl sx={{ m: 1, width: '25ch' }}>
             <InputLabel>username</InputLabel>
