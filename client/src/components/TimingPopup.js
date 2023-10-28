@@ -57,8 +57,9 @@ export const TimingPopup = (props) => {
             </Select>
           </FormControl>
           <FormControl>
-            {from ? '' : <InputLabel shrink={false}>from</InputLabel>}
+            <InputLabel>from</InputLabel>
             <OutlinedInput
+              label='from'
               value={from}
               onChange={(e) => setFrom(e.target.value)}
               margin='normal'
@@ -66,8 +67,9 @@ export const TimingPopup = (props) => {
             />
           </FormControl>
           <FormControl>
-            {till ? '' : <InputLabel shrink={false}>till</InputLabel>}
+            <InputLabel>till</InputLabel>
             <OutlinedInput
+              label='till'
               value={till}
               onChange={(e) => setTill(e.target.value)}
               margin='normal'

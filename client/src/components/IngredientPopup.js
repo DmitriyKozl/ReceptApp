@@ -31,8 +31,9 @@ export const IngredientPopup = (props) => {
             <VisuallyHiddenInput />
           </Button>
           <FormControl>
-            {name ? '' : <InputLabel shrink={false}>name</InputLabel>}
+            <InputLabel>name</InputLabel>
             <OutlinedInput
+              label='name'
               value={name}
               onChange={(e) => setName(e.target.value)}
               margin='normal'
@@ -54,8 +55,9 @@ export const IngredientPopup = (props) => {
             <VisuallyHiddenInput />
           </Button>
           <FormControl>
-            {brand ? '' : <InputLabel shrink={false}>brand</InputLabel>}
+            <InputLabel>brand</InputLabel>
             <OutlinedInput
+              label='brand'
               value={brand}
               onChange={(e) => setBrand(e.target.value)}
               margin='normal'

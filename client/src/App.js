@@ -3,6 +3,7 @@ import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom'
 import { createTheme } from '@mui/material/styles'
 import { ThemeProvider } from '@mui/material/styles'
 import Home from './pages/Home'
+import Login from './pages/Login'
 import Admin from './pages/Admin'
 
 const App = () => {
@@ -14,6 +15,7 @@ const App = () => {
       primary: {
         main: '#0587C7',
         dark: '#035e8b',
+        light: '#0587C712',
       },
     },
     typography: { fontFamily: ['Red Hat Display', 'sans-serif'].join(',') },
@@ -27,6 +29,7 @@ const App = () => {
             <Route path='*' element={<Navigate to='/' replace />} />
             <Route path='/' element={<Navigate to={'/home'} replace />} />
             <Route path='/home' element={<Home />} />
+            <Route path='/login' element={<Login />} />
             <Route path='/:title' element={<Admin />} />
           </Routes>
         </BrowserRouter>
