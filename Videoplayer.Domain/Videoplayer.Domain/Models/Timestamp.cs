@@ -23,7 +23,7 @@ namespace VideoplayerProject.Domain.Models {
             get { return _ingredientId; }
             set
             {
-                if (value > 0)
+                if (value >= 0)
                 {
                     _ingredientId = value;
                 }
@@ -35,7 +35,7 @@ namespace VideoplayerProject.Domain.Models {
 
         public TimeSpan StartTime {
             get { return _startTime; }
-            set { if(value > TimeSpan.Zero) {
+            set { if(value >= TimeSpan.Zero) {
                     _startTime = value;
                 } else {
                     throw new TimestampException("Invalid starttime. Starttime has to be bigger than 0.");

@@ -8,35 +8,44 @@ using VideoplayerProject.Domain.Models;
 
 namespace VideoplayerProject.Domain.Managers {
     public class UtensilManager : IUtensilService {
-        private IUtensilService  _utensilRepository;
-        public UtensilManager(IUtensilService repo) 
+        private IUtensilsRepository  _utensilRepository;
+        public UtensilManager(IUtensilsRepository repo) 
         {
             _utensilRepository = repo;
         }
 
-        public void CreateUtensil( string name)
-        {
-            _utensilRepository.CreateUtensil(name);
-        }
 
-        public List<Utensil> GetAllUtensils(string filter)
-        {
-            return _utensilRepository.GetAllUtensils(filter);
-        }
 
+        public List<Utensil> GetAllUtensils()
+        {
+            return _utensilRepository.GetAllUtensils();
+        }
         public List<Utensil> GetUtensilsFromRecipe(int recipeId)
         {
             return _utensilRepository.GetUtensilsFromRecipe(recipeId);
         }
-
+        
+        public Utensil GetUtensilById(int id)
+        {
+            return _utensilRepository.GetUtensilById(id);
+        }
+        
+        public List<Utensil> GetFilteredUtensils(string filter)
+        {
+            return _utensilRepository.GetFilteredUtensils(filter);
+        }
+        
+        public void CreateUtensil(Utensil utensil)
+        {
+            _utensilRepository.CreateUtensil(utensil);
+        }
+        
         public void RemoveUtensil(int id)
         {
             _utensilRepository.RemoveUtensil(id);
         }
 
-        public void UpdateUtensil(int id, string newName)
-        {
-            _utensilRepository.UpdateUtensil(id, newName);
-        }
+
+
     }
 }

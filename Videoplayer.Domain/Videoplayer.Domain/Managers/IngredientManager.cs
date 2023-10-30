@@ -7,37 +7,42 @@ namespace VideoplayerProject.Domain.Managers
 {
     public class IngredientManager : IIngredientService
     {
-        private readonly IIngredientService _ingredientRepo;
+        private readonly IIngredientRepository _ingredientRepo;
 
-        public IngredientManager(IIngredientService ingredientRepo)
+        public IngredientManager(IIngredientRepository ingredientRepo)
         {
             _ingredientRepo = ingredientRepo;
         }
 
-
-        public void CreateIngredient(string name, string brand)
+        public List<Ingredient> GetAllIngredients()
         {
-            _ingredientRepo.CreateIngredient(name, brand);
+            return _ingredientRepo.GetAllIngredients();
         }
-
-        public List<Ingredient> GetIngredients(string filter) {
-            return _ingredientRepo.GetIngredients(filter);
+        
+        public List<Ingredient> GetFilteredIngredients(string filter) {
+            return _ingredientRepo.GetFilteredIngredients(filter);
         }
 
         public List<Ingredient> GetIngredientsFromRecipe(int recipeId)
         {
             return _ingredientRepo.GetIngredientsFromRecipe(recipeId);
         }
-
+        
+        public Ingredient GetIngredientById(int id)
+        {
+            return _ingredientRepo.GetIngredientById(id);
+        }
+        
+        public void CreateIngredient(Ingredient ingredient)
+        {
+            _ingredientRepo.CreateIngredient(ingredient);
+        }
+        
         public void RemoveIngredient(int id)
         {
             _ingredientRepo.RemoveIngredient(id);
         }
-
-        public void UpdateIngredient(int id, string newName, string newBrand)
-        {
-            _ingredientRepo.UpdateIngredient(id, newName, newBrand);
-        }
+        
         
     }
 

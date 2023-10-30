@@ -7,18 +7,19 @@ using VideoplayerProject.Domain.Exceptions;
 
 namespace VideoplayerProject.Domain.Models {
     public class Recipe {
-        public Recipe(string name, int servings, string videoLink, TimeSpan cookingTime) {
+        public Recipe(string name, int? servings, string videoLink, TimeSpan cookingTime) {
             Name = name;
             Servings = servings;
             VideoLink = videoLink;
             CookingTime = cookingTime;
+            Id = 0;
         }
 
         private int _id;
 
         public int Id {
             get { return _id; }
-            set { if (value > 0) {
+            set { if (value >= 0) {
                     _id = value;                
                 } else { throw new RecipeException("Invalid ID!"); }
             }
@@ -37,9 +38,9 @@ namespace VideoplayerProject.Domain.Models {
             }
         }
 
-        private int _servings;
+        private int? _servings;
 
-        public int Servings {
+        public int? Servings {
             get { return _servings; }
             set { if (value > 0) {
                     _servings = value;    
@@ -66,7 +67,7 @@ namespace VideoplayerProject.Domain.Models {
 
         public TimeSpan CookingTime  {
             get { return _cookingTime; }
-            set {  if(value > TimeSpan.Zero) {
+            set {  if(value >= TimeSpan.Zero) {
                     _cookingTime = value;
                 } else {
                     throw new RecipeException("Cooking time can't be negative.");
@@ -78,101 +79,33 @@ namespace VideoplayerProject.Domain.Models {
         public Dictionary<Utensil, List<Timestamp>> UtensilToTimestamp = new();
 
         // Add ingredient with a timestamp to recipe
-        public void AddIngredientWithTimeStampToRecipe(Ingredient ingredient, Timestamp timestamp) {
-            // If the ingredient has already been used in the recipe, simply add the timestamp to the existing list
-            if(IngredientToTimestamp.ContainsKey(ingredient)) {
-                IngredientToTimestamp[ingredient].Add(timestamp);
-            } 
-            // Otherwise, create a new List of timestamps for the ingredient, and add both to the dictionary
-            else {
-                List<Timestamp> timestamps = new List<Timestamp>();
-                timestamps.Add(timestamp);
-                IngredientToTimestamp.Add(ingredient, timestamps);
-            }
+        
+        public override string ToString() {
+            var builder = new StringBuilder();
 
-            // Additional check to ensure that only one ingredient popup can be shown in a second
-            
-        }
+            builder.AppendLine($"Name: {Name}");
+            builder.AppendLine($"Servings: {Servings}");
+            builder.AppendLine($"Video Link: {VideoLink}");
+            builder.AppendLine($"Cooking Time: {CookingTime}");
 
-        // Remove ingredient from recipe (and all its timestamps)
-        public void RemoveIngredient(Ingredient ingredient) {
-            if (IngredientToTimestamp.ContainsKey(ingredient)) {
-                IngredientToTimestamp.Remove(ingredient);
-            } else {
-                throw new RecipeException("Recipe doesn't use the given ingredient");
-            }
-        }
-
-        // Remove specific timestamp for an ingredient in a recipe
-        public void RemoveTimestamp(Ingredient ingredient, Timestamp timestamp) {
-            if (IngredientToTimestamp.ContainsKey(ingredient)) {
-                if (IngredientToTimestamp[ingredient].Contains(timestamp)) {
-                    IngredientToTimestamp[ingredient].Remove(timestamp);
-                } else {
-                    throw new RecipeException("No timestamp was found that corresponds with the given ingredient and time.");
+            builder.AppendLine("Ingredients:");
+            foreach (var ingredientEntry in IngredientToTimestamp) {
+                builder.AppendLine($"  Ingredient: {ingredientEntry.Key.Name}");
+                foreach (var timestamp in ingredientEntry.Value) {
+                    builder.AppendLine($"    Timestamp: {timestamp.StartTime} - {timestamp.EndTime}");
                 }
-            } else {
-                throw new RecipeException("The recipe doesn't use the given ingredient");
             }
-        }
 
-        // Change the timestamp of an ingredient in a recipe
-        public void UpdateTimestamp(Ingredient ingredient, Timestamp oldTimestamp, Timestamp newTimestamp) {
-            if (IngredientToTimestamp.ContainsKey(ingredient)) {
-                if (IngredientToTimestamp[ingredient].Contains(oldTimestamp)) {
-                    IngredientToTimestamp[ingredient].Remove(oldTimestamp);
-                    IngredientToTimestamp[ingredient].Add(newTimestamp);
-                } else {
-                    throw new RecipeException("No timestamp was found that corresponds with the given ingredient and time.");
+            builder.AppendLine("Utensils:");
+            foreach (var utensilEntry in UtensilToTimestamp) {
+                builder.AppendLine($"  Utensil: {utensilEntry.Key.Name}");
+                foreach (var timestamp in utensilEntry.Value) {
+                    builder.AppendLine($" Timestamp: {timestamp.StartTime} - {timestamp.EndTime}");
                 }
-            } else {
-                throw new RecipeException("The recipe doesn't use the given ingredient");
             }
+
+            return builder.ToString();
         }
 
-        // Add ingredient with a timestamp to recipe
-        public void AddUtensilWithTimeStampToRecipe(Utensil utensil, Timestamp timestamp) {
-            List<Timestamp> timestamps = new List<Timestamp>();
-            timestamps.Add(timestamp);
-
-            // Additional check to ensure that only one ingredient popup can be shown in a second
-            UtensilToTimestamp.Add(utensil, timestamps);
-        }
-
-        // Remove ingredient from recipe (and all its timestamps)
-        public void RemoveUtensil(Utensil utensil) {
-            if (UtensilToTimestamp.ContainsKey(utensil)) {
-                UtensilToTimestamp.Remove(utensil);
-            } else {
-                throw new RecipeException("Recipe doesn't use the given utensil");
-            }
-        }
-
-        // Remove specific timestamp for an ingredient in a recipe
-        public void RemoveUtensil(Utensil utensil, Timestamp timestamp) {
-            if (UtensilToTimestamp.ContainsKey(utensil)) {
-                if (UtensilToTimestamp[utensil].Contains(timestamp)) {
-                    UtensilToTimestamp[utensil].Remove(timestamp);
-                } else {
-                    throw new RecipeException("No timestamp was found that corresponds with the given utensil and time.");
-                }
-            } else {
-                throw new RecipeException("The recipe doesn't use the given utensil");
-            }
-        }
-
-        // Change the timestamp of an ingredient in a recipe
-        public void UpdateUtensil(Utensil utensil, Timestamp oldTimestamp, Timestamp newTimestamp) {
-            if (UtensilToTimestamp.ContainsKey(utensil)) {
-                if (UtensilToTimestamp[utensil].Contains(oldTimestamp)) {
-                    UtensilToTimestamp[utensil].Remove(oldTimestamp);
-                    UtensilToTimestamp[utensil].Add(newTimestamp);
-                } else {
-                    throw new RecipeException("No timestamp was found that corresponds with the given utensil and time.");
-                }
-            } else {
-                throw new RecipeException("The recipe doesn't use the given utensil");
-            }
-        }
     }
 }

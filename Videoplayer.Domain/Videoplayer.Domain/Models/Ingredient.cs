@@ -7,24 +7,23 @@ using VideoplayerProject.Domain.Exceptions;
 
 namespace VideoplayerProject.Domain.Models {
     public class Ingredient {
-
-        public Ingredient(int id, string name, decimal price, string brand) {
-            Id = id;
+        public Ingredient(string name, decimal? price, string brand, string img) {
             Name = name;
             Price = price;
             Brand = brand;
+            Img = img;
         }
+
 
         private int _id;
 
-        public int Id
-        {
+        public int Id {
             get { return _id; }
-            set
-            {
-                if (value > 0) { _id = value; }
-                else
-                {
+            set {
+                if (value > 0) {
+                    _id = value;
+                }
+                else {
                     throw new IngredientException("Invalid ID!");
                 }
             }
@@ -37,35 +36,60 @@ namespace VideoplayerProject.Domain.Models {
             set {
                 if (!string.IsNullOrEmpty(value)) {
                     _name = value;
-                } else {
+                }
+                else {
                     throw new IngredientException("Please enter an ingredient name");
                 }
             }
         }
 
-        private Decimal _price;
+        private Decimal? _price;
 
-        public Decimal Price {
+        public Decimal? Price {
             get { return _price; }
-            set { if (value > 0) {
+            set {
+                if (value >= 0) {
                     _price = value;
-                } else {
+                }
+                else {
                     throw new IngredientException("Price must be bigger than 0.");
                 }
             }
         }
 
-        private string _brand;        
+        private string _brand;
+
 
         public string? Brand {
             get { return _brand; }
             set {
                 if (!string.IsNullOrEmpty(value)) {
                     _brand = value;
-                } else {
+                }
+                else {
                     throw new IngredientException("Please enter a brand name");
                 }
             }
+        }
+
+        private string _img;
+
+        public string Img {
+            get { return _img; }
+            set { _img = value; }
+        }
+
+        public override bool Equals(object obj) {
+            return obj is Ingredient ingredient &&
+                   Id == ingredient.Id;
+        }
+
+        public override int GetHashCode() {
+            return HashCode.Combine(Id);
+        }
+
+        public override string ToString() {
+            return $"Name: {Name}, Price: {Price}, Brand: {Brand}, Image: {Img}";
         }
     }
 }

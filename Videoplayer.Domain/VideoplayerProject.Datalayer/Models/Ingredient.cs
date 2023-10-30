@@ -14,7 +14,7 @@ public class Ingredient {
 
     [Required]
     [Column(TypeName = "decimal(10,2)")]
-    public decimal Price { get; set; }
+    public decimal? Price { get; set; }
 
     [MaxLength(255)]
     public string Brand { get; set; }

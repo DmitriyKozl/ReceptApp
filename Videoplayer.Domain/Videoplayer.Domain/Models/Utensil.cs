@@ -8,9 +8,9 @@ using VideoplayerProject.Domain.Exceptions;
 namespace VideoplayerProject.Domain.Models {
     public class Utensil {
 
-        public Utensil(int id, string name) {
-            Id = id;
+        public Utensil( string name, string imgUrl) {
             Name = name;
+            ImgUrl = imgUrl;
         }
 
         private int _id;
@@ -40,6 +40,23 @@ namespace VideoplayerProject.Domain.Models {
                 }
 
             }
+        }
+
+        private string? _imgUrl;
+        
+        public string? ImgUrl {
+            get { return _imgUrl; }
+            set {
+                if (!string.IsNullOrEmpty(value)) {
+                    _imgUrl = value;
+                } else {
+                    throw new UtensilException("Please enter an Utensil image URL");
+                }
+            }
+        }
+        public override string ToString()
+        {
+            return $" Name: {Name}, Image URL: {ImgUrl}";
         }
     }
 }

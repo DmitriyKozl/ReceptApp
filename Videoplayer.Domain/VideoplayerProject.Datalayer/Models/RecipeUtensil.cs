@@ -14,7 +14,7 @@ public class RecipeUtensil {
     [Key, Column(Order = 2)]
     public TimeSpan BeginTime { get; set; }
 
-    public TimeSpan? EndTime { get; set; }
+    public TimeSpan EndTime { get; set; }
 
     [ForeignKey("RecipeID")]
     public Recipe Recipe { get; set; }

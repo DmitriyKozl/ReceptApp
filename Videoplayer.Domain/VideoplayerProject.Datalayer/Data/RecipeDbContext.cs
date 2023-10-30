@@ -1,6 +1,4 @@
-﻿
-
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using VideoplayerProject.Datalayer.Models;
 using Ingredient = VideoplayerProject.Datalayer.Models.Ingredient;
@@ -12,11 +10,7 @@ public class RecipeDbContext : DbContext {
     public RecipeDbContext(DbContextOptions<RecipeDbContext> options)
         : base(options) { }
 
-    private string connectionstring {get; set;}
-    public RecipeDbContext(string connectionstring) {
-        this.connectionstring = connectionstring;
-    }
-
+    
     public DbSet<Ingredient> Ingredients { get; set; }
     public DbSet<Recipe> Recipes { get; set; }
     public DbSet<Utensils> Utensils { get; set; }
@@ -24,6 +18,9 @@ public class RecipeDbContext : DbContext {
     public DbSet<RecipeUtensil> RecipeUtensils { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
+        modelBuilder.Entity<Recipe>()
+            .Property(r => r.RecipeID)
+            .ValueGeneratedOnAdd(); 
         modelBuilder.Entity<RecipeIngredient>()
             .HasKey(ri => new { ri.RecipeID, ri.IngredientID, ri.BeginTime });
 
@@ -50,10 +47,5 @@ public class RecipeDbContext : DbContext {
             .HasOne(ru => ru.Utensil)
             .WithMany(u => u.RecipeUtensils)
             .HasForeignKey(ru => ru.UtensilID);
-    }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
-        optionsBuilder.UseSqlServer(
-            connectionstring);
     }
 }
