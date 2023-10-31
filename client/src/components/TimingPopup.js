@@ -6,7 +6,6 @@ import {
   FormControl,
   InputLabel,
   MenuItem,
-  OutlinedInput,
   Select,
   Stack,
 } from '@mui/material'

@@ -13,7 +13,11 @@ export const Topbar = () => {
     <AppBar position='static' sx={{ backgroundColor: '#fff' }}>
       <Toolbar sx={{ justifyContent: 'space-between' }}>
         <Box>
-          <Button>
+          <Button
+            onClick={() => {
+              navigate('/home')
+            }}
+          >
             <img src={logo} alt={'logo'} />
           </Button>
           <Chip label='Video Shopping' sx={{ color: 'primary.main', backgroundColor: 'primary.light', m: 2 }} />
