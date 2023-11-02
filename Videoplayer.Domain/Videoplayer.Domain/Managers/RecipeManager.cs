@@ -36,47 +36,17 @@ public class RecipeManager : IRecipeService {
         _recipeRepository.RemoveRecipe(id);
     }
 
-/* TODO implement this
+//TODO: Implement UpdateRecipe
+    
+    // INGREDIENT CRUD
+    // create
     public void AddIngredientWithTimeStamp(Recipe recipe, Ingredient ingredient, Timestamp timestamp) {
-        if (!recipe.IngredientToTimestamp.ContainsKey(ingredient)) {
-            recipe.IngredientToTimestamp[ingredient] = new List<Timestamp>();
-        }
+        recipe.AddIngredientWithTimeStampToRecipe(ingredient, timestamp);
 
-        recipe.IngredientToTimestamp[ingredient].Add(timestamp);
-
-        _recipeRepository.UpdateRecipe(recipe.Id, recipe);
+        //_recipeRepository.UpdateRecipe(recipe.Id, recipe);
     }
 
-    public void AddUtensilWithTimeStamp(Recipe recipe, Utensil utensil, Timestamp timestamp) {
-        if (!recipe.UtensilToTimestamp.ContainsKey(utensil)) {
-            recipe.UtensilToTimestamp[utensil] = new List<Timestamp>();
-        }
-
-        recipe.UtensilToTimestamp[utensil].Add(timestamp);
-
-        _recipeRepository.UpdateRecipe(recipe.Id, recipe);
-    }
-
-    public void RemoveIngredientFromRecipe(int recipeId, Ingredient ingredient) {
-        var recipe = _recipeRepository.GetRecipeById(recipeId);
-        if (recipe == null || !recipe.IngredientToTimestamp.ContainsKey(ingredient))
-            throw new RecipeException("Ingredient not found in the recipe");
-
-        recipe.IngredientToTimestamp.Remove(ingredient);
-        _recipeRepository.UpdateRecipe(recipeId, recipe);
-    }
-
-    public void UpdateIngredientTimestamp(int recipeId, Ingredient ingredient, Timestamp oldTimestamp,
-        Timestamp newTimestamp) {
-        var recipe = _recipeRepository.GetRecipeById(recipeId);
-        if (recipe == null || !recipe.IngredientToTimestamp.ContainsKey(ingredient)
-                           || !recipe.IngredientToTimestamp[ingredient].Remove(oldTimestamp))
-            throw new RecipeException("Ingredient or timestamp not found in the recipe");
-
-        recipe.IngredientToTimestamp[ingredient].Add(newTimestamp);
-        _recipeRepository.UpdateRecipe(recipeId, recipe);
-    }
-
+    // read
     public Dictionary<Ingredient, List<Timestamp>> GetIngredientsWithTimestamps(int recipeId) {
         var recipe = _recipeRepository.GetRecipeById(recipeId);
         if (recipe == null)
@@ -84,11 +54,73 @@ public class RecipeManager : IRecipeService {
         return recipe.IngredientToTimestamp;
     }
 
+    // update
+    public void UpdateIngredientTimestamp(int recipeId, Ingredient ingredient, Timestamp oldTimestamp,
+        Timestamp newTimestamp) {
+        var recipe = _recipeRepository.GetRecipeById(recipeId);
+        recipe.UpdateIngredientTimestamp(ingredient, oldTimestamp, newTimestamp);
+        //_recipeRepository.UpdateRecipe(recipeId, recipe);
+    }
+
+    // delete ingredient and ALL its timestamps
+    public void RemoveIngredientFromRecipe(int recipeId, Ingredient ingredient) {
+        // Get recipe
+        var recipe = _recipeRepository.GetRecipeById(recipeId);
+        recipe.RemoveIngredient(ingredient);
+
+        //_recipeRepository.UpdateRecipe(recipeId, recipe);
+    }
+
+    // delete specific timestamp for ingredient
+    public void RemoveTimestampForIngredient(int recipeId, Ingredient ingredient, Timestamp timestamp) {
+        var recipe = _recipeRepository.GetRecipeById(recipeId);
+        recipe.RemoveTimestampForIngredient(ingredient, timestamp);
+
+        //_recipeRepository.UpdateRecipe(recipeId, recipe);
+    }
+
+    // TIMESTAMP CRUD
+    // create
+    public void AddUtensilWithTimeStamp(Recipe recipe, Utensil utensil, Timestamp timestamp) {
+        recipe.AddUtensilWithTimeStampToRecipe(utensil, timestamp);
+
+        //_recipeRepository.UpdateRecipe(recipe.Id, recipe);
+    }
+
+    // read
     public Dictionary<Utensil, List<Timestamp>> GetUtensilsWithTimestamps(int recipeId) {
         var recipe = _recipeRepository.GetRecipeById(recipeId);
         if (recipe == null)
             throw new RecipeException("Recipe not found");
         return recipe.UtensilToTimestamp;
     }
-    */
+
+    // update
+    public void UpdateUtensilTimestamp(int recipeId, Utensil utensil, Timestamp oldTimestamp,
+        Timestamp newTimestamp) {
+        var recipe = _recipeRepository.GetRecipeById(recipeId);
+        recipe.UpdateUtensilTimestamp(utensil, oldTimestamp, newTimestamp);
+        //_recipeRepository.UpdateRecipe(recipeId, recipe);
+    }
+
+    // delete utensil and ALL timestamps
+    public void RemoveUtensilFromRecipe(int recipeId, Utensil utensil) {
+        var recipe = _recipeRepository.GetRecipeById(recipeId);
+        recipe.RemoveUtensil(utensil);
+        //_recipeRepository.UpdateRecipe(recipe.Id, recipe);
+    }
+
+    // delete specific timestamp for utensil
+    public void RemoveTimestampForUtensil(int recipeId, Utensil utensil, Timestamp timestamp) {
+        var recipe = _recipeRepository.GetRecipeById(recipeId);
+        recipe.RemoveTimestampForUtensil(utensil, timestamp);
+        //_recipeRepository.UpdateRecipe(recipe.Id, recipe);
+    }
+
+
+
+
+
+
+
 }

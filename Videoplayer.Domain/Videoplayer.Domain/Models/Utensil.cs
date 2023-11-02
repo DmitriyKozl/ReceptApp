@@ -33,7 +33,7 @@ namespace VideoplayerProject.Domain.Models {
         public string Name {
             get { return _name; }
             set {
-                if (!string.IsNullOrEmpty(value)) {
+                if (!string.IsNullOrWhiteSpace(value)) {
                     _name = value;
                 } else {
                     throw new UtensilException("Please enter an Utensil name");
