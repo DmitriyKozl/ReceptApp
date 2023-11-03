@@ -7,11 +7,12 @@ using VideoplayerProject.Domain.Exceptions;
 
 namespace VideoplayerProject.Domain.Models {
     public class Ingredient {
-        public Ingredient(string name, decimal? price, string brand, string img) {
+        public Ingredient(int id, string name, decimal? price, string brand, string img) {
             Name = name;
             Price = price;
             Brand = brand;
             Img = img;
+            Id = id;
         }
 
 

@@ -11,6 +11,6 @@ public interface IIngredientRepository {
     void CreateIngredient(Ingredient ingredient);
     
     public void RemoveIngredient(int id);
+    public void UpdateIngredient(Ingredient ingredient);
     
-//TODO: Add UpdateIngredient
 }

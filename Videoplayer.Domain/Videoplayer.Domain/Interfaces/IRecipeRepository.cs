@@ -7,9 +7,7 @@ public interface IRecipeRepository {
     List<Recipe> GetFilteredRecipes(string filter);
     Recipe GetRecipeById(int id); 
   
-    //TODO Creating recipes throws errors..fix it
     void CreateRecipe(Recipe recipe);
-    // TODO Removing recipes throws errors if recipe has constraints..fix it
     void RemoveRecipe(int id);
 
     // TODO New method declarations for adding, removing and updating ingredients and utensils in recipes
