@@ -12,7 +12,6 @@ namespace VideoplayerProject.Domain.Models {
             Servings = servings;
             VideoLink = videoLink;
             CookingTime = cookingTime;
-            Id = 0;
         }
 
         private int _id;

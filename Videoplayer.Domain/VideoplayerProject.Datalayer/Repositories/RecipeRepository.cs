@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using VideoplayerProject.Datalayer.Data;
 using VideoplayerProject.Datalayer.Mappers;
+using VideoplayerProject.Datalayer.Exceptions;
 using IRecipeRepository = VideoplayerProject.Domain.Interfaces.IRecipeRepository;
 
 namespace VideoplayerProject.Datalayer.Repositories;
@@ -55,7 +56,8 @@ public class RecipeRepository : IRecipeRepository {
     
     public void CreateRecipe(Domain.Models.Recipe domainRecipe) {
         if (domainRecipe == null) throw new ArgumentNullException(nameof(domainRecipe));
-
+        if (domainRecipe.Id != 0) throw new MapperException("ID should be 0 when atempting to create new database entry");
+        
         var dataRecipe = RecipeMapper.MapToDataEntity(domainRecipe, _context);
         _context.Recipes.Add(dataRecipe);
         _context.SaveChanges();

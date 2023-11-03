@@ -70,7 +70,6 @@ public class RecipeMapper {
         HandleRecipeIngredients(domainRecipe, dataRecipe, context);
         HandleRecipeUtensils(domainRecipe, dataRecipe, context);
 
-        SaveRecipe(domainRecipe, dataRecipe, context);
         return dataRecipe;
     }
  private static void HandleRecipeIngredients(Recipe domainRecipe, Datalayer.Models.Recipe dataRecipe, RecipeDbContext context) {
@@ -161,14 +160,7 @@ private static Datalayer.Models.Recipe GetDataRecipe(Recipe domainRecipe, Recipe
         dataRecipe.VideoLink = domainRecipe.VideoLink;
         dataRecipe.CookingTime = domainRecipe.CookingTime;
     }
-    private static void SaveRecipe(Recipe domainRecipe, Datalayer.Models.Recipe dataRecipe, RecipeDbContext context) {
-        if (domainRecipe.Id == 0) {
-            context.Recipes.Add(dataRecipe);
-        } else {
-            context.Recipes.Update(dataRecipe);
-        }
-        context.SaveChanges();
-    }
+
     
     
 }
