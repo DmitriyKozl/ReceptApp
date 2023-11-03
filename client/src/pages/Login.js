@@ -12,7 +12,6 @@ import {
   Stack,
   Typography,
 } from '@mui/material'
-import { Topbar } from '../components/Topbar'
 import Background from '../assets/background.jpeg'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
@@ -25,8 +24,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false)
 
   return (
-    <Grid>
-      <Topbar />
+    <Grid sx={{ mt: '65px' }}>
       <Grid
         container
         sx={{
