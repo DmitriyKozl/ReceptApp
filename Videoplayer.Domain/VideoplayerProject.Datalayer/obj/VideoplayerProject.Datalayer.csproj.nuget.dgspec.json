@@ -1,7 +1,6 @@
 {
   "format": 1,
   "restore": {
-<<<<<<< HEAD
     "C:\\Users\\ncorn\\Desktop\\Projectwerk\\receptapp\\Videoplayer.Domain\\VideoplayerProject.Datalayer\\VideoplayerProject.Datalayer.csproj": {}
   },
   "projects": {
@@ -13,30 +12,9 @@
         "projectPath": "C:\\Users\\ncorn\\Desktop\\Projectwerk\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\VideoplayerProject.Domain.csproj",
         "packagesPath": "C:\\Users\\ncorn\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\ncorn\\Desktop\\Projectwerk\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\obj\\",
-=======
-    "C:\\Users\\bertd\\Documents\\Hogent 2023-2024\\Sem1\\Projectwerk\\RecepApplicatie\\receptapp\\Videoplayer.Domain\\VideoplayerProject.Datalayer\\VideoplayerProject.Datalayer.csproj": {}
-  },
-  "projects": {
-    "C:\\Users\\bertd\\Documents\\Hogent 2023-2024\\Sem1\\Projectwerk\\RecepApplicatie\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\VideoplayerProject.Domain.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\bertd\\Documents\\Hogent 2023-2024\\Sem1\\Projectwerk\\RecepApplicatie\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\VideoplayerProject.Domain.csproj",
-        "projectName": "VideoplayerProject.Domain",
-        "projectPath": "C:\\Users\\bertd\\Documents\\Hogent 2023-2024\\Sem1\\Projectwerk\\RecepApplicatie\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\VideoplayerProject.Domain.csproj",
-        "packagesPath": "C:\\Users\\bertd\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\bertd\\Documents\\Hogent 2023-2024\\Sem1\\Projectwerk\\RecepApplicatie\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\obj\\",
->>>>>>> 9120c0f7126e9d72904a9f120dc244da3f43b06d
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-<<<<<<< HEAD
           "C:\\Users\\ncorn\\AppData\\Roaming\\NuGet\\NuGet.Config",
-=======
-          "C:\\Users\\bertd\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
->>>>>>> 9120c0f7126e9d72904a9f120dc244da3f43b06d
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -44,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -82,7 +59,6 @@
         }
       }
     },
-<<<<<<< HEAD
     "C:\\Users\\ncorn\\Desktop\\Projectwerk\\receptapp\\Videoplayer.Domain\\VideoplayerProject.Datalayer\\VideoplayerProject.Datalayer.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -91,27 +67,9 @@
         "projectPath": "C:\\Users\\ncorn\\Desktop\\Projectwerk\\receptapp\\Videoplayer.Domain\\VideoplayerProject.Datalayer\\VideoplayerProject.Datalayer.csproj",
         "packagesPath": "C:\\Users\\ncorn\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\ncorn\\Desktop\\Projectwerk\\receptapp\\Videoplayer.Domain\\VideoplayerProject.Datalayer\\obj\\",
-=======
-    "C:\\Users\\bertd\\Documents\\Hogent 2023-2024\\Sem1\\Projectwerk\\RecepApplicatie\\receptapp\\Videoplayer.Domain\\VideoplayerProject.Datalayer\\VideoplayerProject.Datalayer.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\bertd\\Documents\\Hogent 2023-2024\\Sem1\\Projectwerk\\RecepApplicatie\\receptapp\\Videoplayer.Domain\\VideoplayerProject.Datalayer\\VideoplayerProject.Datalayer.csproj",
-        "projectName": "VideoplayerProject.Datalayer",
-        "projectPath": "C:\\Users\\bertd\\Documents\\Hogent 2023-2024\\Sem1\\Projectwerk\\RecepApplicatie\\receptapp\\Videoplayer.Domain\\VideoplayerProject.Datalayer\\VideoplayerProject.Datalayer.csproj",
-        "packagesPath": "C:\\Users\\bertd\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\bertd\\Documents\\Hogent 2023-2024\\Sem1\\Projectwerk\\RecepApplicatie\\receptapp\\Videoplayer.Domain\\VideoplayerProject.Datalayer\\obj\\",
->>>>>>> 9120c0f7126e9d72904a9f120dc244da3f43b06d
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-<<<<<<< HEAD
           "C:\\Users\\ncorn\\AppData\\Roaming\\NuGet\\NuGet.Config",
-=======
-          "C:\\Users\\bertd\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
->>>>>>> 9120c0f7126e9d72904a9f120dc244da3f43b06d
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -119,20 +77,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-<<<<<<< HEAD
               "C:\\Users\\ncorn\\Desktop\\Projectwerk\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\VideoplayerProject.Domain.csproj": {
                 "projectPath": "C:\\Users\\ncorn\\Desktop\\Projectwerk\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\VideoplayerProject.Domain.csproj"
-=======
-              "C:\\Users\\bertd\\Documents\\Hogent 2023-2024\\Sem1\\Projectwerk\\RecepApplicatie\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\VideoplayerProject.Domain.csproj": {
-                "projectPath": "C:\\Users\\bertd\\Documents\\Hogent 2023-2024\\Sem1\\Projectwerk\\RecepApplicatie\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\VideoplayerProject.Domain.csproj"
->>>>>>> 9120c0f7126e9d72904a9f120dc244da3f43b06d
               }
             }
           }

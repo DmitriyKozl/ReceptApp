@@ -56,5 +56,7 @@ public class RecipeDbContext : DbContext {
             .WithMany(u => u.RecipeUtensils)
             .OnDelete(DeleteBehavior.Cascade)
             .HasForeignKey(ru => ru.UtensilID);
+
+
     }
 }

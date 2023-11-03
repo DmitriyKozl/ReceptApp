@@ -23,13 +23,13 @@ namespace Testt
             RecipeDbContext dbContext = new RecipeDbContext(options);
             RecipeManager rManager = new RecipeManager(new RecipeRepository(dbContext));
             IngredientManager iManager = new IngredientManager(new IngredientRepository(dbContext));
+            UtensilManager uManager = new UtensilManager(new UtensilsRepository(dbContext));
 
+           foreach(Utensil u in uManager.GetAllUtensils())
 
-           foreach(Ingredient i in iManager.GetAllIngredients())
             {
-                Console.WriteLine(i.Name,i.Id);
+                Console.WriteLine(u.Name + u.Id);
             }
-            rManager.RemoveRecipe(2);
         }
 
     }

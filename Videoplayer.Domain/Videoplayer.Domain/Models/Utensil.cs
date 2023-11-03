@@ -8,9 +8,10 @@ using VideoplayerProject.Domain.Exceptions;
 namespace VideoplayerProject.Domain.Models {
     public class Utensil {
 
-        public Utensil( string name, string imgUrl) {
+        public Utensil( string name, string imgUrl, int id) {
             Name = name;
             ImgUrl = imgUrl;
+            Id = id;
         }
 
         private int _id;
