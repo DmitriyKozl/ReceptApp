@@ -8,9 +8,10 @@ using VideoplayerProject.Domain.Exceptions;
 namespace VideoplayerProject.Domain.Models {
     public class Utensil {
 
-        public Utensil( string name, string imgUrl) {
+        public Utensil( string name, string imgUrl, int id) {
             Name = name;
             ImgUrl = imgUrl;
+            Id = id;
         }
 
         private int _id;
@@ -33,7 +34,7 @@ namespace VideoplayerProject.Domain.Models {
         public string Name {
             get { return _name; }
             set {
-                if (!string.IsNullOrWhiteSpace(value)) {
+                if (!string.IsNullOrEmpty(value)) {
                     _name = value;
                 } else {
                     throw new UtensilException("Please enter an Utensil name");

@@ -61,7 +61,7 @@ export const List = (props) => {
     {
       id: 3,
       img: 'https://images.unsplash.com/photo-1610393742736-72b0185368dc?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      name: 'Aardbei confituur maken',
+      name: 'Aardbei confituur',
       url: 'https://www.youtube.com/watch?v=55Rn2ma2SvY',
       ingredients: [
         {
@@ -96,7 +96,7 @@ export const List = (props) => {
     },
     {
       id: 3,
-      name: 'aardbeiden',
+      name: 'aardbeien',
       brand: 'boni',
       img: 'https://images.unsplash.com/photo-1587393855524-087f83d95bc9?auto=format&fit=crop&q=80&w=1960&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       brandImg:

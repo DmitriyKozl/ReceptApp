@@ -54,6 +54,14 @@ public class IngredientRepository : IIngredientRepository {
         _context.Ingredients.Remove(dataIngredient);
         _context.SaveChanges();
     }
-    
-    
+
+    public void UpdateIngredient(DomainIngredient ingredient)
+    {
+        var dataIngredient = IngredientMapper.MapToDataModel(ingredient);
+
+        if (dataIngredient == null) return;
+
+        _context.Ingredients.Update(dataIngredient);
+        _context.SaveChanges();
+    }
 }

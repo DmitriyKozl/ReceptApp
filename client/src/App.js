@@ -7,6 +7,7 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Admin from './pages/Admin'
+import { Topbar } from './components/Topbar'
 
 const App = () => {
   const theme = createTheme({
@@ -31,8 +32,24 @@ const App = () => {
             <Routes>
               <Route path='*' element={<Navigate to='/' replace />} />
               <Route path='/' element={<Navigate to={'/home'} replace />} />
-              <Route path='/home' element={<Home />} />
-              <Route path='/login' element={<Login />} />
+              <Route
+                path='/home'
+                element={
+                  <>
+                    <Topbar />
+                    <Home/>
+                  </>
+                }
+              />
+              <Route
+                path='/login'
+                element={
+                  <>
+                    <Topbar />
+                    <Login />
+                  </>
+                }
+              />
               <Route path='/:title' element={<Admin />} />
             </Routes>
           </BrowserRouter>
