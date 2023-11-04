@@ -15,10 +15,6 @@ namespace VideoplayerProject.Domain.Models {
             Id = id;
         }
 
-        public Ingredient(int id, string name, decimal price, string? brand, string img) :this(name, price, brand, img) {
-            Id = id;
-        }
-
         private int _id;
 
         public int Id {
