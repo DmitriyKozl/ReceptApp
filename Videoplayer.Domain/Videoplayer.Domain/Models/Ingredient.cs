@@ -7,13 +7,16 @@ using VideoplayerProject.Domain.Exceptions;
 
 namespace VideoplayerProject.Domain.Models {
     public class Ingredient {
-        public Ingredient(string name, decimal? price, string brand, string img) {
+        public Ingredient(string name, decimal price, string? brand, string img) {
             Name = name;
             Price = price;
             Brand = brand;
             Img = img;
         }
 
+        public Ingredient(int id, string name, decimal price, string? brand, string img) :this(name, price, brand, img) {
+            Id = id;
+        }
 
         private int _id;
 
