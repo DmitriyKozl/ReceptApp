@@ -62,6 +62,7 @@ GET /ingredients
 
 ```js
 200 Ok
+
 ```
 
 ```json
