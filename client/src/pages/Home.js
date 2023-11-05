@@ -1,17 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Card,
   CardActionArea,
   CardContent,
   CardMedia,
   Checkbox,
+  Dialog,
   Grid,
+  IconButton,
   ImageList,
   List,
   ListItem,
   Typography,
 } from '@mui/material'
+import CloseIcon from '@mui/icons-material/Close'
 import Banner from '../assets/banner.jpeg'
+import { VideoPopup } from '../components/VideoPoppup'
 
 const Home = () => {
   const dummydataRecipe = [
@@ -62,6 +66,8 @@ const Home = () => {
     },
   ]
 
+  const [openPopup, setOpenPopup] = useState(false)
+
   return (
     <Grid sx={{ overflowX: 'hidden', mt: '65px' }}>
       <img src={Banner} alt={'background'} />
@@ -89,7 +95,12 @@ const Home = () => {
         <Grid sx={{ flex: 4, mb: 2 }}>
           <ImageList sx={{ width: '100%' }} cols={4}>
             {dummydataRecipe.map((e) => (
-              <Card sx={{ maxWidth: 345 }}>
+              <Card
+                onClick={() => {
+                  setOpenPopup(true)
+                }}
+                sx={{ maxWidth: 345, m: 2, borderRadius: 10 }}
+              >
                 <CardActionArea>
                   <CardMedia component='img' height='140' image={e.img} alt={e.name} />
                   <CardContent>
@@ -99,6 +110,23 @@ const Home = () => {
               </Card>
             ))}
           </ImageList>
+          <Dialog
+            open={openPopup}
+            onClose={() => {
+              setOpenPopup(false)
+            }}
+            PaperProps={{ sx: { borderRadius: '20px', width: 1000, maxWidth: 1000 } }}
+          >
+            <IconButton
+              sx={{ position: 'absolute', alignSelf: 'end' }}
+              onClick={() => {
+                setOpenPopup(false)
+              }}
+            >
+              <CloseIcon fontSize='large' />
+            </IconButton>
+            <VideoPopup values={{}} /> 
+          </Dialog>
         </Grid>
       </Grid>
     </Grid>
