@@ -6,7 +6,8 @@ public static class UtensilMapper {
     public static DomainUtensil MapToDomainModel(DataUtensil dataUtensil) {
         var domainUtensil = new DomainUtensil(
             dataUtensil.UtensilName,
-            dataUtensil.ImgUrl
+            dataUtensil.ImgUrl,
+            dataUtensil.UtensilID
         );
         return domainUtensil;
     }

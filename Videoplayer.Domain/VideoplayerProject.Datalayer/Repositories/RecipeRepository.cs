@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using VideoplayerProject.Datalayer.Data;
 using VideoplayerProject.Datalayer.Mappers;
+using VideoplayerProject.Datalayer.Exceptions;
 using IRecipeRepository = VideoplayerProject.Domain.Interfaces.IRecipeRepository;
 
 namespace VideoplayerProject.Datalayer.Repositories;
@@ -55,24 +56,32 @@ public class RecipeRepository : IRecipeRepository {
     
     public void CreateRecipe(Domain.Models.Recipe domainRecipe) {
         if (domainRecipe == null) throw new ArgumentNullException(nameof(domainRecipe));
-
+        if (domainRecipe.Id != 0) throw new MapperException("ID should be 0 when atempting to create new database entry");
+        
         var dataRecipe = RecipeMapper.MapToDataEntity(domainRecipe, _context);
         _context.Recipes.Add(dataRecipe);
         _context.SaveChanges();
     }
     
     public void RemoveRecipe(int id) {
-        var recipe = _context.Recipes.Find(id);
-        if (recipe == null) {
-            Console.WriteLine("Recipe not found");
-            return;
+        var recipe = _context.Recipes
+        .Include(r => r.RecipeIngredients)
+        .Include(r => r.RecipeUtensils)
+        .FirstOrDefault(r => r.RecipeID == id);
+
+        if (!recipe.RecipeIngredients.Any())
+        {
+            throw new MapperException("No Recipe found with that id");
         }
 
+        _context.RecipeIngredient.RemoveRange(recipe.RecipeIngredients);
+        _context.RecipeUtensils.RemoveRange(recipe.RecipeUtensils);
         _context.Recipes.Remove(recipe);
         _context.SaveChanges();
-    }
-
+    }   
 }
+
+
 
 /*
  * TODO - UpdateRecipe

@@ -5,7 +5,7 @@ namespace Test2 {
         static void Main(string[] args) {
             try {
                 Recipe recipe = new("Pasta pesto", 4, "TestUrl", new TimeSpan(0, 0, 30));
-                Ingredient ingredient = new("spaghetti", 2.0m, "Soubry", "C://images/spaghet.jpg");
+                Ingredient ingredient = new(1, "spaghetti", 2.0m, "soubry", "testUrl");
                 Timestamp existingTimestamp = new(new TimeSpan(0, 0, 20), new TimeSpan(0, 0, 25), ingredient.Id);
                 Timestamp newTimestampWithSameStarttime = new(new TimeSpan(0, 0, 20), new TimeSpan(0, 0, 30), ingredient.Id);
 

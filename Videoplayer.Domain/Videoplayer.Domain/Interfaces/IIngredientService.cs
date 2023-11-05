@@ -10,6 +10,7 @@ public interface IIngredientService {
     void CreateIngredient(Ingredient ingredient);
     
     public void RemoveIngredient(int id);
-    
-    //TODO: Add methods for updating ingredients
+
+    public void UpdateIngredient(Ingredient ingredient);
+
 }

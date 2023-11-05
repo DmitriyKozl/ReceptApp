@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using VideoplayerProject.Domain.Exceptions;
@@ -15,13 +14,14 @@ namespace VideoplayerProject.Domain.Models {
             CookingTime = cookingTime;
             Id = 0;
         }
-
+        
         private int _id;
 
         public int Id {
             get { return _id; }
-            set { if (value >= 0) {
-                    _id = value;                
+            set {
+                if (value >= 0) {
+                    _id = value;
                 } else { throw new RecipeException("Invalid ID!"); }
             }
         }
@@ -43,8 +43,9 @@ namespace VideoplayerProject.Domain.Models {
 
         public int? Servings {
             get { return _servings; }
-            set { if (value > 0) {
-                    _servings = value;    
+            set {
+                if (value > 0) {
+                    _servings = value;
                 } else {
                     throw new RecipeException("Invalid ammount of servings");
                 }
@@ -66,15 +67,16 @@ namespace VideoplayerProject.Domain.Models {
 
         private TimeSpan _cookingTime;
 
-        public TimeSpan CookingTime  {
+        public TimeSpan CookingTime {
             get { return _cookingTime; }
-            set {  if(value >= TimeSpan.Zero) {
+            set {
+                if (value >= TimeSpan.Zero) {
                     _cookingTime = value;
                 } else {
                     throw new RecipeException("Cooking time can't be negative.");
                 }
             }
-        }        
+        }
 
         public Dictionary<Ingredient, List<Timestamp>> IngredientToTimestamp = new();
         public Dictionary<Utensil, List<Timestamp>> UtensilToTimestamp = new();
@@ -92,8 +94,8 @@ namespace VideoplayerProject.Domain.Models {
 
                     //Simply add the timestamp to the existing list
                     IngredientToTimestamp[ingredient].Add(timestamp);
-                } 
-                
+                }
+
                 // If the ingredient wasn't already used, add it to the recipe along with the timestamp
                 else {
                     List<Timestamp> timestamps = new List<Timestamp>();
