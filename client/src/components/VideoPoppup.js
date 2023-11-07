@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Box, DialogContent, Grid } from '@mui/material'
 import YouTube from 'react-youtube'
 
 export const VideoPopup = (props) => {
