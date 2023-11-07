@@ -67,7 +67,7 @@ const Login = () => {
             </FormControl>
             <Button
               variant='contained'
-              disabled={!username || !password}
+              // disabled={!username || !password}
               onClick={() => {
                 navigate('/recipe')
               }}
