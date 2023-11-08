@@ -42,7 +42,7 @@ namespace VideoplayerProject.API.Controllers {
             var utensilsData = _utensilManager.GetAllUtensils();
             var utensilsDomain = utensilsData.Select(utensil => MapFromDomain.MapFromUtensilsDomain(Url.Content("~/"), utensil)).ToList();
             if (utensilsDomain == null)
-            {
+            { 
                 return NotFound("Utensils not found.");
             }
             return Ok(utensilsDomain);
