@@ -3,7 +3,7 @@ import { Button, DialogContent, DialogTitle, FormControl, InputLabel, OutlinedIn
 import { VisuallyHiddenInput } from './VisuallyHiddenInput'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 
-export const IngredientPopup = (props) => {
+export const IngredientAndUntensilPopup = (props) => {
   const { values } = props
 
   const [name, setName] = useState(values?.name)
@@ -12,7 +12,7 @@ export const IngredientPopup = (props) => {
   return (
     <React.Fragment>
       <DialogTitle variant='h4' m={1}>
-        Ingredient
+        {values.title}
       </DialogTitle>
       <DialogContent>
         <Stack justifyContent='space-evenly' alignItems='stretch' spacing={3} width={550}>
@@ -40,30 +40,34 @@ export const IngredientPopup = (props) => {
               sx={{ borderRadius: '20px' }}
             />
           </FormControl>
-          <Button
-            component='label'
-            startIcon={<CloudUploadIcon />}
-            sx={{
-              p: '15px 50px',
-              borderRadius: '20px',
-              color: '#fff',
-              backgroundColor: 'primary.main',
-              ':hover': { backgroundColor: 'primary.main' },
-            }}
-          >
-            Upload Brand Image
-            <VisuallyHiddenInput />
-          </Button>
-          <FormControl>
-            <InputLabel>brand</InputLabel>
-            <OutlinedInput
-              label='brand'
-              value={brand}
-              onChange={(e) => setBrand(e.target.value)}
-              margin='normal'
-              sx={{ borderRadius: '20px' }}
-            />
-          </FormControl>
+          {values.title === 'ingredient' ? (
+            <>
+              <Button
+                component='label'
+                startIcon={<CloudUploadIcon />}
+                sx={{
+                  p: '15px 50px',
+                  borderRadius: '20px',
+                  color: '#fff',
+                  backgroundColor: 'primary.main',
+                  ':hover': { backgroundColor: 'primary.main' },
+                }}
+              >
+                Upload Brand Image
+                <VisuallyHiddenInput />
+              </Button>
+              <FormControl>
+                <InputLabel>brand</InputLabel>
+                <OutlinedInput
+                  label='brand'
+                  value={brand}
+                  onChange={(e) => setBrand(e.target.value)}
+                  margin='normal'
+                  sx={{ borderRadius: '20px' }}
+                />
+              </FormControl>
+            </>
+          ) : null}
         </Stack>
       </DialogContent>
     </React.Fragment>

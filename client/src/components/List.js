@@ -20,7 +20,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 
 export const List = (props) => {
-  const { title, setValues, setOpenRecipePopup, setOpenTimingPopup, setOpenIngredientPopup } = props
+  const { title, setValues, setOpenRecipePopup, setOpenTimingPopup, setOpenIngredientAndUtensilPopup } = props
   const dummydataRecipe = [
     {
       id: 1,
@@ -103,6 +103,23 @@ export const List = (props) => {
         'https://www.colruytgroup.com/content/dam/colruytgroup/merken/consumentenmerken/boni/LP_reference-image_boni-new.png/_jcr_content/renditions/cq5dam.web.1280.1280.png',
     },
   ]
+  const dummydataUtensil = [
+    {
+      id: 1,
+      name: 'pan',
+      img: 'https://images.unsplash.com/photo-1592156328697-079f6ee0cfa5?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    },
+    {
+      id: 2,
+      name: 'maatbeker',
+      img: 'https://images.unsplash.com/photo-1586797166778-7cb76a618157?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    },
+    {
+      id: 3,
+      name: 'houten lepel',
+      img: 'https://images.unsplash.com/photo-1579892876770-461a88bd87df?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    },
+  ]
 
   function Row(props) {
     const { row, setValues } = props
@@ -134,16 +151,18 @@ export const List = (props) => {
               </Grid>
             )}
           </TableCell>
-          <TableCell sx={{ borderBottom: 0 }}>
-            {title === 'recipe' ? (
-              row.url
-            ) : (
-              <Grid container sx={{ alignItems: 'center' }}>
-                <Avatar src={row.brandImg} sx={{ m: 1 }} />
-                {row.brand}
-              </Grid>
-            )}
-          </TableCell>
+          {title !== 'utensil' ? (
+            <TableCell sx={{ borderBottom: 0 }}>
+              {title === 'recipe' ? (
+                row.url
+              ) : (
+                <Grid container sx={{ alignItems: 'center' }}>
+                  <Avatar src={row.brandImg} sx={{ m: 1 }} />
+                  {row.brand}
+                </Grid>
+              )}
+            </TableCell>
+          ) : null}
           <TableCell align='right' sx={{ borderBottom: 0, borderRadius: '0 20px 20px 0' }}>
             <IconButton
               onClick={() => {
@@ -152,8 +171,12 @@ export const List = (props) => {
                   setOpenRecipePopup(true)
                 }
                 if (title === 'ingredient') {
-                  setValues({ name: row.name, brand: row.brand })
-                  setOpenIngredientPopup(true)
+                  setValues({ title: title, name: row.name, brand: row.brand })
+                  setOpenIngredientAndUtensilPopup(true)
+                }
+                if (title === 'utensil') {
+                  setValues({ title: title, name: row.name })
+                  setOpenIngredientAndUtensilPopup(true)
                 }
               }}
             >
@@ -254,14 +277,18 @@ export const List = (props) => {
               <TableCell sx={{ borderBottom: 0, borderRadius: title === 'ingredient' ? '20px 0 0 20px' : 0 }}>
                 name
               </TableCell>
-              <TableCell sx={{ borderBottom: 0 }}>{title === 'ingredient' ? 'brand' : 'url'}</TableCell>
+              {title !== 'utensil' ? (
+                <TableCell sx={{ borderBottom: 0 }}>{title === 'recipe' ? 'url' : 'brand'}</TableCell>
+              ) : null}
               <TableCell sx={{ borderBottom: 0, borderRadius: '0 20px 20px 0' }}></TableCell>
             </TableRow>
           </TableHead>
           <TableBody sx={{ backgroundColor: '#fff' }}>
             {title === 'recipe'
               ? dummydataRecipe.map((row) => <Row key={row.id} row={row} setValues={setValues} />)
-              : dummydataIngredient.map((row) => <Row key={row.id} row={row} setValues={setValues} />)}
+              : title === 'ingredient'
+              ? dummydataIngredient.map((row) => <Row key={row.id} row={row} setValues={setValues} />)
+              : dummydataUtensil.map((row) => <Row key={row.id} row={row} setValues={setValues} />)}
           </TableBody>
         </Table>
       </TableContainer>

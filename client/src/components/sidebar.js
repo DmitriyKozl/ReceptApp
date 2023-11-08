@@ -1,9 +1,10 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button, Grid, Typography } from '@mui/material'
-import HomeIcon from '@mui/icons-material/Home';
+import HomeIcon from '@mui/icons-material/Home'
 import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu'
 import IngredientIcon from '@mui/icons-material/ShoppingBasket'
+import UtensilIcon from '@mui/icons-material/Restaurant'
 
 export const Sidebar = (selected) => {
   const navigate = useNavigate()
@@ -24,7 +25,7 @@ export const Sidebar = (selected) => {
       >
         <Grid>
           <HomeIcon />
-          <Typography>HOME</Typography>
+          <Typography>home</Typography>
         </Grid>
       </Button>
       <Button
@@ -58,7 +59,24 @@ export const Sidebar = (selected) => {
       >
         <Grid>
           <IngredientIcon />
-          <Typography>Ingredient</Typography>
+          <Typography>ingredient</Typography>
+        </Grid>
+      </Button>
+      <Button
+        onClick={() => navigate('/utensil')}
+        sx={{
+          mt: 2,
+          width: '100%',
+          backgroundColor: selected.title === 'utensil' ? 'primary.dark' : 'background.default',
+          color: '#fff',
+          ':hover': {
+            backgroundColor: selected.title === 'utensil' ? 'primary.dark' : 'background.default',
+          },
+        }}
+      >
+        <Grid>
+          <UtensilIcon />
+          <Typography>Utensil</Typography>
         </Grid>
       </Button>
     </Grid>

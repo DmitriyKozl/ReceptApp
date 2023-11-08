@@ -20,8 +20,6 @@ builder.Services.AddScoped<IUtensilService, UtensilManager>(); // Assuming Ingre
 builder.Services.AddScoped<IUtensilsRepository, UtensilsRepository>();
 builder.Services.AddDbContext<RecipeDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("RecipeDbContext")));
 
-
-
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment()) {

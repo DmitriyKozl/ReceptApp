@@ -5,7 +5,7 @@ import { Sidebar } from '../components/Sidebar'
 import { List } from '../components/List'
 import { RecipePopup } from '../components/RecipePopup'
 import { TimingPopup } from '../components/TimingPopup'
-import { IngredientPopup } from '../components/IngredientPopup'
+import { IngredientAndUntensilPopup } from '../components/IngredientAndUtensilPopup'
 import CloseIcon from '@mui/icons-material/Close'
 
 const Admin = () => {
@@ -13,13 +13,13 @@ const Admin = () => {
 
   const [openRecipePopup, setOpenRecipePopup] = useState(false)
   const [openTimingPopup, setOpenTimingPopup] = useState(false)
-  const [openIngredientPopup, setOpenIngredientPopup] = useState(false)
+  const [openIngredientPopup, setOpenIngredientAndUtensilPopup] = useState(false)
   const [values, setValues] = useState({})
 
   const handleClose = () => {
     setOpenRecipePopup(false)
     setOpenTimingPopup(false)
-    setOpenIngredientPopup(false)
+    setOpenIngredientAndUtensilPopup(false)
   }
 
   return (
@@ -39,13 +39,13 @@ const Admin = () => {
           </Box>
           <Button
             onClick={() => {
-              setValues({})
+              setValues({ title: title })
               if (title === 'recipe') setOpenRecipePopup(true)
-              if (title === 'ingredient') setOpenIngredientPopup(true)
+              else setOpenIngredientAndUtensilPopup(true)
             }}
             sx={{ border: 1, borderRadius: 10, m: 1 }}
           >
-            {title === 'recipe' ? '+ add a recipe' : '+ add a ingredient'}
+            {title === 'recipe' ? '+ add a recipe' : title === 'ingredient' ? '+ add a ingredient' : '+ add a utensil'}
           </Button>
         </Grid>
         <List
@@ -53,7 +53,7 @@ const Admin = () => {
           setValues={setValues}
           setOpenRecipePopup={setOpenRecipePopup}
           setOpenTimingPopup={setOpenTimingPopup}
-          setOpenIngredientPopup={setOpenIngredientPopup}
+          setOpenIngredientAndUtensilPopup={setOpenIngredientAndUtensilPopup}
         />
         <Dialog open={openRecipePopup} onClose={handleClose} PaperProps={{ sx: { borderRadius: '20px' } }}>
           <IconButton sx={{ position: 'absolute', alignSelf: 'end' }} onClick={handleClose}>
@@ -99,7 +99,7 @@ const Admin = () => {
           <IconButton sx={{ position: 'absolute', alignSelf: 'end' }} onClick={handleClose}>
             <CloseIcon fontSize='large' />
           </IconButton>
-          <IngredientPopup values={values} />
+          <IngredientAndUntensilPopup values={values} />
           <DialogActions sx={{ justifyContent: 'center' }}>
             <Button
               onClick={handleClose}
