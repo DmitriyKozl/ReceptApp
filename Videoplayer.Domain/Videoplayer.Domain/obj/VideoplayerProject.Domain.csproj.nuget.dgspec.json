@@ -1,28 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Programming\\projectwerk\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\VideoplayerProject.Domain.csproj": {}
+    "D:\\CursusPB\\Jaar_2\\Projectwerk\\RecipeApp\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\VideoplayerProject.Domain.csproj": {}
   },
   "projects": {
-    "D:\\Programming\\projectwerk\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\VideoplayerProject.Domain.csproj": {
+    "D:\\CursusPB\\Jaar_2\\Projectwerk\\RecipeApp\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\VideoplayerProject.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Programming\\projectwerk\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\VideoplayerProject.Domain.csproj",
+        "projectUniqueName": "D:\\CursusPB\\Jaar_2\\Projectwerk\\RecipeApp\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\VideoplayerProject.Domain.csproj",
         "projectName": "VideoplayerProject.Domain",
-        "projectPath": "D:\\Programming\\projectwerk\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\VideoplayerProject.Domain.csproj",
-        "packagesPath": "C:\\Users\\mielw\\.nuget\\packages\\",
-        "outputPath": "D:\\Programming\\projectwerk\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\obj\\",
+        "projectPath": "D:\\CursusPB\\Jaar_2\\Projectwerk\\RecipeApp\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\VideoplayerProject.Domain.csproj",
+        "packagesPath": "C:\\Users\\Dmitriy\\.nuget\\packages\\",
+        "outputPath": "D:\\CursusPB\\Jaar_2\\Projectwerk\\RecipeApp\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\mielw\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Dmitriy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -56,7 +55,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     }

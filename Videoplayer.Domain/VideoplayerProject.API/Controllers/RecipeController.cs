@@ -1,15 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using VideoplayerProject.API.Mappers;
-using VideoplayerProject.API.Models;
 using VideoplayerProject.API.Models.Output;
 using VideoplayerProject.Domain.Interfaces;
-using VideoplayerProject.Domain.Managers;
 using VideoplayerProject.Domain.Models;
+
 
 namespace VideoplayerProject.API.Controllers;
 
@@ -39,6 +33,20 @@ public class RecipeController : ControllerBase {
             return StatusCode(StatusCodes.Status500InternalServerError,
                 "An error occurred while processing your request.");
         }
+    }
+
+    [HttpGet("all")]
+    public ActionResult<RecipeOutputDTO> GetAllRecipes() {
+        
+        var recipesData = _recipeManager.GetAllRecipes();
+        var recipesDomain = recipesData.Select(recipe => MapFromDomain.MapFromRecipeDomain(Url.Content("~/"), recipe)).ToList();
+        
+        if (recipesDomain == null)
+        {
+            return NotFound("Recipes not found.");
+        }
+
+        return Ok(recipesDomain);
     }
     // POST: api/Recipe
 }

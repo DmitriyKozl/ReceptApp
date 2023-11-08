@@ -15,6 +15,10 @@ public class RecipeRepository : IRecipeRepository {
 
     public List<Domain.Models.Recipe> GetAllRecipes() {
         return _context.Recipes
+            .Include(r => r.RecipeIngredients)
+            .ThenInclude(ri => ri.Ingredient)
+            .Include(r => r.RecipeUtensils)
+            .ThenInclude(ru => ru.Utensil)
             .Select(r => RecipeMapper.MapToDomainModel(r))
             .ToList();
     }
@@ -53,24 +57,24 @@ public class RecipeRepository : IRecipeRepository {
         //
         // return domainRecipe;
     }
-    
+
     public void CreateRecipe(Domain.Models.Recipe domainRecipe) {
         if (domainRecipe == null) throw new ArgumentNullException(nameof(domainRecipe));
-        if (domainRecipe.Id != 0) throw new MapperException("ID should be 0 when atempting to create new database entry");
-        
+        if (domainRecipe.Id != 0)
+            throw new MapperException("ID should be 0 when atempting to create new database entry");
+
         var dataRecipe = RecipeMapper.MapToDataEntity(domainRecipe, _context);
         _context.Recipes.Add(dataRecipe);
         _context.SaveChanges();
     }
-    
+
     public void RemoveRecipe(int id) {
         var recipe = _context.Recipes
-        .Include(r => r.RecipeIngredients)
-        .Include(r => r.RecipeUtensils)
-        .FirstOrDefault(r => r.RecipeID == id);
+            .Include(r => r.RecipeIngredients)
+            .Include(r => r.RecipeUtensils)
+            .FirstOrDefault(r => r.RecipeID == id);
 
-        if (!recipe.RecipeIngredients.Any())
-        {
+        if (!recipe.RecipeIngredients.Any()) {
             throw new MapperException("No Recipe found with that id");
         }
 
@@ -78,9 +82,8 @@ public class RecipeRepository : IRecipeRepository {
         _context.RecipeUtensils.RemoveRange(recipe.RecipeUtensils);
         _context.Recipes.Remove(recipe);
         _context.SaveChanges();
-    }   
+    }
 }
-
 
 
 /*
@@ -135,7 +138,7 @@ public void AddUtensilWithTimeStamp(Domain.Models.Recipe recipe, Utensil utensil
         // Check if utensil exists
         var existingRecipeUtensil = _context.RecipeUtensils
             .FirstOrDefault(ru => ru.RecipeID == recipe.Id
-                                  && ru.UtensilID == utensil.Id 
+                                  && ru.UtensilID == utensil.Id
                                   && ru.BeginTime == timestamp.StartTime);
 
         if (existingRecipeUtensil == null)

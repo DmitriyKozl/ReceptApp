@@ -2,35 +2,6 @@
   "version": 3,
   "targets": {
     "net7.0": {
-      "AutoMapper/12.0.1": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.CSharp": "4.7.0"
-        },
-        "compile": {
-          "lib/netstandard2.1/AutoMapper.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.1/AutoMapper.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "AutoMapper.Extensions.Microsoft.DependencyInjection/12.0.1": {
-        "type": "package",
-        "dependencies": {
-          "AutoMapper": "[12.0.1]",
-          "Microsoft.Extensions.Options": "6.0.0"
-        },
-        "compile": {
-          "lib/netstandard2.1/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.1/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
-        }
-      },
       "Azure.Core/1.25.0": {
         "type": "package",
         "dependencies": {
@@ -99,7 +70,7 @@
           }
         }
       },
-      "Microsoft.CSharp/4.7.0": {
+      "Microsoft.CSharp/4.5.0": {
         "type": "package",
         "compile": {
           "ref/netcoreapp2.0/_._": {}
@@ -1186,35 +1157,6 @@
     }
   },
   "libraries": {
-    "AutoMapper/12.0.1": {
-      "sha512": "hvV62vl6Hp/WfQ24yzo3Co9+OPl8wH8hApwVtgWpiAynVJkUcs7xvehnSftawL8Pe8FrPffBRM3hwzLQqWDNjA==",
-      "type": "package",
-      "path": "automapper/12.0.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "README.md",
-        "automapper.12.0.1.nupkg.sha512",
-        "automapper.nuspec",
-        "icon.png",
-        "lib/netstandard2.1/AutoMapper.dll",
-        "lib/netstandard2.1/AutoMapper.xml"
-      ]
-    },
-    "AutoMapper.Extensions.Microsoft.DependencyInjection/12.0.1": {
-      "sha512": "+g/K+Vpe3gGMKGzjslMOdqNlkikScDjWfVvmWTayrDHaG/n2pPmFBMa+jKX1r/h6BDGFdkyRjAuhFE3ykW+r1g==",
-      "type": "package",
-      "path": "automapper.extensions.microsoft.dependencyinjection/12.0.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "README.md",
-        "automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
-        "automapper.extensions.microsoft.dependencyinjection.nuspec",
-        "icon.png",
-        "lib/netstandard2.1/AutoMapper.Extensions.Microsoft.DependencyInjection.dll"
-      ]
-    },
     "Azure.Core/1.25.0": {
       "sha512": "X8Dd4sAggS84KScWIjEbFAdt2U1KDolQopTPoHVubG2y3CM54f9l6asVrP5Uy384NWXjsspPYaJgz5xHc+KvTA==",
       "type": "package",
@@ -1296,10 +1238,10 @@
         "version.txt"
       ]
     },
-    "Microsoft.CSharp/4.7.0": {
-      "sha512": "pTj+D3uJWyN3My70i2Hqo+OXixq3Os2D1nJ2x92FFo6sk8fYS1m1WLNTs0Dc1uPaViH0YvEEwvzddQ7y4rhXmA==",
+    "Microsoft.CSharp/4.5.0": {
+      "sha512": "kaj6Wb4qoMuH3HySFJhxwQfe8R/sJsNJnANrvv8WdFPMoNbKY5htfNscv+LHCu5ipz+49m2e+WQXpLXr9XYemQ==",
       "type": "package",
-      "path": "microsoft.csharp/4.7.0",
+      "path": "microsoft.csharp/4.5.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1312,7 +1254,6 @@
         "lib/netcoreapp2.0/_._",
         "lib/netstandard1.3/Microsoft.CSharp.dll",
         "lib/netstandard2.0/Microsoft.CSharp.dll",
-        "lib/netstandard2.0/Microsoft.CSharp.xml",
         "lib/portable-net45+win8+wp8+wpa81/_._",
         "lib/uap10.0.16299/_._",
         "lib/win8/_._",
@@ -1322,7 +1263,7 @@
         "lib/xamarinmac20/_._",
         "lib/xamarintvos10/_._",
         "lib/xamarinwatchos10/_._",
-        "microsoft.csharp.4.7.0.nupkg.sha512",
+        "microsoft.csharp.4.5.0.nupkg.sha512",
         "microsoft.csharp.nuspec",
         "ref/MonoAndroid10/_._",
         "ref/MonoTouch10/_._",
@@ -3239,9 +3180,8 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
-      "AutoMapper >= 12.0.1",
-      "AutoMapper.Extensions.Microsoft.DependencyInjection >= 12.0.1",
       "Microsoft.Data.SqlClient >= 5.1.1",
+      "Microsoft.EntityFrameworkCore >= 7.0.12",
       "Microsoft.EntityFrameworkCore.SqlServer >= 7.0.12",
       "Microsoft.EntityFrameworkCore.Tools >= 7.0.12",
       "System.Data.SqlClient >= 4.8.5",
@@ -3249,49 +3189,39 @@
     ]
   },
   "packageFolders": {
-<<<<<<< HEAD
-    "C:\\Users\\mielw\\.nuget\\packages\\": {}
-=======
-    "C:\\Users\\bertd\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
->>>>>>> 8a80d9ea3d480dee6620e5a020db46458e3fd852
+    "C:\\Users\\Dmitriy\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
-      "projectUniqueName": "D:\\Programming\\projectwerk\\receptapp\\Videoplayer.Domain\\VideoplayerProject.Datalayer\\VideoplayerProject.Datalayer.csproj",
+      "projectUniqueName": "D:\\CursusPB\\Jaar_2\\Projectwerk\\RecipeApp\\receptapp\\Videoplayer.Domain\\VideoplayerProject.Datalayer\\VideoplayerProject.Datalayer.csproj",
       "projectName": "VideoplayerProject.Datalayer",
-      "projectPath": "D:\\Programming\\projectwerk\\receptapp\\Videoplayer.Domain\\VideoplayerProject.Datalayer\\VideoplayerProject.Datalayer.csproj",
-      "packagesPath": "C:\\Users\\mielw\\.nuget\\packages\\",
-      "outputPath": "D:\\Programming\\projectwerk\\receptapp\\Videoplayer.Domain\\VideoplayerProject.Datalayer\\obj\\",
-=======
-      "projectUniqueName": "C:\\Users\\bertd\\Documents\\Hogent 2023-2024\\Sem1\\Projectwerk\\ReceptAppDefinitief\\receptapp\\Videoplayer.Domain\\VideoplayerProject.Datalayer\\VideoplayerProject.Datalayer.csproj",
-      "projectName": "VideoplayerProject.Datalayer",
-      "projectPath": "C:\\Users\\bertd\\Documents\\Hogent 2023-2024\\Sem1\\Projectwerk\\ReceptAppDefinitief\\receptapp\\Videoplayer.Domain\\VideoplayerProject.Datalayer\\VideoplayerProject.Datalayer.csproj",
-      "packagesPath": "C:\\Users\\bertd\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\bertd\\Documents\\Hogent 2023-2024\\Sem1\\Projectwerk\\ReceptAppDefinitief\\receptapp\\Videoplayer.Domain\\VideoplayerProject.Datalayer\\obj\\",
->>>>>>> 8a80d9ea3d480dee6620e5a020db46458e3fd852
+      "projectPath": "D:\\CursusPB\\Jaar_2\\Projectwerk\\RecipeApp\\receptapp\\Videoplayer.Domain\\VideoplayerProject.Datalayer\\VideoplayerProject.Datalayer.csproj",
+      "packagesPath": "C:\\Users\\Dmitriy\\.nuget\\packages\\",
+      "outputPath": "D:\\CursusPB\\Jaar_2\\Projectwerk\\RecipeApp\\receptapp\\Videoplayer.Domain\\VideoplayerProject.Datalayer\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\mielw\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Dmitriy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "D:\\Programming\\projectwerk\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\VideoplayerProject.Domain.csproj": {
-              "projectPath": "D:\\Programming\\projectwerk\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\VideoplayerProject.Domain.csproj"
+            "D:\\CursusPB\\Jaar_2\\Projectwerk\\RecipeApp\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\VideoplayerProject.Domain.csproj": {
+              "projectPath": "D:\\CursusPB\\Jaar_2\\Projectwerk\\RecipeApp\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\VideoplayerProject.Domain.csproj"
             }
+          }
+        }
+      },
+      "warningProperties": {
         "warnAsError": [
           "NU1605"
         ]
@@ -3301,17 +3231,13 @@
       "net7.0": {
         "targetAlias": "net7.0",
         "dependencies": {
-          "AutoMapper": {
-            "target": "Package",
-            "version": "[12.0.1, )"
-          },
-          "AutoMapper.Extensions.Microsoft.DependencyInjection": {
-            "target": "Package",
-            "version": "[12.0.1, )"
-          },
           "Microsoft.Data.SqlClient": {
             "target": "Package",
             "version": "[5.1.1, )"
+          },
+          "Microsoft.EntityFrameworkCore": {
+            "target": "Package",
+            "version": "[7.0.12, )"
           },
           "Microsoft.EntityFrameworkCore.SqlServer": {
             "target": "Package",
@@ -3344,7 +3270,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
       }
     }
   }

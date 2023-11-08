@@ -75,4 +75,17 @@ public class MapFromDomain {
 
         return dto;
     }
+    
+    public static List<RecipeOutputDTO> MapFromRecipesDomain(string url, List<Recipe> recipes) {
+        if (recipes == null) throw new ArgumentNullException(nameof(recipes));
+      
+        foreach (var recipe in recipes) {
+            if (recipe.IngredientToTimestamp == null || !recipe.IngredientToTimestamp.Any()) {
+                Console.WriteLine($"Recipe {recipe.Name} has no ingredients.");
+            } else {
+                Console.WriteLine($"Recipe {recipe.Name} has {recipe.IngredientToTimestamp.Count} ingredients.");
+            }
+        }
+
+        return recipes.Select(recipe => MapFromRecipeDomain(url, recipe)).ToList();    }
 }
