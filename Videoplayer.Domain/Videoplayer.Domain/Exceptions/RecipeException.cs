@@ -3,7 +3,7 @@
 namespace VideoplayerProject.Domain.Exceptions
 {
     [Serializable]
-    internal class RecipeException : Exception
+    public class RecipeException : Exception
     {
         public RecipeException()
         {

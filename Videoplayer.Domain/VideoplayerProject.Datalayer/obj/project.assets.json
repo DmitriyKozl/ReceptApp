@@ -3249,17 +3249,33 @@
     ]
   },
   "packageFolders": {
+<<<<<<< HEAD
     "C:\\Users\\mielw\\.nuget\\packages\\": {}
+=======
+    "C:\\Users\\bertd\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+>>>>>>> 8a80d9ea3d480dee6620e5a020db46458e3fd852
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "D:\\Programming\\projectwerk\\receptapp\\Videoplayer.Domain\\VideoplayerProject.Datalayer\\VideoplayerProject.Datalayer.csproj",
       "projectName": "VideoplayerProject.Datalayer",
       "projectPath": "D:\\Programming\\projectwerk\\receptapp\\Videoplayer.Domain\\VideoplayerProject.Datalayer\\VideoplayerProject.Datalayer.csproj",
       "packagesPath": "C:\\Users\\mielw\\.nuget\\packages\\",
       "outputPath": "D:\\Programming\\projectwerk\\receptapp\\Videoplayer.Domain\\VideoplayerProject.Datalayer\\obj\\",
+=======
+      "projectUniqueName": "C:\\Users\\bertd\\Documents\\Hogent 2023-2024\\Sem1\\Projectwerk\\ReceptAppDefinitief\\receptapp\\Videoplayer.Domain\\VideoplayerProject.Datalayer\\VideoplayerProject.Datalayer.csproj",
+      "projectName": "VideoplayerProject.Datalayer",
+      "projectPath": "C:\\Users\\bertd\\Documents\\Hogent 2023-2024\\Sem1\\Projectwerk\\ReceptAppDefinitief\\receptapp\\Videoplayer.Domain\\VideoplayerProject.Datalayer\\VideoplayerProject.Datalayer.csproj",
+      "packagesPath": "C:\\Users\\bertd\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\bertd\\Documents\\Hogent 2023-2024\\Sem1\\Projectwerk\\ReceptAppDefinitief\\receptapp\\Videoplayer.Domain\\VideoplayerProject.Datalayer\\obj\\",
+>>>>>>> 8a80d9ea3d480dee6620e5a020db46458e3fd852
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
         "C:\\Users\\mielw\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
@@ -3276,10 +3292,6 @@
             "D:\\Programming\\projectwerk\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\VideoplayerProject.Domain.csproj": {
               "projectPath": "D:\\Programming\\projectwerk\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\VideoplayerProject.Domain.csproj"
             }
-          }
-        }
-      },
-      "warningProperties": {
         "warnAsError": [
           "NU1605"
         ]
