@@ -36,5 +36,16 @@ namespace VideoplayerProject.API.Controllers {
                     "An error occurred while processing your request.");
             }
         }
+        [HttpGet("all")]
+        
+        public ActionResult<UtensilsOutputDTO> GetUtensils() {
+            var utensilsData = _utensilManager.GetAllUtensils();
+            var utensilsDomain = utensilsData.Select(utensil => MapFromDomain.MapFromUtensilsDomain(Url.Content("~/"), utensil)).ToList();
+            if (utensilsDomain == null)
+            {
+                return NotFound("Utensils not found.");
+            }
+            return Ok(utensilsDomain);
+        }
     }
 }

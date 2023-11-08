@@ -36,5 +36,15 @@ namespace VideoplayerProject.API.Controllers {
                     "An error occurred while processing your request.");
             }
         }
+        [HttpGet("all")]
+        public ActionResult<IngredientOutputDTO> GetIngredients() {
+            var ingredientsData = _ingredientManager.GetAllIngredients();
+            var ingredientsDomain = ingredientsData.Select(ingredient => MapFromDomain.MapFromIngredientDomain(Url.Content("~/"), ingredient)).ToList();
+            if (ingredientsDomain == null)
+            {
+                return NotFound("Ingredients not found.");
+            }
+            return Ok(ingredientsDomain);
+        }
     }
 }
