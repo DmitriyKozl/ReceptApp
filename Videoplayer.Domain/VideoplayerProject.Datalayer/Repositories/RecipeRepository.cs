@@ -2,7 +2,11 @@
 using VideoplayerProject.Datalayer.Data;
 using VideoplayerProject.Datalayer.Mappers;
 using VideoplayerProject.Datalayer.Exceptions;
+using VideoplayerProject.Datalayer.Models;
+using VideoplayerProject.Domain.Models;
+using Ingredient = VideoplayerProject.Domain.Models.Ingredient;
 using IRecipeRepository = VideoplayerProject.Domain.Interfaces.IRecipeRepository;
+using Recipe = VideoplayerProject.Domain.Models.Recipe;
 
 namespace VideoplayerProject.Datalayer.Repositories;
 
@@ -13,12 +17,22 @@ public class RecipeRepository : IRecipeRepository {
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
+    private void SaveAndClear() {
+        _context.SaveChanges();
+        _context.ChangeTracker.Clear();
+    }
+
+    public bool ExistingRecipe(string videolink) {
+        return _context.Recipes.Any(r => r.VideoLink == videolink);
+    }
+
     public List<Domain.Models.Recipe> GetAllRecipes() {
         return _context.Recipes
             .Include(r => r.RecipeIngredients)
             .ThenInclude(ri => ri.Ingredient)
             .Include(r => r.RecipeUtensils)
             .ThenInclude(ru => ru.Utensil)
+            .AsNoTracking()
             .Select(r => RecipeMapper.MapToDomainModel(r))
             .ToList();
     }
@@ -36,37 +50,27 @@ public class RecipeRepository : IRecipeRepository {
             .ThenInclude(ri => ri.Ingredient)
             .Include(r => r.RecipeUtensils)
             .ThenInclude(ru => ru.Utensil)
+            .AsNoTracking()
             .FirstOrDefault(r => r.RecipeID == id);
 
         if (dataRecipe == null) return null;
 
         return RecipeMapper.MapToDomainModel(dataRecipe);
-
-        // // Populate IngredientToTimestamp dictionary
-        // foreach (var recipeIngredient in dataRecipe.RecipeIngredients) {
-        //     var ingredient = IngredientMapper.MapToDomainModel(recipeIngredient.Ingredient);
-        //     var timestamp = new Timestamp(recipeIngredient.BeginTime, recipeIngredient.EndTime,
-        //         recipeIngredient.IngredientID);
-        //
-        //     if (!domainRecipe.IngredientToTimestamp.ContainsKey(ingredient)) {
-        //         domainRecipe.IngredientToTimestamp[ingredient] = new List<Timestamp>();
-        //     }
-        //
-        //     domainRecipe.IngredientToTimestamp[ingredient].Add(timestamp);
-        // }
-        //
-        // return domainRecipe;
     }
 
     public void CreateRecipe(Domain.Models.Recipe domainRecipe) {
         if (domainRecipe == null) throw new ArgumentNullException(nameof(domainRecipe));
-        if (domainRecipe.Id != 0)
-            throw new MapperException("ID should be 0 when atempting to create new database entry");
+        if (ExistingRecipe(domainRecipe.VideoLink)) throw new MapperException($"{domainRecipe.Name} already exists.");
 
-        var dataRecipe = RecipeMapper.MapToDataEntity(domainRecipe, _context);
-        _context.Recipes.Add(dataRecipe);
-        _context.SaveChanges();
+        try {
+            _context.Recipes.Add(RecipeMapper.MapToDataEntity(domainRecipe, _context));
+            SaveAndClear();
+        }
+        catch (Exception e) {
+            throw new MapperException("CreateRecipe failed", e);
+        }
     }
+
 
     public void RemoveRecipe(int id) {
         var recipe = _context.Recipes
@@ -83,16 +87,36 @@ public class RecipeRepository : IRecipeRepository {
         _context.Recipes.Remove(recipe);
         _context.SaveChanges();
     }
-}
 
+
+
+    public void AddIngredientWithTimeStamp(Recipe recipe, Ingredient ingredient, Timestamp timestamp) 
+    {
+        if (recipe == null) throw new ArgumentNullException(nameof(recipe));
+
+        // Check if ingredient exists
+        var existingRecipeIngredient = _context.RecipeIngredient
+            .FirstOrDefault(ri => ri.RecipeID == recipe.Id
+                                  && ri.IngredientID == ingredient.Id
+                                  && ri.BeginTime == timestamp.StartTime);
+
+        if (existingRecipeIngredient == null) {
+            var recipeIngredient = new RecipeIngredient
+            { RecipeID = recipe.Id,
+              IngredientID = ingredient.Id,
+              BeginTime = timestamp.StartTime,
+              EndTime = timestamp.EndTime };
+            _context.RecipeIngredient.Add(recipeIngredient);
+            _context.SaveChanges();
+        }
+    }
+}
 
 /*
  * TODO - UpdateRecipe
  * 1. Update recipe properties
  * 2. Update recipe ingredients
  * 3. Update recipe utensils
- * 4. Update recipe steps
- * 5. Update recipe tags
 
 
     public void UpdateRecipe(int id, Domain.Models.Recipe updatedDomainRecipe) {
@@ -108,28 +132,7 @@ public class RecipeRepository : IRecipeRepository {
         _context.SaveChanges();
     }
 
-    public void AddIngredientWithTimeStamp(Domain.Models.Recipe recipe, Domain.Models.Ingredient ingredient, Timestamp timestamp) {
-        if (recipe == null) throw new ArgumentNullException(nameof(recipe));
 
-        // Check if ingredient exists
-        var existingRecipeIngredient = _context.RecipeIngredient
-            .FirstOrDefault(ri => ri.RecipeID == recipe.Id
-                                  && ri.IngredientID == ingredient.Id
-                                  && ri.BeginTime == timestamp.StartTime);
-
-        if (existingRecipeIngredient == null)
-        {
-            var recipeIngredient = new RecipeIngredient
-            {
-            RecipeID = recipe.Id ,
-            IngredientID = ingredient.Id,
-            BeginTime = timestamp.StartTime,
-            EndTime = timestamp.EndTime
-            };
-            _context.RecipeIngredient.Add(recipeIngredient);
-            _context.SaveChanges();
-        }
-    }
 
 
 

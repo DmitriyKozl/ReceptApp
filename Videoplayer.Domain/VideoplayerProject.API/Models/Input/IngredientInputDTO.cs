@@ -1,4 +1,4 @@
-﻿namespace VideoplayerProject.API.Models; 
+﻿namespace VideoplayerProject.API.Models;
 
 public class IngredientInputDTO {
     public string Name { get; set; }

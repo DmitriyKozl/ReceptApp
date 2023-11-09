@@ -66,9 +66,9 @@ public class RecipeMapper {
     public static Datalayer.Models.Recipe MapToDataEntity(Recipe domainRecipe, RecipeDbContext context) {
         var dataRecipe = GetDataRecipe(domainRecipe, context);
         SetRecipeProperties(dataRecipe, domainRecipe);
-
-        HandleRecipeIngredients(domainRecipe, dataRecipe, context);
-        HandleRecipeUtensils(domainRecipe, dataRecipe, context);
+        
+        // HandleRecipeIngredients(domainRecipe, dataRecipe, context);
+        // HandleRecipeUtensils(domainRecipe, dataRecipe, context);
 
         return dataRecipe;
     }

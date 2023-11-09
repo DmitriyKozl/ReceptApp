@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using VideoplayerProject.Domain.Exceptions;
 using VideoplayerProject.Domain.Interfaces;
 using VideoplayerProject.Domain.Models;
@@ -28,12 +24,23 @@ public class RecipeManager : IRecipeService {
         return _recipeRepository.GetRecipeById(id);
     }
 
-    public void CreateRecipe(Recipe recipe) {
+    public Recipe CreateRecipe(Recipe recipe) {
+        if (recipe == null) throw new ArgumentNullException(nameof(recipe));
+        if (ExistingRecipe(recipe.VideoLink)) throw new RecipeException($"{recipe.Name} already exists.");
         _recipeRepository.CreateRecipe(recipe);
+        return recipe;
+    }
+
+    public bool ExistingRecipe(string videolink) {
+        return _recipeRepository.GetAllRecipes().Any(r => r.VideoLink == videolink);
     }
 
     public void RemoveRecipe(int id) {
         _recipeRepository.RemoveRecipe(id);
     }
-    
+
+    public void AddIngredientWithTimeStamp(Domain.Models.Recipe recipe, Domain.Models.Ingredient ingredient,
+        Timestamp timestamp) {
+        _recipeRepository.AddIngredientWithTimeStamp(recipe, ingredient, timestamp);
+    }
 }

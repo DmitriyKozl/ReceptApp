@@ -6,15 +6,17 @@ public interface IRecipeService {
     List<Recipe> GetAllRecipes();
     List<Recipe> GetFilteredRecipes(string filter);
     Recipe GetRecipeById(int id);
-    
-    void CreateRecipe(Recipe recipe);
-    
+
+    Recipe CreateRecipe(Recipe recipe);
+    bool ExistingRecipe(string videolink);
+
     void RemoveRecipe(int id);
-    
+
+    public void AddIngredientWithTimeStamp(Domain.Models.Recipe recipe, Domain.Models.Ingredient ingredient,
+        Timestamp timestamp);
     // TODO: Add UpdateRecipe method
     // void UpdateRecipe(int id, Recipe recipe);
     //
-    // void AddIngredientWithTimeStamp(Recipe recipe, Ingredient ingredient, Timestamp timestamp);
     // void AddUtensilWithTimeStamp(Recipe recipe, Utensil utensil, Timestamp timestamp);
     // void RemoveIngredientFromRecipe(int recipeId, Ingredient ingredient);
     // void UpdateIngredientTimestamp(int recipeId, Ingredient ingredient, Timestamp oldTimestamp, Timestamp newTimestamp);
