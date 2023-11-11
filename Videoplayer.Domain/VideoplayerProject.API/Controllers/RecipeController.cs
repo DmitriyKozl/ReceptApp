@@ -13,10 +13,12 @@ namespace VideoplayerProject.API.Controllers;
 public class RecipeController : ControllerBase {
     private readonly IRecipeService _recipeManager;
     private readonly IIngredientService _ingredientService;
+    private readonly IUtensilService _utensilService;
 
-    public RecipeController(IRecipeService recipeManager, IIngredientService ingredientService) {
+    public RecipeController(IRecipeService recipeManager, IIngredientService ingredientService , IUtensilService utensilService) {
         _recipeManager = recipeManager ?? throw new ArgumentNullException(nameof(recipeManager));
         _ingredientService = ingredientService ?? throw new ArgumentNullException(nameof(ingredientService));
+        _utensilService = utensilService ?? throw new ArgumentNullException(nameof(utensilService));
     }
 
     [HttpGet("{{recipeId}}")]
@@ -66,13 +68,27 @@ public class RecipeController : ControllerBase {
         }
     }
     [HttpPost("{recipeId}/ingredient/{ingredientId}")]
-    public ActionResult<RecipeOutputDTO> AddIngredientToRecipe([FromBody] IngredientInRecipeDTO ingredientInRecipeDTO, [FromRoute] int ingredientId, [FromRoute] int recipeId) {
+    public ActionResult<RecipeOutputDTO> AddIngredientToRecipe([FromBody] TimestampInRecipeDTO ingredientTimestampInRecipeDto, [FromRoute] int ingredientId, [FromRoute] int recipeId) {
         try {
             Recipe recipe = _recipeManager.GetRecipeById(recipeId);
             Ingredient ingredient = _ingredientService.GetIngredientById(ingredientId);
-            Timestamp timestamp = new Timestamp(ingredientInRecipeDTO.From, ingredientInRecipeDTO.Till,ingredientId);
+            Timestamp timestamp = new Timestamp(ingredientTimestampInRecipeDto.From, ingredientTimestampInRecipeDto.Till,ingredientId);
 
             _recipeManager.AddIngredientWithTimeStamp(recipe, ingredient, timestamp);
+            return CreatedAtAction(nameof(GetRecipeById), new { recipeId = recipe.Id }, MapFromDomain.MapFromRecipeDomain(Url.Content("~/"), recipe));
+        }
+        catch (Exception e) {
+            return BadRequest(e.Message);
+        }
+    }
+    [HttpPost("{recipeId}/utensil/{utensilId}")]
+    public ActionResult<RecipeOutputDTO> AddUtensilToRecipe([FromBody] TimestampInRecipeDTO utensilTimestampInRecipeDto, [FromRoute] int utensilId, [FromRoute] int recipeId) {
+        try {
+            Recipe recipe = _recipeManager.GetRecipeById(recipeId);
+            Utensil utensil = _utensilService.GetUtensilById(utensilId);
+            Timestamp timestamp = new Timestamp(utensilTimestampInRecipeDto.From, utensilTimestampInRecipeDto.Till,utensilId);
+
+            _recipeManager.AddUtensilWithTimeStamp(recipe, utensil, timestamp);
             return CreatedAtAction(nameof(GetRecipeById), new { recipeId = recipe.Id }, MapFromDomain.MapFromRecipeDomain(Url.Content("~/"), recipe));
         }
         catch (Exception e) {

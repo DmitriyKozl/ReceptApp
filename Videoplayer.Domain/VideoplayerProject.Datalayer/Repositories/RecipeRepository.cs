@@ -85,13 +85,11 @@ public class RecipeRepository : IRecipeRepository {
         _context.RecipeIngredient.RemoveRange(recipe.RecipeIngredients);
         _context.RecipeUtensils.RemoveRange(recipe.RecipeUtensils);
         _context.Recipes.Remove(recipe);
-        _context.SaveChanges();
+        SaveAndClear();
     }
 
 
-
-    public void AddIngredientWithTimeStamp(Recipe recipe, Ingredient ingredient, Timestamp timestamp) 
-    {
+    public void AddIngredientWithTimeStamp(Recipe recipe, Ingredient ingredient, Timestamp timestamp) {
         if (recipe == null) throw new ArgumentNullException(nameof(recipe));
 
         // Check if ingredient exists
@@ -107,7 +105,27 @@ public class RecipeRepository : IRecipeRepository {
               BeginTime = timestamp.StartTime,
               EndTime = timestamp.EndTime };
             _context.RecipeIngredient.Add(recipeIngredient);
-            _context.SaveChanges();
+            SaveAndClear();
+        }
+    }
+
+    public void AddUtensilWithTimeStamp(Recipe recipe, Utensil utensil, Timestamp timestamp) {
+        if (recipe == null) throw new ArgumentNullException(nameof(recipe));
+
+        // Check if ingredient exists
+        var existingRecipeUtensil = _context.RecipeUtensils
+            .FirstOrDefault(ri => ri.RecipeID == recipe.Id
+                                  && ri.UtensilID == utensil.Id
+                                  && ri.BeginTime == timestamp.StartTime);
+
+        if (existingRecipeUtensil == null) {
+            var recipeUtensil = new RecipeUtensil
+            { RecipeID = recipe.Id,
+              UtensilID = utensil.Id,
+              BeginTime = timestamp.StartTime,
+              EndTime = timestamp.EndTime };
+            _context.RecipeUtensils.Add(recipeUtensil);
+            SaveAndClear();
         }
     }
 }
@@ -131,34 +149,6 @@ public class RecipeRepository : IRecipeRepository {
         _context.Entry(recipe).CurrentValues.SetValues(updatedDataRecipe);
         _context.SaveChanges();
     }
-
-
-
-
-
-public void AddUtensilWithTimeStamp(Domain.Models.Recipe recipe, Utensil utensil, Timestamp timestamp)
-    {
-        // Check if utensil exists
-        var existingRecipeUtensil = _context.RecipeUtensils
-            .FirstOrDefault(ru => ru.RecipeID == recipe.Id
-                                  && ru.UtensilID == utensil.Id
-                                  && ru.BeginTime == timestamp.StartTime);
-
-        if (existingRecipeUtensil == null)
-        {
-            var recipeUtensil = new RecipeUtensil
-            {
-            RecipeID = recipe.Id,
-            UtensilID = utensil.Id ,
-            BeginTime = timestamp.StartTime,
-            EndTime = timestamp.EndTime
-            };
-            _context.RecipeUtensils.Add(recipeUtensil);
-            _context.SaveChanges();
-        }
-    }
-
-
     public void RemoveIngredientFromRecipe(int recipeId, int ingredientId) {
         var recipeIngredient = _context.RecipeIngredient
             .FirstOrDefault(ri => ri.RecipeID == recipeId && ri.IngredientID == ingredientId);
