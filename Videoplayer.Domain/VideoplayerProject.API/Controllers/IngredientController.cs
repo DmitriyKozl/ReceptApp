@@ -49,6 +49,22 @@ namespace VideoplayerProject.API.Controllers {
 
             return Ok(ingredientsDomain);
         }
+        
+        [HttpPost]
+        
+        public ActionResult<IngredientOutputDTO> AddIngredient(IngredientInputDTO ingredientInputDto) {
+            try {
+                var ingredientDomain = MapToDomain.MapToIngredientDomain(ingredientInputDto);
+                var ingredient = _ingredientManager.CreateIngredient(ingredientDomain);
+                var ingredientOutputDto =
+                    MapFromDomain.MapFromIngredientDomain(Url.Content("~/"), ingredient);
+                return Ok(ingredientOutputDto);
+            }
+            catch (Exception e) {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "An error occurred while processing your request.");
+            }
+        }
 
       
     }

@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using VideoplayerProject.API.Mappers;
+using VideoplayerProject.API.Models;
 using VideoplayerProject.API.Models.Output;
 using VideoplayerProject.Domain.Interfaces;
+using VideoplayerProject.Domain.Models;
 
 namespace VideoplayerProject.API.Controllers {
     [Route("api/[controller]")]
@@ -46,6 +48,20 @@ namespace VideoplayerProject.API.Controllers {
                 return NotFound("Utensils not found.");
             }
             return Ok(utensilsDomain);
+        }
+        [HttpPost("utensil")]
+        
+        public ActionResult<UtensilsOutputDTO> AddUtensil([FromBody] UtensilInputDTO utensilsInputDto) {
+            try {
+                Utensil utensil = _utensilManager.CreateUtensil(MapToDomain.MapToUtensilDomain(utensilsInputDto));
+                return CreatedAtAction(nameof(GetUtensilById), new
+                    { utensilId = utensil.Id },
+                    MapFromDomain.MapFromUtensilsDomain(Url.Content("~/"), utensil));
+            }
+            catch (Exception e) {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "An error occurred while processing your request.");
+            }
         }
     }
 }

@@ -8,7 +8,7 @@ public interface IUtensilService {
     public List<Utensil> GetUtensilsFromRecipe(int recipeId);
     public List<Utensil> GetFilteredUtensils(string filter);
     
-    void CreateUtensil(Utensil utensil);
+    public Utensil CreateUtensil(Utensil utensil);
     
     public void RemoveUtensil(int id);
 

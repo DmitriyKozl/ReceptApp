@@ -35,9 +35,10 @@ namespace VideoplayerProject.Domain.Managers {
             return _utensilRepository.GetFilteredUtensils(filter);
         }
         
-        public void CreateUtensil(Utensil utensil)
+        public Utensil CreateUtensil(Utensil utensil)
         {
             _utensilRepository.CreateUtensil(utensil);
+            return utensil;
         }
         
         public void RemoveUtensil(int id)

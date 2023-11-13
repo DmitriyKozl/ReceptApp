@@ -33,16 +33,16 @@ export const Sidebar = (selected) => {
         sx={{
           mt: 2,
           width: '100%',
-          backgroundColor: selected.title === 'recipe' ? 'primary.dark' : 'background.default',
+          backgroundColor: selected.title === 'Recipe' ? 'primary.dark' : 'background.default',
           color: '#fff',
           ':hover': {
-            backgroundColor: selected.title === 'recipe' ? 'primary.dark' : 'background.default',
+            backgroundColor: selected.title === 'Recipe' ? 'primary.dark' : 'background.default',
           },
         }}
       >
         <Grid>
           <RestaurantMenuIcon />
-          <Typography>recipe</Typography>
+          <Typography>Recipe</Typography>
         </Grid>
       </Button>
       <Button
@@ -59,7 +59,7 @@ export const Sidebar = (selected) => {
       >
         <Grid>
           <IngredientIcon />
-          <Typography>ingredient</Typography>
+          <Typography>Ingredient</Typography>
         </Grid>
       </Button>
       <Button
