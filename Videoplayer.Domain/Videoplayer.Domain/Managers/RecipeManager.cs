@@ -42,5 +42,9 @@ public class RecipeManager : IRecipeService {
     public void AddIngredientWithTimeStamp(Domain.Models.Recipe recipe, Domain.Models.Ingredient ingredient,
         Timestamp timestamp) {
         _recipeRepository.AddIngredientWithTimeStamp(recipe, ingredient, timestamp);
+    }    
+    public void AddUtensilWithTimeStamp(Domain.Models.Recipe recipe, Domain.Models.Utensil utensil,
+        Timestamp timestamp) {
+        _recipeRepository.AddUtensilWithTimeStamp(recipe, utensil, timestamp);
     }
 }
