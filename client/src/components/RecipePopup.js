@@ -1,6 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import moment from 'moment'
-import { Button, DialogContent, DialogTitle, FormControl, InputLabel, OutlinedInput, Stack } from '@mui/material'
+import {
+  Button,
+  DialogContent,
+  DialogTitle,
+  FormControl,
+  InputLabel,
+  OutlinedInput,
+  Stack,
+  Typography,
+} from '@mui/material'
 import { TimeField } from '@mui/x-date-pickers/TimeField'
 import { VisuallyHiddenInput } from './VisuallyHiddenInput'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
@@ -13,15 +22,25 @@ export const RecipePopup = (props) => {
   const axios = apiUrl()
   configure({ axios })
 
-  const [{ data }] = useAxios({
-    url: `/Recipe/recipe/${values?.id}`,
+  const [{ data, loading, error }] = useAxios({
+    url: `/Recipe/{recipeId}?recipeId=${values?.id}`,
     method: 'GET',
   })
 
-  const [name, setName] = useState(data?.name)
-  const [videoLink, setVideoLink] = useState(data?.url)
-  const [servings, setServings] = useState(data?.servings)
-  const [cookingtime, setCookingtime] = useState(data?.cookingTime ? data.cookingTime : '00:00:00')
+  const [name, setName] = useState()
+  const [videoLink, setVideoLink] = useState()
+  const [servings, setServings] = useState()
+  const [cookingtime, setCookingtime] = useState()
+
+  useEffect(() => {
+    setName(data?.name)
+    setVideoLink(data?.videoLink)
+    setServings(data?.servings)
+    setCookingtime(data?.cookingTime ? data.cookingTime : '00:00:00')
+  }, [data])
+
+  if (loading) return <Typography>LOADING</Typography>
+  if (values.id && error) return <Typography>ERROR</Typography>
 
   return (
     <React.Fragment>
