@@ -128,8 +128,20 @@ public class RecipeRepository : IRecipeRepository {
             SaveAndClear();
         }
     }
-}
 
+    public void UpdateRecipe(Domain.Models.Recipe updatedDomainRecipe) {
+        
+        try 
+        {
+            _context.Recipes.Update(RecipeMapper.MapToDataEntity(updatedDomainRecipe, _context));
+            SaveAndClear();
+        }
+        catch (Exception ex)
+        {
+            throw new RecipeRepositoryException("UpdateRecipe", ex);
+        }
+    }
+}
 /*
  * TODO - UpdateRecipe
  * 1. Update recipe properties
@@ -137,18 +149,7 @@ public class RecipeRepository : IRecipeRepository {
  * 3. Update recipe utensils
 
 
-    public void UpdateRecipe(int id, Domain.Models.Recipe updatedDomainRecipe) {
-        var recipe = _context.Recipes.Find(id);
-        if (recipe == null) {
-            Console.WriteLine("Recipe not found");
-            return;
-        }
 
-        // Update properties using the mapper
-        var updatedDataRecipe = RecipeMapper.MapToDataEntity(updatedDomainRecipe, _context);
-        _context.Entry(recipe).CurrentValues.SetValues(updatedDataRecipe);
-        _context.SaveChanges();
-    }
     public void RemoveIngredientFromRecipe(int recipeId, int ingredientId) {
         var recipeIngredient = _context.RecipeIngredient
             .FirstOrDefault(ri => ri.RecipeID == recipeId && ri.IngredientID == ingredientId);

@@ -32,7 +32,7 @@ public class RecipeManager : IRecipeService {
     }
 
     public bool ExistingRecipe(string videolink) {
-        return _recipeRepository.GetAllRecipes().Any(r => r.VideoLink == videolink);
+        return _recipeRepository.GetAllRecipes().Find(r =>r.VideoLink == videolink) != null;
     }
 
     public void RemoveRecipe(int id) {
@@ -47,4 +47,19 @@ public class RecipeManager : IRecipeService {
         Timestamp timestamp) {
         _recipeRepository.AddUtensilWithTimeStamp(recipe, utensil, timestamp);
     }
+    
+    public Recipe UpdateRecipe(Recipe recipe) {
+        try
+        {
+            if (recipe == null) throw new RecipeException("Updaterecipe - recipe is null");
+            if (!_recipeRepository.ExistingRecipe(recipe.VideoLink)) throw new RecipeException("Updaterecipe - recipe with this video exists already");
+            Recipe recipeDB = _recipeRepository.GetRecipeById(recipe.Id);
+            if (recipe == recipeDB) throw new RecipeException("Updaterecipe - geen verschillen");
+            _recipeRepository.UpdateRecipe(recipe);
+            return recipe;
+        }
+        catch(Exception ex)
+        {
+            throw new RecipeException("Updaterecipe", ex);
+        }    }
 }
