@@ -12,9 +12,16 @@ namespace VideoplayerProject.Domain.Exceptions
         public RecipeException(string? message) : base(message)
         {
         }
+        
 
         public RecipeException(string? message, Exception? innerException) : base(message, innerException)
         {
-        }
+        }       
+
+        
+                    
+        
+        
+        
     }
 }

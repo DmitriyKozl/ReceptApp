@@ -9,7 +9,7 @@ using VideoplayerProject.API.Models.Output;
 using VideoplayerProject.Domain.Interfaces;
 
 namespace VideoplayerProject.API.Controllers {
-    [Route("api/[controller]/utensil")]
+    [Route("api/[controller]")]
     [ApiController]
     public class UtensilController : ControllerBase {
 

@@ -15,11 +15,11 @@ public interface IRecipeService {
     public void AddIngredientWithTimeStamp(Domain.Models.Recipe recipe, Domain.Models.Ingredient ingredient,
         Timestamp timestamp);
     public void AddUtensilWithTimeStamp(Recipe recipe, Utensil utensil, Timestamp timestamp);
+    public Recipe UpdateRecipe(Recipe recipe);
 
     
     
     // TODO: Add UpdateRecipe method
-    // void UpdateRecipe(int id, Recipe recipe);
     //
     // void RemoveIngredientFromRecipe(int recipeId, Ingredient ingredient);
     // void UpdateIngredientTimestamp(int recipeId, Ingredient ingredient, Timestamp oldTimestamp, Timestamp newTimestamp);

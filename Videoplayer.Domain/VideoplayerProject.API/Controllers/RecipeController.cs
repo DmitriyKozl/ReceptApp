@@ -113,23 +113,23 @@ public class RecipeController : ControllerBase {
     //     }
     // }
     //
-    // [HttpPut("{recipeId}")]
-    // public ActionResult<RecipeOutputDTO> UpdateRecipe(int recipeId, [FromBody] RecipeInputDTO recipeInputDto) {
-    //     try {
-    //         Recipe recipe = _recipeManager.GetRecipeById(recipeId);
-    //         if (recipe == null) {
-    //             return NotFound($"Recipe with ID {recipeId} not found.");
-    //         }
-    //
-    //         Recipe updatedRecipe = MapToDomain.MapToRecipeDomain(recipeInputDto);
-    //         _recipeManager.UpdateRecipe(recipeId, updatedRecipe);
-    //         return NoContent();
-    //     }
-    //     catch (Exception e) {
-    //         return StatusCode(StatusCodes.Status500InternalServerError,
-    //             "An error occurred while processing your request.");
-    //     }
-    // }
+    [HttpPut("{recipeId}")]
+    public ActionResult<RecipeOutputDTO> UpdateRecipe(int recipeId, [FromBody] RecipeInputDTO recipeInputDto) {
+        try {
+            Recipe recipe = _recipeManager.GetRecipeById(recipeId);
+            if (recipe == null) {
+                return NotFound($"Recipe with ID {recipeId} not found.");
+            }
+    
+            Recipe updatedRecipe = MapToDomain.MapToRecipeDomain(recipeInputDto);
+            _recipeManager.UpdateRecipe(updatedRecipe);
+            return NoContent();
+        }
+        catch (Exception e) {
+            return StatusCode(StatusCodes.Status500InternalServerError,
+                "An error occurred while processing your request.");
+        }
+    }
     
 }
 

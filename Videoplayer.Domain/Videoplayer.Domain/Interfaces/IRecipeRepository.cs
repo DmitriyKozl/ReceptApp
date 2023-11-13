@@ -11,6 +11,8 @@ public interface IRecipeRepository {
     void RemoveRecipe(int id);
     public void AddIngredientWithTimeStamp(Recipe recipe, Ingredient ingredient,  Timestamp timestamp);
     public void AddUtensilWithTimeStamp(Recipe recipe, Utensil utensil, Timestamp timestamp);
+    
+    void UpdateRecipe(Recipe recipe);
 
     // // Dictionary<Ingredient, List<Timestamp>> GetIngredientsWithTimestamps(int recipeId);
     // // Dictionary<Utensil, List<Timestamp>> GetUtensilsWithTimestamps(int recipeId);

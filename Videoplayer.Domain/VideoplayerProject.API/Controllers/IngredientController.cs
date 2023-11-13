@@ -11,7 +11,7 @@ using VideoplayerProject.Domain.Interfaces;
 using VideoplayerProject.Domain.Models;
 
 namespace VideoplayerProject.API.Controllers {
-    [Route("api/[controller]/ingredient")]
+    [Route("api/[controller]")]
     [ApiController]
     public class IngredientController : ControllerBase {
         private readonly IIngredientService _ingredientManager;
