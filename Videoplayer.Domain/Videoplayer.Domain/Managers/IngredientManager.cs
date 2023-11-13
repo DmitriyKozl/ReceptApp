@@ -33,9 +33,10 @@ namespace VideoplayerProject.Domain.Managers
             return _ingredientRepo.GetIngredientById(id);
         }
         
-        public void CreateIngredient(Ingredient ingredient)
+        public Ingredient CreateIngredient(Ingredient ingredient)
         {
             _ingredientRepo.CreateIngredient(ingredient);
+            return ingredient;
         }
         
         public void RemoveIngredient(int id)

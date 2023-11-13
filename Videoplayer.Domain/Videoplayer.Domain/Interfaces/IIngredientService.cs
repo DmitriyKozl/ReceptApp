@@ -7,7 +7,7 @@ public interface IIngredientService {
     public Ingredient GetIngredientById(int id);
     public List<Ingredient> GetIngredientsFromRecipe(int recipeId);
     
-    void CreateIngredient(Ingredient ingredient);
+    public Ingredient CreateIngredient(Ingredient ingredient);
     
     public void RemoveIngredient(int id);
 

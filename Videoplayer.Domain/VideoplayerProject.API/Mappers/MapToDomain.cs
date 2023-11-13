@@ -19,5 +19,30 @@ public class MapToDomain {
             throw new MapException("Error while mapping RecipeInputDTO to Recipe.", e);
         }
     }
+    public static Ingredient MapToIngredientDomain(IngredientInputDTO ingredient) {
+        try {
+            return new Ingredient(
+                ingredient.Name,
+                ingredient.Price,
+                ingredient.Brand,
+                ingredient.Img
+                
+            );
+        }
+        catch (Exception e) {
+            throw new MapException("Error while mapping IngredientInputDTO to Ingredient.", e);
+        }
+    }
   
+    public static Utensil MapToUtensilDomain(UtensilInputDTO utensil) {
+        try {
+            return new Utensil(
+                utensil.Name,
+                utensil.Img
+            );
+        }
+        catch (Exception e) {
+            throw new MapException("Error while mapping UtensilInputDTO to Utensil.", e);
+        }
+    }
 }

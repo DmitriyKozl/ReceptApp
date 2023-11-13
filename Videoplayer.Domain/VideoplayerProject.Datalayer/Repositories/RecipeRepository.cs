@@ -26,7 +26,7 @@ public class RecipeRepository : IRecipeRepository {
         return _context.Recipes.Any(r => r.VideoLink == videolink);
     }
 
-    public List<Domain.Models.Recipe> GetAllRecipes() {
+    public List<Recipe> GetAllRecipes() {
         return _context.Recipes
             .Include(r => r.RecipeIngredients)
             .ThenInclude(ri => ri.Ingredient)
@@ -37,14 +37,14 @@ public class RecipeRepository : IRecipeRepository {
             .ToList();
     }
 
-    public List<Domain.Models.Recipe> GetFilteredRecipes(string filter) {
+    public List<Recipe> GetFilteredRecipes(string filter) {
         return _context.Recipes
             .Where(r => string.IsNullOrEmpty(filter) || r.RecipeName.Contains(filter))
             .Select(r => RecipeMapper.MapToDomainModel(r))
             .ToList();
     }
 
-    public Domain.Models.Recipe GetRecipeById(int id) {
+    public Recipe GetRecipeById(int id) {
         var dataRecipe = _context.Recipes
             .Include(r => r.RecipeIngredients)
             .ThenInclude(ri => ri.Ingredient)
@@ -58,7 +58,7 @@ public class RecipeRepository : IRecipeRepository {
         return RecipeMapper.MapToDomainModel(dataRecipe);
     }
 
-    public void CreateRecipe(Domain.Models.Recipe domainRecipe) {
+    public void CreateRecipe(Recipe domainRecipe) {
         if (domainRecipe == null) throw new ArgumentNullException(nameof(domainRecipe));
         if (ExistingRecipe(domainRecipe.VideoLink)) throw new MapperException($"{domainRecipe.Name} already exists.");
 
@@ -78,9 +78,7 @@ public class RecipeRepository : IRecipeRepository {
             .Include(r => r.RecipeUtensils)
             .FirstOrDefault(r => r.RecipeID == id);
 
-        if (!recipe.RecipeIngredients.Any()) {
-            throw new MapperException("No Recipe found with that id");
-        }
+
 
         _context.RecipeIngredient.RemoveRange(recipe.RecipeIngredients);
         _context.RecipeUtensils.RemoveRange(recipe.RecipeUtensils);
