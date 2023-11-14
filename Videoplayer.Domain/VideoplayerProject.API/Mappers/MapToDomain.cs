@@ -38,6 +38,7 @@ public class MapToDomain {
     public static Utensil MapToUtensilDomain(UtensilInputDTO utensil) {
         try {
             return new Utensil(
+                utensil.Id,
                 utensil.Name,
                 utensil.Img
             );

@@ -6,6 +6,7 @@ namespace VideoplayerProject.Datalayer.Mappers;
 public static class UtensilMapper {
     public static DomainUtensil MapToDomainModel(DataUtensil dataUtensil) {
         var domainUtensil = new DomainUtensil(
+            dataUtensil.UtensilID,
             dataUtensil.UtensilName,
             dataUtensil.ImgUrl
         );
