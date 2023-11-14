@@ -42,4 +42,7 @@
     ],
     "development": [
       "last 1 chrome version",
-      "last 1 firefox ve
+      "last 1 firefox version"
+    ]
+  }
+}

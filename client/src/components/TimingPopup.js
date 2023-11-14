@@ -35,8 +35,6 @@ export const TimingPopup = (props) => {
     method: 'GET',
   })
 
-  console.log(data)
-
   const [id, setId] = useState(values?.id)
   const [brand, setBrand] = useState()
   const [from, setFrom] = useState()
@@ -62,7 +60,7 @@ export const TimingPopup = (props) => {
         ? data?.utensil?.till
         : '00:00:00'
     )
-  }, [data])
+  }, [values.title, data])
 
   if (loading) return <Typography>LOADING</Typography>
   if (values?.id && error) return <Typography>ERROR</Typography>

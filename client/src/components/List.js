@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Avatar,
   Box,
@@ -45,6 +44,9 @@ export const List = (props) => {
   const Row = (props) => {
     const { row, setValues } = props
     const [open, setOpen] = useState(false)
+
+    if (loadingIngriedient || loadingUtensil || loadingRecipe) return <LinearProgress />
+    if (ingredientError || utensilError || recipeError) return <Typography>ERROR</Typography>
 
     return (
       <React.Fragment>
@@ -144,8 +146,8 @@ export const List = (props) => {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {row.ingredients.map((item) => (
-                        <TableRow key={item.id}>
+                      {row?.ingredients?.map((item) => (
+                        <TableRow key={`ingredient-${item.id}`}>
                           <TableCell>
                             <Grid container sx={{ alignItems: 'center' }}>
                               <Avatar src={item.img} sx={{ m: 1 }} />
@@ -213,8 +215,8 @@ export const List = (props) => {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {row.utensils.map((item) => (
-                        <TableRow key={item.id}>
+                      {row?.utensils?.map((item) => (
+                        <TableRow key={`utensil-${item.id}`}>
                           <TableCell>
                             <Grid container sx={{ alignItems: 'center' }}>
                               <Avatar src={item.img} sx={{ m: 1 }} />
@@ -255,6 +257,15 @@ export const List = (props) => {
     )
   }
 
+  const [data, setData] = useState()
+
+  useEffect(() => {
+    console.log(dataRecipe, dataIngredient, dataUtensil)
+    if (title === 'recipe') setData(dataRecipe)
+    if (title === 'ingredient') setData(dataIngredient)
+    if (title === 'utensil') setData(dataUtensil)
+  }, [title, dataRecipe, dataIngredient, dataUtensil])
+
   if (loadingIngriedient || loadingUtensil || loadingRecipe) return <LinearProgress />
   if (ingredientError || utensilError || recipeError) return <Typography>ERROR</Typography>
 
@@ -287,11 +298,9 @@ export const List = (props) => {
             </TableRow>
           </TableHead>
           <TableBody sx={{ backgroundColor: '#fff' }}>
-            {title === 'recipe'
-              ? dataRecipe?.map((row) => <Row key={row.id} row={row} setValues={setValues} />)
-              : title === 'ingredient'
-              ? dataIngredient?.map((row) => <Row key={row.id} row={row} setValues={setValues} />)
-              : dataUtensil?.map((row) => <Row key={row.id} row={row} setValues={setValues} />)}
+            {data?.map((row) => (
+              <Row key={`${title}-${row.id}`} row={row} setValues={setValues} />
+            ))}
           </TableBody>
         </Table>
       </TableContainer>
