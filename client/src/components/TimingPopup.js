@@ -21,49 +21,49 @@ export const TimingPopup = (props) => {
   const axios = apiUrl()
   configure({ axios })
 
-  const [{ data: dataUtensil }] = useAxios({
+  const [{ data: dataUtensil, loading: loadingUtensil }] = useAxios({
     url: `/Utensil/all`,
     method: 'GET',
   })
-  const [{ data: dataIngredient }] = useAxios({
+  const [{ data: dataIngredient, loading: loadingIngriedient }] = useAxios({
     url: `/Ingredient/all`,
     method: 'GET',
   })
 
-  const [{ data, loading, error }] = useAxios({
-    url: `/Recipe/{recipeId}?recipeId=${values?.id}`,
-    method: 'GET',
-  })
+  // const [{ data, loading, error }] = useAxios({
+  //   url: `/Recipe/{recipeId}?recipeId=${values?.id}`,
+  //   method: 'GET',
+  // })
 
   const [id, setId] = useState(values?.id)
-  const [brand, setBrand] = useState()
-  const [from, setFrom] = useState()
-  const [till, setTill] = useState()
+  const [brand, setBrand] = useState(values?.brand)
+  const [from, setFrom] = useState(values?.from)
+  const [till, setTill] = useState(values?.till)
 
-  useEffect(() => {
-    setBrand(values?.title === 'ingredient' ? data?.ingedient?.brand : '')
-    setFrom(
-      values?.title === 'ingredient'
-        ? data?.ingedient?.from
-          ? data?.ingedient?.from
-          : '00:00:00'
-        : data?.utensil?.from
-        ? data?.utensil?.from
-        : '00:00:00'
-    )
-    setTill(
-      values?.title === 'ingredient'
-        ? data?.ingedient?.till
-          ? data?.ingedient?.till
-          : '00:00:00'
-        : data?.utensil?.till
-        ? data?.utensil?.till
-        : '00:00:00'
-    )
-  }, [values?.title, data])
+  // useEffect(() => {
+  //   setBrand(values?.title === 'ingredient' ? data?.ingedient?.brand : '')
+  //   setFrom(
+  //     values?.title === 'ingredient'
+  //       ? data?.ingedient?.from
+  //         ? data?.ingedient?.from
+  //         : '00:00:00'
+  //       : data?.utensil?.from
+  //       ? data?.utensil?.from
+  //       : '00:00:00'
+  //   )
+  //   setTill(
+  //     values?.title === 'ingredient'
+  //       ? data?.ingedient?.till
+  //         ? data?.ingedient?.till
+  //         : '00:00:00'
+  //       : data?.utensil?.till
+  //       ? data?.utensil?.till
+  //       : '00:00:00'
+  //   )
+  // }, [values?.title, data])
 
-  if (loading) return <Typography>LOADING</Typography>
-  if (values?.id && error) return <Typography>ERROR</Typography>
+  if (loadingUtensil || loadingIngriedient) return <Typography>LOADING</Typography>
+  // if (values?.id && error) return <Typography>ERROR</Typography>
 
   return (
     <React.Fragment>

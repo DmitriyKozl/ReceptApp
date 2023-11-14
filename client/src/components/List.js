@@ -166,7 +166,13 @@ export const List = (props) => {
                           <TableCell align='right'>
                             <IconButton
                               onClick={() => {
-                                setValues({ title: 'ingredient', id: item.id })
+                                setValues({
+                                  title: 'ingredient',
+                                  id: item.id,
+                                  brand: item.brand,
+                                  from: item.from,
+                                  till: item.till,
+                                })
                                 setOpenTimingPopup(true)
                               }}
                             >
@@ -227,7 +233,7 @@ export const List = (props) => {
                           <TableCell align='right'>
                             <IconButton
                               onClick={() => {
-                                setValues({ title: 'utensil', id: item.id })
+                                setValues({ title: 'utensil', id: item.id, from: item.from, till: item.till })
                                 setOpenTimingPopup(true)
                               }}
                             >
