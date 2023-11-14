@@ -22,6 +22,7 @@ public class MapToDomain {
     public static Ingredient MapToIngredientDomain(IngredientInputDTO ingredient) {
         try {
             return new Ingredient(
+                ingredient.IngredientId,
                 ingredient.Name,
                 ingredient.Price,
                 ingredient.Brand,

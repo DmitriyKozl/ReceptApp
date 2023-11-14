@@ -7,7 +7,10 @@ public class IngredientInputDTO {
     
     public decimal? Price { get; set; }
     
-    public IngredientInputDTO(string name, string brand, string img, decimal? price) {
+    public int IngredientId { get; set; }
+    
+    public IngredientInputDTO(int ingredientId,string name, string brand, string img, decimal? price) {
+        IngredientId = ingredientId;
         Name = name;
         Brand = brand;
         Img = img;
