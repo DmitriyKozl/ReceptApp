@@ -126,7 +126,7 @@ export const List = (props) => {
                     </Typography>
                     <Button
                       onClick={() => {
-                        setValues()
+                        setValues({ title: 'ingredient' })
                         setOpenTimingPopup(true)
                       }}
                       sx={{ border: 1, borderRadius: 10, m: 1 }}
@@ -208,7 +208,6 @@ export const List = (props) => {
                     <TableHead>
                       <TableRow>
                         <TableCell>Name</TableCell>
-                        <TableCell>Brand</TableCell>
                         <TableCell>From</TableCell>
                         <TableCell>Till</TableCell>
                         <TableCell align='right'></TableCell>
@@ -223,18 +222,12 @@ export const List = (props) => {
                               {item.name}
                             </Grid>
                           </TableCell>
-                          <TableCell>
-                            <Grid container sx={{ alignItems: 'center' }}>
-                              <Avatar src={item.brandImg} sx={{ m: 1 }} />
-                              {item.brand}
-                            </Grid>
-                          </TableCell>
                           <TableCell>{item.from}</TableCell>
                           <TableCell>{item.till}</TableCell>
                           <TableCell align='right'>
                             <IconButton
                               onClick={() => {
-                                setValues({ title: 'ingredient', id: item.id })
+                                setValues({ title: 'utensil', id: item.id })
                                 setOpenTimingPopup(true)
                               }}
                             >
