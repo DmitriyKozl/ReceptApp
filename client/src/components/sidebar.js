@@ -33,10 +33,10 @@ export const Sidebar = (selected) => {
         sx={{
           mt: 2,
           width: '100%',
-          backgroundColor: selected.title === 'Recipe' ? 'primary.dark' : 'background.default',
+          backgroundColor: selected.title === 'recipe' ? 'primary.dark' : 'background.default',
           color: '#fff',
           ':hover': {
-            backgroundColor: selected.title === 'Recipe' ? 'primary.dark' : 'background.default',
+            backgroundColor: selected.title === 'recipe' ? 'primary.dark' : 'background.default',
           },
         }}
       >

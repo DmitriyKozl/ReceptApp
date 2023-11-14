@@ -35,15 +35,13 @@ export const TimingPopup = (props) => {
     method: 'GET',
   })
 
-  console.log(data)
-
   const [id, setId] = useState(values?.id)
   const [brand, setBrand] = useState()
   const [from, setFrom] = useState()
   const [till, setTill] = useState()
 
   useEffect(() => {
-    setBrand(values?.title === 'ingredient' ? data?.ingedient?.brand : data?.utensil?.brand)
+    setBrand(values?.title === 'ingredient' ? data?.ingedient?.brand : '')
     setFrom(
       values?.title === 'ingredient'
         ? data?.ingedient?.from
@@ -62,7 +60,7 @@ export const TimingPopup = (props) => {
         ? data?.utensil?.till
         : '00:00:00'
     )
-  }, [data])
+  }, [values?.title, data])
 
   if (loading) return <Typography>LOADING</Typography>
   if (values?.id && error) return <Typography>ERROR</Typography>
@@ -89,10 +87,12 @@ export const TimingPopup = (props) => {
                 : dataIngredient.map((e) => <MenuItem value={e.id}>{e.name}</MenuItem>)}
             </Select>
           </FormControl>
-          <FormControl>
-            <InputLabel>brand</InputLabel>
-            <OutlinedInput label='brand' value={brand} disabled margin='normal' sx={{ borderRadius: '20px' }} />
-          </FormControl>
+          {values?.title === 'ingredient' ? (
+            <FormControl>
+              <InputLabel>brand</InputLabel>
+              <OutlinedInput label='brand' value={brand} disabled margin='normal' sx={{ borderRadius: '20px' }} />
+            </FormControl>
+          ) : null}
           <TimeField
             label='from'
             value={moment(from, 'HH:mm:ss')}

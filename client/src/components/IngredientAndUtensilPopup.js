@@ -39,7 +39,7 @@ export const IngredientAndUntensilPopup = (props) => {
     setName(values.title === 'ingredient' ? ingredient?.name : utensil?.name)
     setBrand(values.title === 'ingredient' ? ingredient?.brand : utensil?.brand)
     setPrice(values.title === 'ingredient' ? ingredient?.price : '')
-  }, [ingredient, utensil])
+  }, [values.title, ingredient, utensil])
 
   if (ingredientLoading || utensilLoading) return <Typography>LOADING</Typography>
   if (values.id) if (ingredientError || utensilError) return <Typography>ERROR</Typography>
