@@ -14,7 +14,6 @@ namespace VideoplayerProject.API.Controllers {
     [Route("api/[controller]")]
     [ApiController]
     public class UtensilController : ControllerBase {
-
         private readonly IUtensilService _utensilManager;
 
         public UtensilController(IUtensilService utensilManager) {
@@ -34,23 +33,28 @@ namespace VideoplayerProject.API.Controllers {
                 return Ok(utensilOutputDto);
             }
             catch (Exception e) {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    "An error occurred while processing your request.");
+                return BadRequest(e.Message);
             }
         }
-        [HttpGet("all")]
-        
+
+        [HttpGet]
         public ActionResult<UtensilsOutputDTO> GetUtensils() {
-            var utensilsData = _utensilManager.GetAllUtensils();
-            var utensilsDomain = utensilsData.Select(utensil => MapFromDomain.MapFromUtensilsDomain(Url.Content("~/"), utensil)).ToList();
-            if (utensilsDomain == null)
-            { 
-                return NotFound("Utensils not found.");
+            try {
+                var utensilsData = _utensilManager.GetAllUtensils();
+                var utensilsDomain = utensilsData
+                    .Select(utensil => MapFromDomain.MapFromUtensilsDomain(Url.Content("~/"), utensil)).ToList();
+                if (utensilsDomain == null) {
+                    return NotFound("Utensils not found.");
+                }
+
+                return Ok(utensilsDomain);
             }
-            return Ok(utensilsDomain);
+            catch (Exception e) {
+                return BadRequest(e.Message);
+            }
         }
-        [HttpPost("utensil")]
-        
+
+        [HttpPost]
         public ActionResult<UtensilsOutputDTO> AddUtensil([FromBody] UtensilInputDTO utensilsInputDto) {
             try {
                 Utensil utensil = _utensilManager.CreateUtensil(MapToDomain.MapToUtensilDomain(utensilsInputDto));
@@ -59,9 +63,23 @@ namespace VideoplayerProject.API.Controllers {
                     MapFromDomain.MapFromUtensilsDomain(Url.Content("~/"), utensil));
             }
             catch (Exception e) {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    "An error occurred while processing your request.");
+                return BadRequest(e.Message);
             }
         }
+
+        [HttpPut("{utensilId}")]
+        public ActionResult<UtensilsOutputDTO> UpdateUtensil(UtensilInputDTO utensilInputDto) {
+            try {
+                var utensilDomain = MapToDomain.MapToUtensilDomain(utensilInputDto);
+                var utensil = _utensilManager.UpdateUtensil(utensilDomain);
+                var utensilOutputDto =
+                    MapFromDomain.MapFromUtensilsDomain(Url.Content("~/"), utensil);
+                return Ok(utensilOutputDto);
+            }
+            catch (Exception e) {
+                return BadRequest(e.Message);
+            }
+        }
+        
     }
 }

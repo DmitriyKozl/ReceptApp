@@ -22,7 +22,20 @@ public class RecipeController : ControllerBase {
         _utensilService = utensilService ?? throw new ArgumentNullException(nameof(utensilService));
     }
 
-    [HttpGet("{{recipeId}}")]
+    [HttpGet]
+    public ActionResult<RecipeOutputDTO> GetAllRecipes() {
+        var recipesData = _recipeManager.GetAllRecipes();
+        var recipesDomain = recipesData.Select(recipe => MapFromDomain.MapFromRecipeDomain(Url.Content("~/"), recipe))
+            .ToList();
+
+        if (recipesDomain == null) {
+            return NotFound("Recipes not found.");
+        }
+
+        return Ok(recipesDomain);
+    }
+
+    [HttpGet("{recipeId}")]
     public ActionResult<RecipeOutputDTO> GetRecipeById(int recipeId) {
         try {
             var recipe = _recipeManager.GetRecipeById(recipeId);
@@ -39,20 +52,42 @@ public class RecipeController : ControllerBase {
         }
     }
 
-    [HttpGet("all")]
-    public ActionResult<RecipeOutputDTO> GetAllRecipes() {
-        var recipesData = _recipeManager.GetAllRecipes();
-        var recipesDomain = recipesData.Select(recipe => MapFromDomain.MapFromRecipeDomain(Url.Content("~/"), recipe))
-            .ToList();
 
-        if (recipesDomain == null) {
-            return NotFound("Recipes not found.");
+    [HttpGet("{recipeId}/ingredient/{ingredientId}")]
+    public ActionResult<RecipeOutputDTO> GetIngredientsWithTimestamps(int recipeId, int ingredientId) {
+        try {
+            var ingredient = _recipeManager.GetIngredientsWithTimestamps(recipeId, ingredientId);
+            if (ingredient == null) {
+                return NotFound($"Ingredient with ID {ingredientId} not found.");
+            }
+
+            var ingredientOutputDto = MapFromDomain.MapFromIngredientDomain(Url.Content("~/"), ingredient);
+            return Ok(ingredientOutputDto);
         }
-
-        return Ok(recipesDomain);
+        catch (Exception e) {
+            return StatusCode(StatusCodes.Status500InternalServerError,
+                "An error occurred while processing your request.");
+        }
     }
 
-    [HttpPost("recipe")]
+    [HttpGet("{recipeId}/utensil/{utensilId}")]
+    public ActionResult<RecipeOutputDTO> GetUtensilWithTimestamps(int recipeId, int utensilId) {
+        try {
+            var utensil = _recipeManager.GetUtensilWithTimestamps(recipeId, utensilId);
+            if (utensil == null) {
+                return NotFound($"Ingredient with ID {utensilId} not found.");
+            }
+
+            var utensilOutputDto = MapFromDomain.MapFromUtensilsDomain(Url.Content("~/"), utensil);
+            return Ok(utensilOutputDto);
+        }
+        catch (Exception e) {
+            return StatusCode(StatusCodes.Status500InternalServerError,
+                "An error occurred while processing your request.");
+        }
+    }
+
+    [HttpPost]
     public ActionResult<RecipeOutputDTO> AddRecipe([FromBody] RecipeInputDTO recipeInputDto) {
         try {
             Recipe recipe = _recipeManager.CreateRecipe(MapToDomain.MapToRecipeDomain(recipeInputDto));
@@ -110,8 +145,8 @@ public class RecipeController : ControllerBase {
                 return NotFound($"Recipe with ID {recipeId} not found.");
             }
 
-             _recipeManager.RemoveRecipe(recipeId);
-             return NoContent();
+            _recipeManager.RemoveRecipe(recipeId);
+            return NoContent();
         }
         catch (Exception e) {
             return BadRequest(e.Message);
@@ -131,8 +166,7 @@ public class RecipeController : ControllerBase {
             return NoContent();
         }
         catch (Exception e) {
-            return StatusCode(StatusCodes.Status500InternalServerError,
-                "An error occurred while processing your request.");
+            return BadRequest(e.Message);
         }
     }
 }

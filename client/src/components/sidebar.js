@@ -9,15 +9,23 @@ import UtensilIcon from '@mui/icons-material/Restaurant'
 export const Sidebar = (selected) => {
   const navigate = useNavigate()
 
+  const buttonStyle = {
+    mt: 2,
+    width: '100%',
+    color: '#fff',
+    ':hover': {
+      backgroundColor: 'background.default',
+    },
+  }
+
   return (
     <Grid sx={{ backgroundColor: 'background.default', width: 100, textAlign: 'center' }}>
       <Button
         onClick={() => navigate('/home')}
         sx={{
+          ...buttonStyle,
           mt: 5,
-          width: '100%',
           backgroundColor: !selected.title ? 'primary.dark' : 'background.default',
-          color: '#fff',
           ':hover': {
             backgroundColor: !selected.title ? 'primary.dark' : 'background.default',
           },
@@ -31,10 +39,8 @@ export const Sidebar = (selected) => {
       <Button
         onClick={() => navigate('/recipe')}
         sx={{
-          mt: 2,
-          width: '100%',
+          ...buttonStyle,
           backgroundColor: selected.title === 'recipe' ? 'primary.dark' : 'background.default',
-          color: '#fff',
           ':hover': {
             backgroundColor: selected.title === 'recipe' ? 'primary.dark' : 'background.default',
           },
@@ -48,10 +54,8 @@ export const Sidebar = (selected) => {
       <Button
         onClick={() => navigate('/ingredient')}
         sx={{
-          mt: 2,
-          width: '100%',
+          ...buttonStyle,
           backgroundColor: selected.title === 'ingredient' ? 'primary.dark' : 'background.default',
-          color: '#fff',
           ':hover': {
             backgroundColor: selected.title === 'ingredient' ? 'primary.dark' : 'background.default',
           },
@@ -65,10 +69,8 @@ export const Sidebar = (selected) => {
       <Button
         onClick={() => navigate('/utensil')}
         sx={{
-          mt: 2,
-          width: '100%',
+          ...buttonStyle,
           backgroundColor: selected.title === 'utensil' ? 'primary.dark' : 'background.default',
-          color: '#fff',
           ':hover': {
             backgroundColor: selected.title === 'utensil' ? 'primary.dark' : 'background.default',
           },

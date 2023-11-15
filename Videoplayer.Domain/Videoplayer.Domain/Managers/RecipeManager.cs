@@ -23,6 +23,13 @@ public class RecipeManager : IRecipeService {
     public Recipe GetRecipeById(int id) {
         return _recipeRepository.GetRecipeById(id);
     }
+    
+    public Ingredient GetIngredientsWithTimestamps(int recipeId, int ingredientId) {
+        return _recipeRepository.GetIngredientsWithTimestamps(recipeId, ingredientId);
+    }
+    public Utensil GetUtensilWithTimestamps(int recipeId, int utensilId) {
+        return _recipeRepository.GetUtensilWithTimestamps(recipeId, utensilId);
+    }
 
     public Recipe CreateRecipe(Recipe recipe) {
         if (recipe == null) throw new ArgumentNullException(nameof(recipe));
@@ -62,4 +69,6 @@ public class RecipeManager : IRecipeService {
         {
             throw new RecipeException("Updaterecipe", ex);
         }    }
+    
+
 }

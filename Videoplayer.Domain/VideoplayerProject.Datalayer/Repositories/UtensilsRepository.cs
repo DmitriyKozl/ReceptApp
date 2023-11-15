@@ -6,7 +6,7 @@ using DataUtensil = VideoplayerProject.Datalayer.Models.Utensils;
 
 namespace VideoplayerProject.Datalayer.Repositories;
 
-public class UtensilsRepository: IUtensilsRepository {
+public class UtensilsRepository : IUtensilsRepository {
     private readonly RecipeDbContext _context;
 
     public UtensilsRepository(RecipeDbContext context) {
@@ -37,31 +37,27 @@ public class UtensilsRepository: IUtensilsRepository {
 
         // Map the data utensils to domain utensils
         return dataUtensils.Select(UtensilMapper.MapToDomainModel).ToList();
-
     }
-    
+
     public DomainUtensil GetUtensilById(int id) {
         var dataUtensil = _context.Utensils.Find(id);
         if (dataUtensil == null) throw new ArgumentNullException("Utensil not found.");
 
         return UtensilMapper.MapToDomainModel(dataUtensil);
     }
-    
+
     public void CreateUtensil(DomainUtensil utensil) {
         var dataUtensil = UtensilMapper.MapToDataModel(utensil);
         _context.Utensils.Add(dataUtensil);
         _context.SaveChanges();
     }
     
-    public void RemoveUtensil(int id) {
-        var dataUtensil = _context.Utensils.Find(id);
+
+    public void UpdateUtensil(DomainUtensil utensil) {
+        var dataUtensil = UtensilMapper.MapToDataModel(utensil);
         if (dataUtensil == null) throw new ArgumentNullException("Utensil not found.");
 
-        _context.Utensils.Remove(dataUtensil);
+        _context.Utensils.Update(dataUtensil);
         _context.SaveChanges();
-    }
-
-    public void UpdateUtensil(int id, string newName) {
-        throw new NotImplementedException();
     }
 }

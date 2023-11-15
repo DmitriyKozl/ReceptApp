@@ -41,9 +41,10 @@ namespace VideoplayerProject.Domain.Managers {
             return utensil;
         }
         
-        public void RemoveUtensil(int id)
+        public Utensil UpdateUtensil(Utensil utensil)
         {
-            _utensilRepository.RemoveUtensil(id);
+            _utensilRepository.UpdateUtensil(utensil);
+            return utensil;
         }
 
 

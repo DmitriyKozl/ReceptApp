@@ -139,6 +139,25 @@ public class RecipeRepository : IRecipeRepository {
             throw new RecipeRepositoryException("UpdateRecipe", ex);
         }
     }
+
+   public Ingredient GetIngredientsWithTimestamps(int recipeId, int ingredientId) {
+        var recipeIngredient = _context.RecipeIngredient
+            .Include(ri => ri.Ingredient)
+            .FirstOrDefault(ri => ri.RecipeID == recipeId && ri.IngredientID == ingredientId);
+
+        if (recipeIngredient == null) throw new ArgumentNullException(nameof(recipeIngredient));
+
+        return IngredientMapper.MapToDomainModel(recipeIngredient.Ingredient);
+    }   
+   public Utensil GetUtensilWithTimestamps(int recipeId, int UtensilId) {
+        var recipeUtensil = _context.RecipeUtensils
+            .Include(ri => ri.Utensil)
+            .FirstOrDefault(ri => ri.RecipeID == recipeId && ri.UtensilID == UtensilId);
+
+        if (recipeUtensil == null) throw new ArgumentNullException(nameof(recipeUtensil));
+
+        return UtensilMapper.MapToDomainModel(recipeUtensil.Utensil);
+    }
 }
 /*
  * TODO - UpdateRecipe

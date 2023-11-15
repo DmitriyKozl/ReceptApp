@@ -20,7 +20,7 @@ namespace VideoplayerProject.API.Controllers {
             _ingredientManager = ingredientManager ?? throw new ArgumentNullException(nameof(ingredientManager));
         }
 
-        [HttpGet("{ingredientId}")]
+        [HttpGet("{Id}")]
         public ActionResult<IngredientOutputDTO> GetIngredientById(int ingredientId) {
             try {
                 var ingredient = _ingredientManager.GetIngredientById(ingredientId);
@@ -33,25 +33,29 @@ namespace VideoplayerProject.API.Controllers {
                 return Ok(ingredientOutputDto);
             }
             catch (Exception e) {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    "An error occurred while processing your request.");
+                return BadRequest(e.Message);
             }
         }
 
-        [HttpGet("all")]
+        [HttpGet]
         public ActionResult<IngredientOutputDTO> GetIngredients() {
-            var ingredientsData = _ingredientManager.GetIngredients("");
-            var ingredientsDomain = ingredientsData
-                .Select(ingredient => MapFromDomain.MapFromIngredientDomain(Url.Content("~/"), ingredient)).ToList();
-            if (ingredientsDomain == null) {
-                return NotFound("Ingredients not found.");
-            }
+            try {
+                var ingredientsData = _ingredientManager.GetAllIngredients();
+                var ingredientsDomain = ingredientsData
+                    .Select(ingredient => MapFromDomain.MapFromIngredientDomain(Url.Content("~/"), ingredient))
+                    .ToList();
+                if (ingredientsDomain == null) {
+                    return NotFound("Ingredients not found.");
+                }
 
-            return Ok(ingredientsDomain);
+                return Ok(ingredientsDomain);
+            }
+            catch (Exception e) {
+                return BadRequest(e.Message);
+            }
         }
-        
+
         [HttpPost]
-        
         public ActionResult<IngredientOutputDTO> AddIngredient(IngredientInputDTO ingredientInputDto) {
             try {
                 var ingredientDomain = MapToDomain.MapToIngredientDomain(ingredientInputDto);
@@ -61,8 +65,21 @@ namespace VideoplayerProject.API.Controllers {
                 return Ok(ingredientOutputDto);
             }
             catch (Exception e) {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    "An error occurred while processing your request.");
+                return BadRequest(e.Message);
+            }
+        }
+        
+        [HttpPut("{ingredientId}")]
+        public ActionResult<IngredientOutputDTO> UpdateIngredient(IngredientInputDTO ingredientInputDto) {
+            try {
+                var ingredientDomain = MapToDomain.MapToIngredientDomain(ingredientInputDto);
+                var ingredient = _ingredientManager.UpdateIngredient( ingredientDomain);
+                var ingredientOutputDto =
+                    MapFromDomain.MapFromIngredientDomain(Url.Content("~/"), ingredient);
+                return Ok(ingredientOutputDto);
+            }
+            catch (Exception e) {
+                return BadRequest(e.Message);
             }
         }
     }
