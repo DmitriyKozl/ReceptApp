@@ -259,7 +259,6 @@ export const List = (props) => {
   const [data, setData] = useState()
 
   useEffect(() => {
-    console.log(dataRecipe, dataIngredient, dataUtensil)
     if (title === 'recipe') setData(dataRecipe)
     if (title === 'ingredient') setData(dataIngredient)
     if (title === 'utensil') setData(dataUtensil)

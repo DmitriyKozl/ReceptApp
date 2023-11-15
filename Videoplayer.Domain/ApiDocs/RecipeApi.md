@@ -1,5 +1,6 @@
 ﻿# RecipeApp API
 
+
 - [RecipeApp API](#recipeapp-api)
     - [Create Recipe](#create-recipe)
         - [Create Recipe Request](#create-recipe-request)
@@ -7,6 +8,10 @@
     - [Get Recipe](#get-recipe)
         - [Get Recipe Request](#get-recipe-request)
         - [Get Recipe Response](#get-recipe-response)
+        - [Get RecipeIngredient Request](#get-recipeingredient-request)
+        - [Get RecipeIngredient Response](#get-recipeingredient-response)
+        - [Get RecipeUtensil Request](#get-recipeutensil-request)
+        - [Get RecipeUtensil Response](#get-recipeutensil-response)
     - [Update Recipe](#update-recipe)
         - [Update Recipe Request](#update-recipe-request)
         - [Update Recipe Response](#update-recipe-response)
@@ -124,6 +129,52 @@ GET /recipes/{{id}}
             "till": "00:25:00"
             }
 ]
+}
+```
+
+### Get RecipeIngredient Request
+
+```js
+GET /recipes/{{id}}/ingredient/{{id}}
+```
+
+### Get RecipeIngredient Response
+
+```js
+200 Ok
+```
+
+```json
+{
+"id": 1,
+"name": "Oatmeal",
+"img": "https://images.unsplash.com/photo-1571748982800-fa51082c2224?auto=format&fit=crop&q=80&w=2071&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+"brand": "HealthyOats",
+"brandImg": "https://images.unsplash.com/photo-1571748982800-fa51082c2224?auto=format&fit=crop&q=80&w=2071&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+"from": "00:10:00",
+"till": "00:20:00"
+}
+```
+
+### Get RecipeUtensil Request
+
+```js
+GET /recipes/{{id}}/utensil/{{id}}
+```
+
+### Get RecipeUtensil Response
+
+```js
+200 Ok
+```
+
+```json
+{
+"id": 1,
+"name": "Measuring cup",
+"img": "https://images.unsplash.com/photo-1586797166778-7cb76a618157?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+"from": "00:10:00",
+"till": "00:20:00"
 }
 ```
 
