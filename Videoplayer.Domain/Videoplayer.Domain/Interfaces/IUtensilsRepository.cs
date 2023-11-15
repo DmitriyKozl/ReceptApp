@@ -8,9 +8,6 @@ public interface IUtensilsRepository {
     public Utensil GetUtensilById(int id);
     public List<Utensil> GetUtensilsFromRecipe(int recipeId);
     void CreateUtensil(Utensil utensil);
-    
-    public void RemoveUtensil(int id);
-    
-    public void UpdateUtensil(Utensil utensil);
+     void UpdateUtensil(Utensil utensil);
     
 }

@@ -51,14 +51,7 @@ public class UtensilsRepository : IUtensilsRepository {
         _context.Utensils.Add(dataUtensil);
         _context.SaveChanges();
     }
-
-    public void RemoveUtensil(int id) {
-        var dataUtensil = _context.Utensils.Find(id);
-        if (dataUtensil == null) throw new ArgumentNullException("Utensil not found.");
-
-        _context.Utensils.Remove(dataUtensil);
-        _context.SaveChanges();
-    }
+    
 
     public void UpdateUtensil(DomainUtensil utensil) {
         var dataUtensil = UtensilMapper.MapToDataModel(utensil);
