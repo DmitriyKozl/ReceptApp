@@ -51,12 +51,12 @@ public class RecipeMapper {
 
         // Create the domain model
         var domainRecipe = new Recipe(
+            dataRecipe.RecipeID,
             dataRecipe.RecipeName,
             dataRecipe.Servings ?? 0,
             dataRecipe.VideoLink,
             dataRecipe.CookingTime
         ) {
-        Id = dataRecipe.RecipeID,
         IngredientToTimestamp = ingredientGroups,
         UtensilToTimestamp = utensilGroups
         };

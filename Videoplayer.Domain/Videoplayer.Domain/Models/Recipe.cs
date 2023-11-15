@@ -12,18 +12,19 @@ namespace VideoplayerProject.Domain.Models {
             Servings = servings;
             VideoLink = videoLink;
             CookingTime = cookingTime;
-            Id = 0;
         }
-        
-        private int _id;
 
-        public int Id {
-            get { return _id; }
-            set {
-                if (value >= 0) {
-                    _id = value;
-                } else { throw new RecipeException("Invalid ID!"); }
-            }
+        public Recipe(int id, string name, int? servings, string videoLink, TimeSpan cookingTime) : this(name, servings, videoLink, cookingTime)
+        {
+            SetId(id);
+        }
+        public int Id { get; private set; }
+
+        public void SetId(int id)
+        {
+            if (id <= 0) throw new IngredientException("Invalid ID!");
+            if (Id != 0) throw new IngredientException("Ingredient already has an ID!");
+            Id = id;
         }
 
         private string _name;

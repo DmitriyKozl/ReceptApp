@@ -7,39 +7,25 @@ using VideoplayerProject.Domain.Exceptions;
 
 namespace VideoplayerProject.Domain.Models {
     public class Ingredient {
-        public Ingredient(int id, string name, decimal? price, string brand, string img) {
-            Id = id;
+        public Ingredient(string name, decimal? price, string brand, string img) {
             Name = name;
             Price = price;
             Brand = brand;
             Img = img;
-            
         }
 
         public Ingredient(int id, string name, decimal? price, string brand, string img) : this(name, price, brand,img)
         {
-            if (id > 0)
-            {
-                Id = id;
-            }
-            else
-            {
-                throw new IngredientException("Invalid ID!");
-            }
+            SetId(id);
         }
 
         public int Id { get; private set; }
 
         public void SetId(int id)
         {
-            if (Id == 0)
-            {
-                Id = id;
-            }
-            else
-            {
-                throw new IngredientException("Ingredient already has an ID!");
-            }
+            if (id <= 0) throw new IngredientException("Invalid ID!");
+            if (Id != 0) throw new IngredientException("Ingredient already has an ID!");
+            Id = id;
         }
 
         private string _name;

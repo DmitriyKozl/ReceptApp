@@ -15,13 +15,13 @@
             // In the 2 cases, Id's are not positive, so an exception should be thrown            
             if (!expectedResult)
             {
-                Assert.Throws<RecipeException>(() => sut.Id = id);
+                Assert.Throws<RecipeException>(() => sut.SetId(id));
             }
 
             // The last two cases, the Id's are positive, so the object should be created (not null)
             else
             {
-                sut.Id = id;
+                sut.SetId(id);
                 Assert.Equal(sut.Id, id);
             }
         }

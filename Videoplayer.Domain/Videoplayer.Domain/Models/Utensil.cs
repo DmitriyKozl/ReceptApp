@@ -8,12 +8,23 @@ using VideoplayerProject.Domain.Exceptions;
 namespace VideoplayerProject.Domain.Models {
     public class Utensil {
 
-        public Utensil(int id, string name, string imgUrl) {
-            Id = id;
+        public Utensil(string name, string imgUrl) {
             Name = name;
             ImgUrl = imgUrl;
         }
 
+        public Utensil(int id, string name, string imgUrl) : this(name, imgUrl)
+        {
+            SetId(id);
+        }
+
+        public void SetId(int id)
+        {
+            if (id <= 0) throw new IngredientException("Invalid ID!");
+            if (Id != 0) throw new IngredientException("Ingredient already has an ID!"); 
+            
+            Id = id;
+        }
         private int _id;
 
         public int Id
