@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react'
 import moment from 'moment'
 import {
   Button,
+  Dialog,
+  DialogActions,
   DialogContent,
   DialogTitle,
   FormControl,
+  IconButton,
   InputLabel,
   OutlinedInput,
   Stack,
@@ -15,9 +18,10 @@ import { VisuallyHiddenInput } from './VisuallyHiddenInput'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import useAxios, { configure } from 'axios-hooks'
 import apiUrl from '../common/apiUrl'
+import CloseIcon from '@mui/icons-material/Close'
 
 export const RecipePopup = (props) => {
-  const { values } = props
+  const { values, openRecipePopup, handleClose } = props
 
   const axios = apiUrl()
   configure({ axios })
@@ -26,6 +30,14 @@ export const RecipePopup = (props) => {
     url: `/Recipe/{recipeId}?recipeId=${values?.id}`,
     method: 'GET',
   })
+
+  const [{ data: postData }, executePost] = useAxios(
+    {
+      url: `/Recipe/recipe`,
+      method: 'POST',
+    },
+    { manual: true }
+  )
 
   const [name, setName] = useState()
   const [videoLink, setVideoLink] = useState()
@@ -43,7 +55,10 @@ export const RecipePopup = (props) => {
   if (values.id && error) return <Typography>ERROR</Typography>
 
   return (
-    <React.Fragment>
+    <Dialog open={openRecipePopup} onClose={handleClose} PaperProps={{ sx: { borderRadius: '20px' } }}>
+      <IconButton sx={{ position: 'absolute', alignSelf: 'end' }} onClick={handleClose}>
+        <CloseIcon fontSize='large' />
+      </IconButton>
       <DialogTitle variant='h4' m={1}>
         Recipe
       </DialogTitle>
@@ -115,6 +130,26 @@ export const RecipePopup = (props) => {
           />
         </Stack>
       </DialogContent>
-    </React.Fragment>
+      <DialogActions sx={{ justifyContent: 'center' }}>
+        <Button
+          onClick={() => {
+            executePost({
+              data: { name: name, img: '', videoLink: videoLink, servings: servings, cookingTime: cookingtime },
+            })
+            console.log(postData)
+            handleClose()
+          }}
+          sx={{
+            p: '10px 50px',
+            borderRadius: '20px',
+            color: '#fff',
+            backgroundColor: 'primary.main',
+            ':hover': { backgroundColor: 'primary.main' },
+          }}
+        >
+          save
+        </Button>
+      </DialogActions>
+    </Dialog>
   )
 }

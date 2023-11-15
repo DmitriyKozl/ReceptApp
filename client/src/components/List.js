@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import {
   Avatar,
   Box,
@@ -7,13 +7,13 @@ import {
   Grid,
   IconButton,
   Table,
-  TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
   Typography,
   LinearProgress,
+  TableBody,
 } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
@@ -21,6 +21,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import useAxios, { configure } from 'axios-hooks'
 import apiUrl from '../common/apiUrl'
+import TableHeader from './TableHeader'
 
 export const List = (props) => {
   const { title, setValues, setOpenRecipePopup, setOpenTimingPopup, setOpenIngredientAndUtensilPopup } = props
@@ -37,232 +38,261 @@ export const List = (props) => {
     method: 'GET',
   })
   const [{ data: dataRecipe, loading: loadingRecipe, error: recipeError }] = useAxios({
-    url: `/Recipe/all`,
+    url: 'http://localhost:5000/',
     method: 'GET',
   })
 
-  const Row = (props) => {
-    const { row, setValues } = props
+  const TableContent = (props) => {
+    const { title, setValues } = props
+
     const [open, setOpen] = useState(false)
 
-    if (loadingIngriedient || loadingUtensil || loadingRecipe) return <LinearProgress />
-    if (ingredientError || utensilError || recipeError) return <Typography>ERROR</Typography>
-
-    return (
-      <React.Fragment>
-        <TableRow sx={{ boxShadow: '0px 20px 25px -15px RGB(213 217 219)' }}>
-          {title === 'recipe' ? (
-            <>
-              <TableCell sx={{ borderBottom: 0, borderRadius: '20px 0 0 20px' }}>
-                <IconButton onClick={() => setOpen(!open)}>
-                  {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-                </IconButton>
-              </TableCell>
-              <TableCell sx={{ borderBottom: 0 }}>
-                <Avatar src={row.img} />
-              </TableCell>
-            </>
-          ) : null}
-
-          <TableCell sx={{ borderBottom: 0, borderRadius: title !== 'recipe' ? '20px 0 0 20px' : 0 }}>
-            {title === 'recipe' ? (
-              row.name
-            ) : (
-              <Grid container sx={{ alignItems: 'center' }}>
-                <Avatar src={row.img} sx={{ m: 1 }} />
-                {row.name}
-              </Grid>
-            )}
-          </TableCell>
-          {title !== 'utensil' ? (
-            <TableCell sx={{ borderBottom: 0 }}>
-              {title === 'recipe' ? (
-                row.videoLink
-              ) : (
-                <Grid container sx={{ alignItems: 'center' }}>
-                  <Avatar src={row.brandImg} sx={{ m: 1 }} />
-                  {row.brand}
-                </Grid>
-              )}
-            </TableCell>
-          ) : null}
-          {title === 'ingredient' ? <TableCell sx={{ borderBottom: 0 }}>€ {row.price}</TableCell> : null}
-          {title === 'recipe' ? (
-            <>
-              <TableCell sx={{ borderBottom: 0 }}>{row.servings}</TableCell>
-              <TableCell sx={{ borderBottom: 0 }}>{row.cookingTime}</TableCell>
-            </>
-          ) : null}
-          <TableCell align='right' sx={{ borderBottom: 0, borderRadius: '0 20px 20px 0' }}>
-            <IconButton
-              onClick={() => {
-                setValues({ title: title, id: row.id })
-                if (title === 'recipe') {
-                  setOpenRecipePopup(true)
-                }
-                if (title === 'ingredient') {
-                  setOpenIngredientAndUtensilPopup(true)
-                }
-                if (title === 'utensil') {
-                  setOpenIngredientAndUtensilPopup(true)
-                }
-              }}
-            >
-              <EditIcon />
-            </IconButton>
-            <IconButton onClick={() => {}}>
-              <DeleteIcon />
-            </IconButton>
-          </TableCell>
-        </TableRow>
-        <TableRow sx={{ boxShadow: '0px 20px 25px -15px RGB(213 217 219)' }}>
-          {title === 'recipe' ? (
-            <TableCell sx={{ pb: 0, pt: 0, borderBottom: 0, borderRadius: '20px' }} colSpan={8}>
-              <Collapse in={open} timeout='auto' unmountOnExit>
-                <Box sx={{ margin: 1 }}>
-                  <Grid container sx={{ width: '100%' }} justifyContent={'space-between'}>
-                    <Typography variant='h6' gutterBottom component='div'>
-                      Ingredients
-                    </Typography>
-                    <Button
+    switch (title) {
+      case 'recipe':
+        return (
+          <TableBody sx={{ backgroundColor: '#fff' }}>
+            {dataRecipe?.map((row) => (
+              <React.Fragment key={`${title}-${row.id}`}>
+                <TableRow sx={{ boxShadow: '0px 20px 25px -15px RGB(213 217 219)' }}>
+                  <TableCell sx={{ borderBottom: 0, borderRadius: '20px 0 0 20px' }}>
+                    <IconButton onClick={() => setOpen(!open)}>
+                      {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                    </IconButton>
+                  </TableCell>
+                  <TableCell sx={{ borderBottom: 0 }}>
+                    <Avatar src={row.img} />
+                  </TableCell>
+                  <TableCell sx={{ borderBottom: 0 }}>{row.name}</TableCell>
+                  <TableCell sx={{ borderBottom: 0 }}>{row.videoLink}</TableCell>
+                  <TableCell sx={{ borderBottom: 0 }}>{row.servings}</TableCell>
+                  <TableCell sx={{ borderBottom: 0 }}>{row.cookingTime}</TableCell>
+                  <TableCell align='right' sx={{ borderBottom: 0, borderRadius: '0 20px 20px 0' }}>
+                    <IconButton
                       onClick={() => {
-                        setValues({ title: 'ingredient' })
-                        setOpenTimingPopup(true)
+                        setValues({ title: title, id: row.id })
+                        setOpenRecipePopup(true)
                       }}
-                      sx={{ border: 1, borderRadius: 10, m: 1 }}
                     >
-                      + add a ingredient
-                    </Button>
-                  </Grid>
-                  <Table>
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Brand</TableCell>
-                        <TableCell>Price</TableCell>
-                        <TableCell>From</TableCell>
-                        <TableCell>Till</TableCell>
-                        <TableCell align='right'></TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {row?.ingredients?.map((item) => (
-                        <TableRow key={`ingredient-${item.id}`}>
-                          <TableCell>
-                            <Grid container sx={{ alignItems: 'center' }}>
-                              <Avatar src={item.img} sx={{ m: 1 }} />
-                              {item.name}
-                            </Grid>
-                          </TableCell>
-                          <TableCell>
-                            <Grid container sx={{ alignItems: 'center' }}>
-                              <Avatar src={item.brandImg} sx={{ m: 1 }} />
-                              {item.brand}
-                            </Grid>
-                          </TableCell>
-                          <TableCell>€ {item.price}</TableCell>
-                          <TableCell>{item.from}</TableCell>
-                          <TableCell>{item.till}</TableCell>
-                          <TableCell align='right'>
-                            <IconButton
+                      <EditIcon />
+                    </IconButton>
+                    <IconButton onClick={() => {}}>
+                      <DeleteIcon />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+                <TableRow sx={{ boxShadow: '0px 20px 25px -15px RGB(213 217 219)' }}>
+                  {title === 'recipe' ? (
+                    <TableCell sx={{ pb: 0, pt: 0, borderBottom: 0, borderRadius: '20px' }} colSpan={8}>
+                      <Collapse in={open} timeout='auto' unmountOnExit>
+                        <Box sx={{ margin: 1 }}>
+                          <Grid container sx={{ width: '100%' }} justifyContent={'space-between'}>
+                            <Typography variant='h6' gutterBottom component='div'>
+                              Ingredients
+                            </Typography>
+                            <Button
                               onClick={() => {
-                                setValues({
-                                  title: 'ingredient',
-                                  id: item.id,
-                                  brand: item.brand,
-                                  from: item.from,
-                                  till: item.till,
-                                })
+                                setValues({ title: 'ingredient', recipeId: row.id })
                                 setOpenTimingPopup(true)
                               }}
+                              sx={{ border: 1, borderRadius: 10, m: 1 }}
                             >
-                              <EditIcon />
-                            </IconButton>
-                            <IconButton onClick={() => {}}>
-                              <DeleteIcon />
-                            </IconButton>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </Box>
-              </Collapse>
-            </TableCell>
-          ) : null}
-        </TableRow>
-        <TableRow sx={{ boxShadow: '0px 20px 25px -15px RGB(213 217 219)' }}>
-          {title === 'recipe' ? (
-            <TableCell sx={{ pb: 0, pt: 0, borderBottom: 0, borderRadius: '20px' }} colSpan={8}>
-              <Collapse in={open} timeout='auto' unmountOnExit>
-                <Box sx={{ margin: 1 }}>
-                  <Grid container sx={{ width: '100%' }} justifyContent={'space-between'}>
-                    <Typography variant='h6' gutterBottom component='div'>
-                      Utensils
-                    </Typography>
-                    <Button
-                      onClick={() => {
-                        setValues({ title: 'utensil' })
-                        setOpenTimingPopup(true)
-                      }}
-                      sx={{ border: 1, borderRadius: 10, m: 1 }}
-                    >
-                      + add a utensil
-                    </Button>
+                              + add a ingredient
+                            </Button>
+                          </Grid>
+                          <Table>
+                            <TableHead>
+                              <TableRow>
+                                <TableCell>Name</TableCell>
+                                <TableCell>Brand</TableCell>
+                                <TableCell>Price</TableCell>
+                                <TableCell>From</TableCell>
+                                <TableCell>Till</TableCell>
+                                <TableCell align='right'></TableCell>
+                              </TableRow>
+                            </TableHead>
+                            <TableBody>
+                              {row?.ingredients?.map((item) => (
+                                <TableRow key={`ingredient-${item.id}`}>
+                                  <TableCell>
+                                    <Grid container sx={{ alignItems: 'center' }}>
+                                      <Avatar src={item.img} sx={{ m: 1 }} />
+                                      {item.name}
+                                    </Grid>
+                                  </TableCell>
+                                  <TableCell>
+                                    <Grid container sx={{ alignItems: 'center' }}>
+                                      <Avatar src={item.brandImg} sx={{ m: 1 }} />
+                                      {item.brand}
+                                    </Grid>
+                                  </TableCell>
+                                  <TableCell>€ {item.price}</TableCell>
+                                  <TableCell>{item.from}</TableCell>
+                                  <TableCell>{item.till}</TableCell>
+                                  <TableCell align='right'>
+                                    <IconButton
+                                      onClick={() => {
+                                        setValues({
+                                          title: 'ingredient',
+                                          recipeId: row.id,
+                                          id: item.id,
+                                          brand: item.brand,
+                                          from: item.from,
+                                          till: item.till,
+                                        })
+                                        setOpenTimingPopup(true)
+                                      }}
+                                    >
+                                      <EditIcon />
+                                    </IconButton>
+                                    <IconButton onClick={() => {}}>
+                                      <DeleteIcon />
+                                    </IconButton>
+                                  </TableCell>
+                                </TableRow>
+                              ))}
+                            </TableBody>
+                          </Table>
+                        </Box>
+                      </Collapse>
+                    </TableCell>
+                  ) : null}
+                </TableRow>
+                <TableRow sx={{ boxShadow: '0px 20px 25px -15px RGB(213 217 219)' }}>
+                  <TableCell sx={{ pb: 0, pt: 0, borderBottom: 0, borderRadius: '20px' }} colSpan={8}>
+                    <Collapse in={open} timeout='auto' unmountOnExit>
+                      <Box sx={{ margin: 1 }}>
+                        <Grid container sx={{ width: '100%' }} justifyContent={'space-between'}>
+                          <Typography variant='h6' gutterBottom component='div'>
+                            Utensils
+                          </Typography>
+                          <Button
+                            onClick={() => {
+                              setValues({ title: 'utensil', recipeId: row.id })
+                              setOpenTimingPopup(true)
+                            }}
+                            sx={{ border: 1, borderRadius: 10, m: 1 }}
+                          >
+                            + add a utensil
+                          </Button>
+                        </Grid>
+                        <Table>
+                          <TableHead>
+                            <TableRow>
+                              <TableCell>Name</TableCell>
+                              <TableCell>From</TableCell>
+                              <TableCell>Till</TableCell>
+                              <TableCell align='right'></TableCell>
+                            </TableRow>
+                          </TableHead>
+                          <TableBody>
+                            {row?.utensils?.map((item) => (
+                              <TableRow key={`utensil-${item.id}`}>
+                                <TableCell>
+                                  <Grid container sx={{ alignItems: 'center' }}>
+                                    <Avatar src={item.img} sx={{ m: 1 }} />
+                                    {item.name}
+                                  </Grid>
+                                </TableCell>
+                                <TableCell>{item.from}</TableCell>
+                                <TableCell>{item.till}</TableCell>
+                                <TableCell align='right'>
+                                  <IconButton
+                                    onClick={() => {
+                                      setValues({
+                                        title: 'utensil',
+                                        recipeId: row.id,
+                                        id: item.id,
+                                        from: item.from,
+                                        till: item.till,
+                                      })
+                                      setOpenTimingPopup(true)
+                                    }}
+                                  >
+                                    <EditIcon />
+                                  </IconButton>
+                                  <IconButton onClick={() => {}}>
+                                    <DeleteIcon />
+                                  </IconButton>
+                                </TableCell>
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
+                      </Box>
+                    </Collapse>
+                  </TableCell>
+                </TableRow>
+              </React.Fragment>
+            ))}
+          </TableBody>
+        )
+      case 'ingredient':
+        return (
+          <TableBody sx={{ backgroundColor: '#fff' }}>
+            {dataIngredient?.map((row) => (
+              <TableRow key={`${title}-${row.id}`} sx={{ boxShadow: '0px 20px 25px -15px RGB(213 217 219)' }}>
+                <TableCell sx={{ borderBottom: 0, borderRadius: '20px 0 0 20px' }}>
+                  <Grid container sx={{ alignItems: 'center' }}>
+                    <Avatar src={row.img} sx={{ m: 1 }} />
+                    {row.name}
                   </Grid>
-                  <Table>
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>Name</TableCell>
-                        <TableCell>From</TableCell>
-                        <TableCell>Till</TableCell>
-                        <TableCell align='right'></TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {row?.utensils?.map((item) => (
-                        <TableRow key={`utensil-${item.id}`}>
-                          <TableCell>
-                            <Grid container sx={{ alignItems: 'center' }}>
-                              <Avatar src={item.img} sx={{ m: 1 }} />
-                              {item.name}
-                            </Grid>
-                          </TableCell>
-                          <TableCell>{item.from}</TableCell>
-                          <TableCell>{item.till}</TableCell>
-                          <TableCell align='right'>
-                            <IconButton
-                              onClick={() => {
-                                setValues({ title: 'utensil', id: item.id, from: item.from, till: item.till })
-                                setOpenTimingPopup(true)
-                              }}
-                            >
-                              <EditIcon />
-                            </IconButton>
-                            <IconButton onClick={() => {}}>
-                              <DeleteIcon />
-                            </IconButton>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </Box>
-              </Collapse>
-            </TableCell>
-          ) : null}
-        </TableRow>
-      </React.Fragment>
-    )
+                </TableCell>
+                <TableCell sx={{ borderBottom: 0 }}>
+                  <Grid container sx={{ alignItems: 'center' }}>
+                    <Avatar src={row.brandImg} sx={{ m: 1 }} />
+                    {row.brand}
+                  </Grid>
+                </TableCell>
+                <TableCell sx={{ borderBottom: 0 }}>€ {row.price}</TableCell>
+                <TableCell align='right' sx={{ borderBottom: 0, borderRadius: '0 20px 20px 0' }}>
+                  <IconButton
+                    onClick={() => {
+                      setValues({ title: title, id: row.id })
+                      setOpenIngredientAndUtensilPopup(true)
+                    }}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton onClick={() => {}}>
+                    <DeleteIcon />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        )
+      case 'utensil':
+        return (
+          <TableBody sx={{ backgroundColor: '#fff' }}>
+            {dataUtensil?.map((row) => (
+              <TableRow key={`${title}-${row.id}`} sx={{ boxShadow: '0px 20px 25px -15px RGB(213 217 219)' }}>
+                <TableCell sx={{ borderBottom: 0, borderRadius: '20px 0 0 20px' }}>
+                  <Grid container sx={{ alignItems: 'center' }}>
+                    <Avatar src={row.img} sx={{ m: 1 }} />
+                    {row.name}
+                  </Grid>
+                </TableCell>
+                <TableCell align='right' sx={{ borderBottom: 0, borderRadius: '0 20px 20px 0' }}>
+                  <IconButton
+                    onClick={() => {
+                      setValues({ title: title, id: row.id })
+                      setOpenIngredientAndUtensilPopup(true)
+                    }}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton onClick={() => {}}>
+                    <DeleteIcon />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        )
+      default:
+        return <TableBody sx={{ backgroundColor: '#fff' }}></TableBody>
+    }
   }
-
-  const [data, setData] = useState()
-
-  useEffect(() => {
-    if (title === 'recipe') setData(dataRecipe)
-    if (title === 'ingredient') setData(dataIngredient)
-    if (title === 'utensil') setData(dataUtensil)
-  }, [title, dataRecipe, dataIngredient, dataUtensil])
 
   if (loadingIngriedient || loadingUtensil || loadingRecipe) return <LinearProgress />
   if (ingredientError || utensilError || recipeError) return <Typography>ERROR</Typography>
@@ -271,35 +301,8 @@ export const List = (props) => {
     <Grid>
       <TableContainer>
         <Table sx={{ borderCollapse: 'separate', borderSpacing: '0 10px', border: 'transparent' }}>
-          <TableHead sx={{ backgroundColor: '#fff', boxShadow: '0px 20px 25px -15px RGB(213 217 219)' }}>
-            <TableRow>
-              {title === 'recipe' ? (
-                <>
-                  <TableCell sx={{ borderBottom: 0, borderRadius: '20px 0 0 20px' }}></TableCell>
-                  <TableCell sx={{ borderBottom: 0 }}>img</TableCell>
-                </>
-              ) : null}
-              <TableCell sx={{ borderBottom: 0, borderRadius: title !== 'recipe' ? '20px 0 0 20px' : 0 }}>
-                name
-              </TableCell>
-              {title !== 'utensil' ? (
-                <TableCell sx={{ borderBottom: 0 }}>{title === 'recipe' ? 'videoLink' : 'brand'}</TableCell>
-              ) : null}
-              {title === 'ingredient' ? <TableCell sx={{ borderBottom: 0 }}>price</TableCell> : null}
-              {title === 'recipe' ? (
-                <>
-                  <TableCell sx={{ borderBottom: 0 }}>serving</TableCell>
-                  <TableCell sx={{ borderBottom: 0 }}>cookingTime</TableCell>
-                </>
-              ) : null}
-              <TableCell sx={{ borderBottom: 0, borderRadius: '0 20px 20px 0' }}></TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody sx={{ backgroundColor: '#fff' }}>
-            {data?.map((row) => (
-              <Row key={`${title}-${row.id}`} row={row} setValues={setValues} />
-            ))}
-          </TableBody>
+          <TableHeader title={title} />
+          <TableContent title={title} setValues={setValues} />
         </Table>
       </TableContainer>
     </Grid>

@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import {
   Button,
+  Dialog,
+  DialogActions,
   DialogContent,
   DialogTitle,
   FormControl,
+  IconButton,
   InputAdornment,
   InputLabel,
   OutlinedInput,
@@ -14,9 +17,10 @@ import { VisuallyHiddenInput } from './VisuallyHiddenInput'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import useAxios, { configure } from 'axios-hooks'
 import apiUrl from '../common/apiUrl'
+import CloseIcon from '@mui/icons-material/Close'
 
 export const IngredientAndUntensilPopup = (props) => {
-  const { values } = props
+  const { values, openIngredientAndUtensilPopup, handleClose } = props
 
   const axios = apiUrl()
   configure({ axios })
@@ -30,6 +34,22 @@ export const IngredientAndUntensilPopup = (props) => {
     url: `/Utensil/${values.id}`,
     method: 'GET',
   })
+
+  const [{ data: postUtensilData }, executeUtensilPost] = useAxios(
+    {
+      url: `/Utensil/utensil`,
+      method: 'POST',
+    },
+    { manual: true }
+  )
+
+  const [{ data: postIngredientData }, executeIngredientPost] = useAxios(
+    {
+      url: `/Ingredient`,
+      method: 'POST',
+    },
+    { manual: true }
+  )
 
   const [name, setName] = useState()
   const [brand, setBrand] = useState()
@@ -45,7 +65,10 @@ export const IngredientAndUntensilPopup = (props) => {
   if (values.id) if (ingredientError || utensilError) return <Typography>ERROR</Typography>
 
   return (
-    <React.Fragment>
+    <Dialog open={openIngredientAndUtensilPopup} onClose={handleClose} PaperProps={{ sx: { borderRadius: '20px' } }}>
+      <IconButton sx={{ position: 'absolute', alignSelf: 'end' }} onClick={handleClose}>
+        <CloseIcon fontSize='large' />
+      </IconButton>
       <DialogTitle variant='h4' m={1}>
         {values.title}
       </DialogTitle>
@@ -118,6 +141,34 @@ export const IngredientAndUntensilPopup = (props) => {
           ) : null}
         </Stack>
       </DialogContent>
-    </React.Fragment>
+      <DialogActions sx={{ justifyContent: 'center' }}>
+        <Button
+          onClick={() => {
+            if (values.title === 'ingredient') {
+              executeIngredientPost({
+                data: { name: name, img: '', brand: brand, price: parseInt(price) },
+              })
+              console.log(postIngredientData)
+            }
+            if (values.title === 'utensil') {
+              executeUtensilPost({
+                data: { name: name, img: '' },
+              })
+              console.log(postUtensilData)
+            }
+            handleClose()
+          }}
+          sx={{
+            p: '10px 50px',
+            borderRadius: '20px',
+            color: '#fff',
+            backgroundColor: 'primary.main',
+            ':hover': { backgroundColor: 'primary.main' },
+          }}
+        >
+          save
+        </Button>
+      </DialogActions>
+    </Dialog>
   )
 }

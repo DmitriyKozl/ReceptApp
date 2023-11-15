@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import moment from 'moment'
 import {
+  Button,
+  Dialog,
+  DialogActions,
   DialogContent,
   DialogTitle,
   FormControl,
+  IconButton,
   InputLabel,
   MenuItem,
   OutlinedInput,
@@ -14,12 +18,18 @@ import {
 import { TimeField } from '@mui/x-date-pickers/TimeField'
 import useAxios, { configure } from 'axios-hooks'
 import apiUrl from '../common/apiUrl'
+import CloseIcon from '@mui/icons-material/Close'
 
 export const TimingPopup = (props) => {
-  const { values } = props
+  const { values, openTimingPopup, handleClose } = props
 
   const axios = apiUrl()
   configure({ axios })
+
+  const [id, setId] = useState(values?.id)
+  const [brand, setBrand] = useState(values?.brand)
+  const [from, setFrom] = useState(values?.from ? values.from : '00:00:00')
+  const [till, setTill] = useState(values?.till ? values.till : '00:00:00')
 
   const [{ data: dataUtensil, loading: loadingUtensil }] = useAxios({
     url: `/Utensil/all`,
@@ -29,44 +39,30 @@ export const TimingPopup = (props) => {
     url: `/Ingredient/all`,
     method: 'GET',
   })
+  const [{ data: postIngredientData }, executeIngredientPost] = useAxios(
+    {
+      url: `/Recipe/${values.recipeId}/ingredient/${id}`,
+      method: 'POST',
+    },
+    { manual: true }
+  )
+  const [{ data: postUtensilData }, executeUtensilPost] = useAxios(
+    {
+      url: `/Recipe/${values.recipeId}/utensil/${id}`,
+      method: 'POST',
+    },
+    { manual: true }
+  )
 
-  // const [{ data, loading, error }] = useAxios({
-  //   url: `/Recipe/{recipeId}?recipeId=${values?.id}`,
-  //   method: 'GET',
-  // })
-
-  const [id, setId] = useState(values?.id)
-  const [brand, setBrand] = useState(values?.brand)
-  const [from, setFrom] = useState(values?.from)
-  const [till, setTill] = useState(values?.till)
-
-  // useEffect(() => {
-  //   setBrand(values?.title === 'ingredient' ? data?.ingedient?.brand : '')
-  //   setFrom(
-  //     values?.title === 'ingredient'
-  //       ? data?.ingedient?.from
-  //         ? data?.ingedient?.from
-  //         : '00:00:00'
-  //       : data?.utensil?.from
-  //       ? data?.utensil?.from
-  //       : '00:00:00'
-  //   )
-  //   setTill(
-  //     values?.title === 'ingredient'
-  //       ? data?.ingedient?.till
-  //         ? data?.ingedient?.till
-  //         : '00:00:00'
-  //       : data?.utensil?.till
-  //       ? data?.utensil?.till
-  //       : '00:00:00'
-  //   )
-  // }, [values?.title, data])
+  console.log(values.recipeId, id)
 
   if (loadingUtensil || loadingIngriedient) return <Typography>LOADING</Typography>
-  // if (values?.id && error) return <Typography>ERROR</Typography>
 
   return (
-    <React.Fragment>
+    <Dialog open={openTimingPopup} onClose={handleClose} PaperProps={{ sx: { borderRadius: '20px' } }}>
+      <IconButton sx={{ position: 'absolute', alignSelf: 'end' }} onClick={handleClose}>
+        <CloseIcon fontSize='large' />
+      </IconButton>
       <DialogTitle variant='h4' m={1}>
         Timing
       </DialogTitle>
@@ -133,6 +129,30 @@ export const TimingPopup = (props) => {
           />
         </Stack>
       </DialogContent>
-    </React.Fragment>
+      <DialogActions sx={{ justifyContent: 'center' }}>
+        <Button
+          onClick={() => {
+            if (values.title === 'ingredient') {
+              executeIngredientPost({ data: { from: from, till: till } })
+              console.log(postIngredientData)
+            }
+            if (values.title === 'utensil') {
+              executeUtensilPost({ data: { from: from, till: till } })
+              console.log(postUtensilData)
+            }
+            handleClose()
+          }}
+          sx={{
+            p: '10px 50px',
+            borderRadius: '20px',
+            color: '#fff',
+            backgroundColor: 'primary.main',
+            ':hover': { backgroundColor: 'primary.main' },
+          }}
+        >
+          save
+        </Button>
+      </DialogActions>
+    </Dialog>
   )
 }
