@@ -14,17 +14,29 @@ namespace VideoplayerProject.Domain.Models {
             Img = img;
         }
 
-        private int _id;
+        public Ingredient(int id, string name, decimal? price, string brand, string img) : this(name, price, brand,img)
+        {
+            if (id > 0)
+            {
+                Id = id;
+            }
+            else
+            {
+                throw new IngredientException("Invalid ID!");
+            }
+        }
 
-        public int Id {
-            get { return _id; }
-            set {
-                if (value > 0) {
-                    _id = value;
-                }
-                else {
-                    throw new IngredientException("Invalid ID!");
-                }
+        public int Id { get; private set; }
+
+        public void SetId(int id)
+        {
+            if (Id == 0)
+            {
+                Id = id;
+            }
+            else
+            {
+                throw new IngredientException("Ingredient already has an ID!");
             }
         }
 

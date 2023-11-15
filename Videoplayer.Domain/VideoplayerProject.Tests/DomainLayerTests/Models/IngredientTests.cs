@@ -1,7 +1,4 @@
-using VideoplayerProject.Domain.Models;
-using VideoplayerProject.Domain.Exceptions;
-
-namespace VideoplayerProject.Tests.DomainTests
+namespace VideoplayerProject.Tests.DomainLayerTests.Models
 {
     public class IngredientTests
     {
@@ -19,13 +16,13 @@ namespace VideoplayerProject.Tests.DomainTests
             // In the 2 cases, Id's are not positive, so an exception should be thrown            
             if (!expectedResult)
             {
-                Assert.Throws<IngredientException>(() => new Ingredient(id, "TestName", 2.0m, "TestBrand"));
+                Assert.Throws<IngredientException>(() => new Ingredient(id, "TestName", 2.0m, "TestBrand", "TestImg"));
             }
 
             // The last two cases, the Id's are positive, so the object should be created (not null)
             else
             {
-                Ingredient sut = new(id, "TestName", 2.0m, "TestBrand");
+                Ingredient sut = new(id, "TestName", 2.0m, "TestBrand", "TestImg");
                 Assert.Equal(id, sut.Id);
             }
         }
@@ -44,14 +41,14 @@ namespace VideoplayerProject.Tests.DomainTests
             // --> ingredient should not be created (== false)            
             if (!expectedResult)
             {
-                Assert.Throws<IngredientException>(() => new Ingredient(2, name, 2.0m, "TestBrand"));
+                Assert.Throws<IngredientException>(() => new Ingredient(2, name, 2.0m, "TestBrand","TestImg"));
             }
 
             // In the last 3 cases, the Name is filled in (with or without whitespace shouldn't matter)
             // --> ingredient should be created (== true)
             else
             {
-                Ingredient sut = new(2, name, 2.0m, "TestBrand");
+                Ingredient sut = new(2, name, 2.0m, "TestBrand","TestImg");
                 Assert.Equal(name.Trim(), sut.Name);
             }
         }
@@ -68,14 +65,14 @@ namespace VideoplayerProject.Tests.DomainTests
             // --> ingredient should not be created (== false)            
             if (!expectedResult)
             {
-                Assert.Throws<IngredientException>(() => new Ingredient(2, "TestName", price, "TestBrand"));
+                Assert.Throws<IngredientException>(() => new Ingredient(2, "TestName", price, "TestBrand", "TestImg"));
             }
 
             // In the last 3 cases, the Name is filled in (with or without whitespace shouldn't matter)
             // --> ingredient should be created (== true)
             else
             {
-                Ingredient sut = new(2, "TestName", price, "TestBrand");
+                Ingredient sut = new(2, "TestName", price, "TestBrand", "TestImg");
                 Assert.Equal(sut.Price, price);
             }
         }
@@ -94,14 +91,14 @@ namespace VideoplayerProject.Tests.DomainTests
             // --> ingredient should not be created (== false)            
             if (!expectedResult)
             {
-                Assert.Throws<IngredientException>(() => new Ingredient(2, "TestName", 2.0m, brand));
+                Assert.Throws<IngredientException>(() => new Ingredient(2, "TestName", 2.0m, brand, "TestImg"));
             }
 
             // In the last 3 cases, the Name is filled in (with or without whitespace shouldn't matter)
             // --> ingredient should be created (== true)
             else
             {
-                Ingredient sut = new(2, "TestName", 2.0m, brand);
+                Ingredient sut = new(2, "TestName", 2.0m, brand, "TestImg");
                 Assert.Equal(brand.Trim(), sut.Brand);
             }
         }

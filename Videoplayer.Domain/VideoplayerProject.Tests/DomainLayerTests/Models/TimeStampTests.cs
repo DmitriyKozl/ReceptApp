@@ -1,13 +1,4 @@
-﻿using NuGet.ContentModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VideoplayerProject.Domain.Exceptions;
-using VideoplayerProject.Domain.Models;
-
-namespace VideoplayerProject.Tests.DomainTests
+﻿namespace VideoplayerProject.Tests.DomainLayerTests.Models
 {
     public class TimeStampTests
     {

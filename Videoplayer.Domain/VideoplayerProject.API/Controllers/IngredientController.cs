@@ -40,7 +40,7 @@ namespace VideoplayerProject.API.Controllers {
 
         [HttpGet("all")]
         public ActionResult<IngredientOutputDTO> GetIngredients() {
-            var ingredientsData = _ingredientManager.GetAllIngredients();
+            var ingredientsData = _ingredientManager.GetIngredients("");
             var ingredientsDomain = ingredientsData
                 .Select(ingredient => MapFromDomain.MapFromIngredientDomain(Url.Content("~/"), ingredient)).ToList();
             if (ingredientsDomain == null) {
@@ -65,7 +65,5 @@ namespace VideoplayerProject.API.Controllers {
                     "An error occurred while processing your request.");
             }
         }
-
-      
     }
 }

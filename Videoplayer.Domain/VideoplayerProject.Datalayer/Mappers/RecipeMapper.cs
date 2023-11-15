@@ -83,7 +83,7 @@ public class RecipeMapper {
         if (ingredient.IngredientID == 0) {
             context.Ingredients.Add(ingredient);
             context.SaveChanges();
-            ingredientPair.Key.Id = ingredient.IngredientID;
+            ingredientPair.Key.SetId(ingredient.IngredientID);
         }
 
         foreach (var timestamp in ingredientPair.Value) {

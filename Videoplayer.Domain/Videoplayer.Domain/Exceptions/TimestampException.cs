@@ -3,7 +3,7 @@
 namespace VideoplayerProject.Domain.Exceptions
 {
     [Serializable]
-    internal class TimestampException : Exception
+    public class TimestampException : Exception
     {
         public TimestampException()
         {

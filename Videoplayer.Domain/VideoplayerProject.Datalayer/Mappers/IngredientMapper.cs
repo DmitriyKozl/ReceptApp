@@ -6,6 +6,7 @@ namespace VideoplayerProject.Datalayer.Mappers;
 public class IngredientMapper {
     public static Ingredient MapToDomainModel(Datalayer.Models.Ingredient dataIngredient) {
         return new Ingredient(
+            dataIngredient.IngredientID,
             dataIngredient.IngredientName,
             dataIngredient.Price,
             dataIngredient.Brand,
