@@ -23,13 +23,17 @@ import useAxios, { configure } from 'axios-hooks'
 import apiUrl from '../common/apiUrl'
 import TableHeader from './TableHeader'
 
+// The List component responsible for rendering a dynamic table based on the provided 'title'
 export const List = (props) => {
+  // Destructure props to get required values
   const { title, setValues, setOpenRecipePopup, setOpenTimingPopup, setOpenIngredientAndUtensilPopup } = props
 
+  // Axios configuration using axios-hooks
   const axios = apiUrl()
   configure({ axios })
 
-  const [{ data: dataIngredient, loading: loadingIngriedient, error: ingredientError }] = useAxios({
+  // Fetch data using axios-hooks for Ingredients, Utensils, and Recipes
+  const [{ data: dataIngredient, loading: loadingIngredient, error: ingredientError }] = useAxios({
     url: `/Ingredient/all`,
     method: 'GET',
   })
@@ -42,11 +46,14 @@ export const List = (props) => {
     method: 'GET',
   })
 
+  // The TableContent component responsible for rendering the actual table body based on the 'title'
   const TableContent = (props) => {
     const { title, setValues } = props
 
+    // State to manage the open/close state of collapse in the table
     const [open, setOpen] = useState(false)
 
+    // Switch case to handle different 'title' scenarios
     switch (title) {
       case 'recipe':
         return (
@@ -294,14 +301,18 @@ export const List = (props) => {
     }
   }
 
-  if (loadingIngriedient || loadingUtensil || loadingRecipe) return <LinearProgress />
+  // Loading and error handling
+  if (loadingIngredient || loadingUtensil || loadingRecipe) return <LinearProgress />
   if (ingredientError || utensilError || recipeError) return <Typography>ERROR</Typography>
 
+  // JSX for rendering the List component
   return (
     <Grid>
       <TableContainer>
         <Table sx={{ borderCollapse: 'separate', borderSpacing: '0 10px', border: 'transparent' }}>
+          {/* Table header based on the 'title' */}
           <TableHeader title={title} />
+          {/* Table content based on the 'title' */}
           <TableContent title={title} setValues={setValues} />
         </Table>
       </TableContainer>
