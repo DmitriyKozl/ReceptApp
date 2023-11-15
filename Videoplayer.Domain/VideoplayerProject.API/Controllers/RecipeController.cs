@@ -39,7 +39,7 @@ public class RecipeController : ControllerBase {
         }
     }
 
-    [HttpGet("all")]
+    [HttpGet("/")]
     public ActionResult<RecipeOutputDTO> GetAllRecipes() {
         var recipesData = _recipeManager.GetAllRecipes();
         var recipesDomain = recipesData.Select(recipe => MapFromDomain.MapFromRecipeDomain(Url.Content("~/"), recipe))
@@ -52,6 +52,40 @@ public class RecipeController : ControllerBase {
         return Ok(recipesDomain);
     }
 
+    [HttpGet("{recipeId}/ingredient/{ingredientId}")]
+    public ActionResult<RecipeOutputDTO> GetIngredientsWithTimestamps(int recipeId, int ingredientId) {
+        try {
+            var ingredient = _recipeManager.GetIngredientsWithTimestamps(recipeId, ingredientId);
+            if (ingredient == null) {
+                return NotFound($"Ingredient with ID {ingredientId} not found.");
+            }
+    
+            var ingredientOutputDto = MapFromDomain.MapFromIngredientDomain(Url.Content("~/"), ingredient);
+            return Ok(ingredientOutputDto);
+        }
+        catch (Exception e) {
+            return StatusCode(StatusCodes.Status500InternalServerError,
+                "An error occurred while processing your request.");
+        }
+    }    
+    [HttpGet("{recipeId}/utensil/{utensilId}")]
+
+    public ActionResult<RecipeOutputDTO> GetUtensilWithTimestamps(int recipeId, int utensilId) {
+        try {
+            var utensil = _recipeManager.GetUtensilWithTimestamps(recipeId, utensilId);
+            if (utensil == null) {
+                return NotFound($"Ingredient with ID {utensilId} not found.");
+            }
+    
+            var utensilOutputDto = MapFromDomain.MapFromUtensilsDomain(Url.Content("~/"), utensil);
+            return Ok(utensilOutputDto);
+        }
+        catch (Exception e) {
+            return StatusCode(StatusCodes.Status500InternalServerError,
+                "An error occurred while processing your request.");
+        }
+    }
+    
     [HttpPost("recipe")]
     public ActionResult<RecipeOutputDTO> AddRecipe([FromBody] RecipeInputDTO recipeInputDto) {
         try {

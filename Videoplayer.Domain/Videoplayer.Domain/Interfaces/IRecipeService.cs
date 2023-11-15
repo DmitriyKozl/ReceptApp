@@ -16,6 +16,10 @@ public interface IRecipeService {
         Timestamp timestamp);
     public void AddUtensilWithTimeStamp(Recipe recipe, Utensil utensil, Timestamp timestamp);
     public Recipe UpdateRecipe(Recipe recipe);
+    
+    Ingredient GetIngredientsWithTimestamps(int recipeId, int ingredientId);
+    Utensil GetUtensilWithTimestamps(int recipeId, int utensilId);
+
 
     
     

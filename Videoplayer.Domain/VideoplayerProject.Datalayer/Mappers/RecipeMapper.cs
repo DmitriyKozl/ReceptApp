@@ -67,8 +67,8 @@ public class RecipeMapper {
         var dataRecipe = GetDataRecipe(domainRecipe, context);
         SetRecipeProperties(dataRecipe, domainRecipe);
         
-        // HandleRecipeIngredients(domainRecipe, dataRecipe, context);
-        // HandleRecipeUtensils(domainRecipe, dataRecipe, context);
+        HandleRecipeIngredients(domainRecipe, dataRecipe, context);
+        HandleRecipeUtensils(domainRecipe, dataRecipe, context);
 
         return dataRecipe;
     }
