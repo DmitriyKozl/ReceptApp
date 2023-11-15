@@ -11,6 +11,6 @@ public interface IIngredientService {
     
     public void RemoveIngredient(int id);
 
-    public void UpdateIngredient(Ingredient ingredient);
+    public Ingredient UpdateIngredient(Ingredient ingredient);
 
 }

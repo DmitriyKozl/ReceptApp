@@ -44,9 +44,10 @@ namespace VideoplayerProject.Domain.Managers
             _ingredientRepo.RemoveIngredient(id);
         }
 
-        public void UpdateIngredient(Ingredient ingredient)
+        public Ingredient UpdateIngredient(Ingredient ingredient)
         {
-            _ingredientRepo.UpdateIngredient(ingredient);
+           _ingredientRepo.UpdateIngredient(ingredient);
+           return ingredient;
         }
     }
 

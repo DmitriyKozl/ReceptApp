@@ -11,7 +11,6 @@ public interface IUtensilsRepository {
     
     public void RemoveUtensil(int id);
     
-    //TODO: UpdateUtensil
-    public void UpdateUtensil(int id, string newName);
+    public void UpdateUtensil(Utensil utensil);
     
 }

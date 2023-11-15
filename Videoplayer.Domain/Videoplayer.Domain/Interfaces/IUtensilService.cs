@@ -11,5 +11,8 @@ public interface IUtensilService {
     public Utensil CreateUtensil(Utensil utensil);
     
     public void RemoveUtensil(int id);
+    
+    Utensil UpdateUtensil(Utensil utensil);
+    
 
 }
