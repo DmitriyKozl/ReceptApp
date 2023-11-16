@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios'; // Import Axios for making API requests
 import {
   Button,
   FormControl,
@@ -11,17 +12,31 @@ import {
   Paper,
   Stack,
   Typography,
-} from '@mui/material'
-import Background from '../assets/background.jpeg'
-import Visibility from '@mui/icons-material/Visibility'
-import VisibilityOff from '@mui/icons-material/VisibilityOff'
+} from '@mui/material';
+import Background from '../assets/background.jpeg';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 const Login = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const [username, setUsername] = useState()
-  const [password, setPassword] = useState()
-  const [showPassword, setShowPassword] = useState(false)
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post('http://localhost:5000/api/user/login', { username, password });
+
+      const token = response.data.token;
+
+      localStorage.setItem('token', token);
+
+      navigate('/recipe');
+    } catch (error) {
+      console.error('Login failed', error);
+    }
+  };
 
   return (
     <Grid sx={{ mt: '65px' }}>
@@ -52,7 +67,7 @@ const Login = () => {
                   <InputAdornment position='end'>
                     <IconButton
                       onClick={() => {
-                        setShowPassword(!showPassword)
+                        setShowPassword(!showPassword);
                       }}
                       edge='end'
                     >
@@ -65,21 +80,14 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </FormControl>
-            <Button
-              variant='contained'
-              // disabled={!username || !password}
-              onClick={() => {
-                navigate('/recipe')
-              }}
-              sx={{ m: 1 }}
-            >
+            <Button variant='contained' onClick={handleLogin} sx={{ m: 1 }}>
               Login
             </Button>
           </Stack>
         </Paper>
       </Grid>
     </Grid>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
