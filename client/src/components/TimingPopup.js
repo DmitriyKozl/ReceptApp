@@ -36,11 +36,11 @@ export const TimingPopup = (props) => {
 
   // Use axios-hooks for fetching Utensil and Ingredient data
   const [{ data: dataUtensil, loading: loadingUtensil }] = useAxios({
-    url: `/Utensil/all`,
+    url: `/Utensil`,
     method: 'GET',
   })
   const [{ data: dataIngredient, loading: loadingIngredient }] = useAxios({
-    url: `/Ingredient/all`,
+    url: `/Ingredient`,
     method: 'GET',
   })
 

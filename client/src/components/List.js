@@ -34,15 +34,15 @@ export const List = (props) => {
 
   // Fetch data using axios-hooks for Ingredients, Utensils, and Recipes
   const [{ data: dataIngredient, loading: loadingIngredient, error: ingredientError }] = useAxios({
-    url: `/Ingredient/all`,
+    url: `/Ingredient`,
     method: 'GET',
   })
   const [{ data: dataUtensil, loading: loadingUtensil, error: utensilError }] = useAxios({
-    url: `/Utensil/all`,
+    url: `/Utensil`,
     method: 'GET',
   })
   const [{ data: dataRecipe, loading: loadingRecipe, error: recipeError }] = useAxios({
-    url: 'http://localhost:5000/',
+    url: '/Recipe',
     method: 'GET',
   })
 

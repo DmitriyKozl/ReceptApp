@@ -30,13 +30,13 @@ export const RecipePopup = (props) => {
 
   // Use axios-hooks for fetching existing Recipe data and making POST requests
   const [{ data, loading, error }] = useAxios({
-    url: `/Recipe/{recipeId}?recipeId=${values?.id}`,
+    url: `/Recipe/{recipeId}`,
     method: 'GET',
   })
 
   const [{ data: postData }, executePost] = useAxios(
     {
-      url: `/Recipe/recipe`,
+      url: `/Recipe`,
       method: 'POST',
     },
     { manual: true }

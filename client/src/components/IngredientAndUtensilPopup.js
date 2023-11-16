@@ -41,7 +41,7 @@ export const IngredientAndUntensilPopup = (props) => {
   // Use axios-hooks for POST requests to update/create Ingredient or Utensil
   const [{ data: postUtensilData }, executeUtensilPost] = useAxios(
     {
-      url: `/Utensil/utensil`,
+      url: `/Utensil`,
       method: 'POST',
     },
     { manual: true }
