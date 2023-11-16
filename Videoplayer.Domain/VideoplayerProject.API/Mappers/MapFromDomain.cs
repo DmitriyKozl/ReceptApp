@@ -75,5 +75,11 @@ public class MapFromDomain {
 
         return dto;
     }
-    
+
+    public static UserOutputDTO MapFromUserDomain(User user)
+    {
+        if(user == null) throw new ArgumentNullException( nameof(user));
+
+        return new UserOutputDTO(user.Username, user.Password);
+    }
 }

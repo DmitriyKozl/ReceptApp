@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VideoplayerProject.Domain.Exceptions;
-using VideoplayerProject.Domain.Models;
-
-namespace VideoplayerProject.Tests.DomainTests
+﻿namespace VideoplayerProject.Tests.DomainLayerTests.Models
 {
     public class UtensilTests
     {
@@ -23,13 +15,13 @@ namespace VideoplayerProject.Tests.DomainTests
             // In the 2 cases, Id's are not positive, so an exception should be thrown            
             if (!expectedResult)
             {
-                Assert.Throws<UtensilException>(() => new Utensil(id, "TestName"));
+                Assert.Throws<UtensilException>(() => new Utensil("TestName", "ImgUrl"));
             }
 
             // The last two cases, the Id's are positive, so the object should be created (not null)
             else
             {
-                Utensil sut = new Utensil(id, "TestName");
+                Utensil sut = new Utensil("TestName", "ImgUrl");
                 Assert.Equal(sut.Id, id);
             }
         }
@@ -48,14 +40,14 @@ namespace VideoplayerProject.Tests.DomainTests
             // --> ingredient should not be created (== false)            
             if (!expectedResult)
             {
-                Assert.Throws<UtensilException>(() => new Utensil(5, name));
+                Assert.Throws<UtensilException>(() => new Utensil(name,"ImgUrl"));
             }
 
             // In the last 3 cases, the Name is filled in (with or without whitespace shouldn't matter)
             // --> ingredient should be created (== true)
             else
             {
-                Utensil sut = new Utensil(5, name);
+                Utensil sut = new Utensil(name, "ImgUrl");
                 Assert.Equal(name, sut.Name);
             }
         }

@@ -1,7 +1,11 @@
-﻿using VideoplayerProject.API.Exceptions;
+﻿using System.Security.Cryptography;
+using VideoplayerProject.API.Exceptions;
 using VideoplayerProject.API.Models;
 using VideoplayerProject.API.Models.Output;
+using VideoplayerProject.Datalayer.Models;
 using VideoplayerProject.Domain.Models;
+using Ingredient = VideoplayerProject.Domain.Models.Ingredient;
+using Recipe = VideoplayerProject.Domain.Models.Recipe;
 
 namespace VideoplayerProject.API.Mappers;
 
@@ -45,6 +49,22 @@ public class MapToDomain {
         }
         catch (Exception e) {
             throw new MapException("Error while mapping UtensilInputDTO to Utensil.", e);
+        }
+    }
+
+    public static Users MapToDataUsers(UserOutputDTO users)
+    {
+        try
+        {
+            return new Users
+            {
+                Password = users.Password,
+                Username = users.Username
+            };
+        }
+        catch (Exception e)
+        {
+            throw new MapException("Error while mapping UserOutputDTO to Users");
         }
     }
 }

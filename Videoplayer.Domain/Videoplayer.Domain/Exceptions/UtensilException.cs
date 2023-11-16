@@ -3,7 +3,7 @@
 namespace VideoplayerProject.Domain.Exceptions
 {
     [Serializable]
-    internal class UtensilException : Exception
+    public class UtensilException : Exception
     {
         public UtensilException()
         {

@@ -14,13 +14,9 @@ namespace VideoplayerProject.Domain.Managers
             _ingredientRepo = ingredientRepo;
         }
 
-        public List<Ingredient> GetAllIngredients()
-        {
-            return _ingredientRepo.GetAllIngredients();
-        }
         
-        public List<Ingredient> GetFilteredIngredients(string filter) {
-            return _ingredientRepo.GetFilteredIngredients(filter);
+        public List<Ingredient> GetIngredients(string filter) {
+            return _ingredientRepo.GetIngredients(filter);
         }
 
         public List<Ingredient> GetIngredientsFromRecipe(int recipeId)

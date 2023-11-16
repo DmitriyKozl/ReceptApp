@@ -38,9 +38,9 @@ namespace VideoplayerProject.API.Controllers {
         }
 
         [HttpGet]
-        public ActionResult<IngredientOutputDTO> GetIngredients() {
+        public ActionResult<IngredientOutputDTO> GetIngredients(string filter) {
             try {
-                var ingredientsData = _ingredientManager.GetAllIngredients();
+                var ingredientsData = _ingredientManager.GetIngredients(filter);
                 var ingredientsDomain = ingredientsData
                     .Select(ingredient => MapFromDomain.MapFromIngredientDomain(Url.Content("~/"), ingredient))
                     .ToList();

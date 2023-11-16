@@ -51,12 +51,12 @@ public class RecipeMapper {
 
         // Create the domain model
         var domainRecipe = new Recipe(
+            dataRecipe.RecipeID,
             dataRecipe.RecipeName,
             dataRecipe.Servings ?? 0,
             dataRecipe.VideoLink,
             dataRecipe.CookingTime
         ) {
-        Id = dataRecipe.RecipeID,
         IngredientToTimestamp = ingredientGroups,
         UtensilToTimestamp = utensilGroups
         };
@@ -83,7 +83,7 @@ public class RecipeMapper {
         if (ingredient.IngredientID == 0) {
             context.Ingredients.Add(ingredient);
             context.SaveChanges();
-            ingredientPair.Key.Id = ingredient.IngredientID;
+            ingredientPair.Key.SetId(ingredient.IngredientID);
         }
 
         foreach (var timestamp in ingredientPair.Value) {

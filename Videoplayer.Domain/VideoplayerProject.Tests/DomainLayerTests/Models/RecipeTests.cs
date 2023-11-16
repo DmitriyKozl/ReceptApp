@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VideoplayerProject.Domain.Models;
-using VideoplayerProject.Domain.Exceptions;
-using VideoplayerProject.Domain.Managers;
-
-
-namespace VideoplayerProject.Tests.DomainTests
+﻿namespace VideoplayerProject.Tests.DomainLayerTests.Models
 {
     public class RecipeTests
     {
@@ -25,13 +15,13 @@ namespace VideoplayerProject.Tests.DomainTests
             // In the 2 cases, Id's are not positive, so an exception should be thrown            
             if (!expectedResult)
             {
-                Assert.Throws<RecipeException>(() => sut.Id = id);
+                Assert.Throws<RecipeException>(() => sut.SetId(id));
             }
 
             // The last two cases, the Id's are positive, so the object should be created (not null)
             else
             {
-                sut.Id = id;
+                sut.SetId(id);
                 Assert.Equal(sut.Id, id);
             }
         }
@@ -142,10 +132,11 @@ namespace VideoplayerProject.Tests.DomainTests
         //TESTS FOR METHODS
         // AddIngredientWithTimestamp
         [Fact]
-        public void RecipeShouldBeAbleToAddNewIngredientWithTimestamp() {
+        public void RecipeShouldBeAbleToAddNewIngredientWithTimestamp()
+        {
             // Arrange
             Recipe recipe = new("Pasta pesto", 4, "TestUrl", new TimeSpan(0, 0, 30));
-            Ingredient ingredient = new(1, "spaghetti", 2.0m, "Soubry");
+            Ingredient ingredient = new(1, "spaghetti", 2.0m, "Soubry", "TestImg");
             Timestamp timestamp = new(new TimeSpan(0, 0, 20), new TimeSpan(0, 0, 25), ingredient.Id);
 
             // Act
@@ -154,9 +145,12 @@ namespace VideoplayerProject.Tests.DomainTests
             // Assert
             bool result = recipe.IngredientToTimestamp.TryGetValue(ingredient, out List<Timestamp> timestamps);
 
-            if(result && timestamps.Contains(timestamp)) {
+            if (result && timestamps.Contains(timestamp))
+            {
                 result = true;
-            } else {
+            }
+            else
+            {
                 result = false;
             }
 
@@ -164,10 +158,11 @@ namespace VideoplayerProject.Tests.DomainTests
         }
 
         [Fact]
-        public void RecipeShouldBeAbleToAddSecondTimestampForAlreadyUsedIngredient() {
+        public void RecipeShouldBeAbleToAddSecondTimestampForAlreadyUsedIngredient()
+        {
             // Arrange
             Recipe recipe = new("Pasta pesto", 4, "TestUrl", new TimeSpan(0, 0, 30));
-            Ingredient ingredient = new(1, "spaghetti", 2.0m, "Soubry");
+            Ingredient ingredient = new(1, "spaghetti", 2.0m, "Soubry", "TestImg");
             Timestamp existingTimestamp = new(new TimeSpan(0, 0, 20), new TimeSpan(0, 0, 25), ingredient.Id);
             recipe.AddIngredientWithTimeStampToRecipe(ingredient, existingTimestamp);
 
@@ -179,9 +174,12 @@ namespace VideoplayerProject.Tests.DomainTests
             // Assert
             bool result = recipe.IngredientToTimestamp.TryGetValue(ingredient, out List<Timestamp> timestamps);
 
-            if(result && timestamps.Contains(existingTimestamp) && timestamps.Contains(newTimestamp)) {
+            if (result && timestamps.Contains(existingTimestamp) && timestamps.Contains(newTimestamp))
+            {
                 result = true;
-            } else {
+            }
+            else
+            {
                 result = false;
             }
 
@@ -189,9 +187,10 @@ namespace VideoplayerProject.Tests.DomainTests
         }
 
         [Fact]
-        public void RecipeShouldNotBeAbleToAddIngredientToAlreadyUsedStarttime() {
+        public void RecipeShouldNotBeAbleToAddIngredientToAlreadyUsedStarttime()
+        {
             Recipe recipe = new("Pasta pesto", 4, "TestUrl", new TimeSpan(0, 0, 30));
-            Ingredient ingredient = new(1, "spaghetti", 2.0m, "soubry");
+            Ingredient ingredient = new(1, "spaghetti", 2.0m, "soubry", "TestImg");
             Timestamp existingTimestamp = new(new TimeSpan(0, 0, 20), new TimeSpan(0, 0, 25), ingredient.Id);
             Timestamp newTimestampWithSameStarttime = new(new TimeSpan(0, 0, 20), new TimeSpan(0, 0, 30), ingredient.Id);
 
@@ -203,19 +202,23 @@ namespace VideoplayerProject.Tests.DomainTests
         }
 
         [Fact]
-        public void RecipeShouldBeAbleToNewIngredientWithTimestamp() {
+        public void RecipeShouldBeAbleToNewIngredientWithTimestamp()
+        {
             // Arrange
             Recipe recipe = new("Pasta pesto", 4, "TestUrl", new TimeSpan(0, 0, 30));
-            Ingredient ingredient = new(1, "spaghetti", 2.0m, "Soubry");
+            Ingredient ingredient = new(1, "spaghetti", 2.0m, "Soubry", "TestImg");
             Timestamp timestamp = new(new TimeSpan(0, 0, 20), new TimeSpan(0, 0, 25), ingredient.Id);
             recipe.AddIngredientWithTimeStampToRecipe(ingredient, timestamp);
 
             // Assert
             bool result = recipe.IngredientToTimestamp.TryGetValue(ingredient, out List<Timestamp> timestamps);
 
-            if (result && timestamps.Contains(timestamp) && timestamps.Count == 1) {
+            if (result && timestamps.Contains(timestamp) && timestamps.Count == 1)
+            {
                 result = true;
-            } else {
+            }
+            else
+            {
                 result = false;
             }
 
@@ -223,9 +226,10 @@ namespace VideoplayerProject.Tests.DomainTests
         }
 
         [Fact]
-        public void RecipeShouldBeAbleToRemoveIngredient() {
+        public void RecipeShouldBeAbleToRemoveIngredient()
+        {
             Recipe recipe = new("Pasta pesto", 4, "TestUrl", new TimeSpan(0, 0, 30));
-            Ingredient ingredient = new(1, "spaghetti", 2.0m, "Soubry");
+            Ingredient ingredient = new(1, "spaghetti", 2.0m, "Soubry", "TestImg");
             Timestamp timestamp = new(new TimeSpan(0, 0, 20), new TimeSpan(0, 0, 25), ingredient.Id);
             recipe.AddIngredientWithTimeStampToRecipe(ingredient, timestamp);
 
@@ -235,18 +239,20 @@ namespace VideoplayerProject.Tests.DomainTests
         }
 
         [Fact]
-        public void RecipeShouldThrowExceptionWhenNonExistentIngredientIsRemoved() {
+        public void RecipeShouldThrowExceptionWhenNonExistentIngredientIsRemoved()
+        {
             Recipe recipe = new("Pasta pesto", 4, "TestUrl", new TimeSpan(0, 0, 30));
-            Ingredient ingredient = new(1, "spaghetti", 2.0m, "Soubry");
+            Ingredient ingredient = new(1, "spaghetti", 2.0m, "Soubry", "TestImg");
             Timestamp timestamp = new(new TimeSpan(0, 0, 20), new TimeSpan(0, 0, 25), ingredient.Id);
 
             Assert.Throws<RecipeException>(() => recipe.RemoveIngredient(ingredient));
         }
 
         [Fact]
-        public void RecipeShouldBeAbleToRemoveTimestampForGivenIngredient() {
+        public void RecipeShouldBeAbleToRemoveTimestampForGivenIngredient()
+        {
             Recipe recipe = new("Pasta pesto", 4, "TestUrl", new TimeSpan(0, 0, 30));
-            Ingredient ingredient = new(1, "spaghetti", 2.0m, "Soubry");
+            Ingredient ingredient = new(1, "spaghetti", 2.0m, "Soubry", "TestImg");
             Timestamp timestamp = new(new TimeSpan(0, 0, 20), new TimeSpan(0, 0, 25), ingredient.Id);
 
             recipe.AddIngredientWithTimeStampToRecipe(ingredient, timestamp);
@@ -259,9 +265,10 @@ namespace VideoplayerProject.Tests.DomainTests
         }
 
         [Fact]
-        public void RecipeShouldThrowExceptionWhenNonExistentTimestampIsRemoved() {
+        public void RecipeShouldThrowExceptionWhenNonExistentTimestampIsRemoved()
+        {
             Recipe recipe = new("Pasta pesto", 4, "TestUrl", new TimeSpan(0, 0, 30));
-            Ingredient ingredient = new(1, "spaghetti", 2.0m, "Soubry");
+            Ingredient ingredient = new(1, "spaghetti", 2.0m, "Soubry", "TestImg");
             Timestamp timestamp = new(new TimeSpan(0, 0, 20), new TimeSpan(0, 0, 25), ingredient.Id);
 
             //Assert.Throws<RecipeException>(() => recipe.RemoveTimestampForIngredient(ingredient, timestamp));
