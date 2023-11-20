@@ -3,8 +3,7 @@
 namespace VideoplayerProject.Domain.Interfaces; 
 
 public interface IRecipeRepository {
-    List<Recipe> GetAllRecipes();
-    List<Recipe> GetFilteredRecipes(string filter);
+    List<Recipe> GetRecipes(string? filter = null);
     Recipe GetRecipeById(int id);
     Utensil GetUtensilWithTimestamps(int recipeId, int utensilId);
     Ingredient GetIngredientsWithTimestamps(int recipeId, int ingredientId);

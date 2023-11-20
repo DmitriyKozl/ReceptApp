@@ -3,7 +3,7 @@
 namespace VideoplayerProject.Datalayer.Exceptions
 {
     [Serializable]
-    internal class RecipeRepositoryException : Exception
+    public class RecipeRepositoryException : Exception
     {
         public RecipeRepositoryException()
         {

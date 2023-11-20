@@ -15,6 +15,7 @@ public class RecipeRepository : IRecipeRepository {
 
     public RecipeRepository(RecipeDbContext context) {
         _context = context ?? throw new ArgumentNullException(nameof(context));
+
     }
 
     private void SaveAndClear() {
@@ -26,23 +27,25 @@ public class RecipeRepository : IRecipeRepository {
         return _context.Recipes.Any(r => r.VideoLink == videolink);
     }
 
-    public List<Recipe> GetAllRecipes() {
-        return _context.Recipes
+    public List<Recipe> GetRecipes(string? filter = null)
+    {
+        var query = _context.Recipes
             .Include(r => r.RecipeIngredients)
             .ThenInclude(ri => ri.Ingredient)
             .Include(r => r.RecipeUtensils)
             .ThenInclude(ru => ru.Utensil)
-            .AsNoTracking()
+            .AsNoTracking();
+
+        if (!string.IsNullOrEmpty(filter))
+        {
+            query = query.Where(r => r.RecipeName.Contains(filter));
+        }
+
+        return query
             .Select(r => RecipeMapper.MapToDomainModel(r))
             .ToList();
     }
 
-    public List<Recipe> GetFilteredRecipes(string filter) {
-        return _context.Recipes
-            .Where(r => string.IsNullOrEmpty(filter) || r.RecipeName.Contains(filter))
-            .Select(r => RecipeMapper.MapToDomainModel(r))
-            .ToList();
-    }
 
     public Recipe GetRecipeById(int id) {
         var dataRecipe = _context.Recipes
@@ -77,8 +80,8 @@ public class RecipeRepository : IRecipeRepository {
             .Include(r => r.RecipeIngredients)
             .Include(r => r.RecipeUtensils)
             .FirstOrDefault(r => r.RecipeID == id);
-
-
+        
+        if(recipe == null) throw new RecipeRepositoryException("No recipe found");
 
         _context.RecipeIngredient.RemoveRange(recipe.RecipeIngredients);
         _context.RecipeUtensils.RemoveRange(recipe.RecipeUtensils);

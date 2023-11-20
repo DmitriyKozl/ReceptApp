@@ -13,15 +13,16 @@ public class UtensilsRepository : IUtensilsRepository {
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
-    public List<DomainUtensil> GetAllUtensils() {
-        var dataUtensils = _context.Utensils.ToList();
-        return dataUtensils.Select(UtensilMapper.MapToDomainModel).ToList();
-    }
+    public List<DomainUtensil> GetUtensils(string? filter = null)
+    {
+        var query = _context.Utensils.AsQueryable();
 
-    public List<DomainUtensil> GetFilteredUtensils(string filter) {
-        var dataUtensils = string.IsNullOrEmpty(filter)
-            ? _context.Utensils.ToList()
-            : _context.Utensils.Where(u => u.UtensilName.Contains(filter)).ToList();
+        if (!string.IsNullOrEmpty(filter))
+        {
+            query = query.Where(u => u.UtensilName.Contains(filter));
+        }
+
+        var dataUtensils = query.ToList();
 
         return dataUtensils.Select(UtensilMapper.MapToDomainModel).ToList();
     }

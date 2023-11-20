@@ -15,14 +15,21 @@ public class IngredientRepository : IIngredientRepository {
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
-    public List<DomainIngredient> GetIngredients(string filter) {
-        var dataIngredients = string.IsNullOrWhiteSpace(filter)
-            ? _context.Ingredients.ToList()
-            : _context.Ingredients.Where(i => i.IngredientName.Contains(filter)).ToList();
+    public List<DomainIngredient> GetIngredients(string? filter = null)
+    {
+        var query = _context.Ingredients.AsQueryable();
+        
+        if (!string.IsNullOrEmpty(filter))
+        {
+            query = query.Where(i => i.IngredientName.Contains(filter));
+        }
 
-            return dataIngredients.Select(IngredientMapper.MapToDomainModel).ToList();
+        var dataIngredients = query.ToList();
+
+        return dataIngredients.Select(IngredientMapper.MapToDomainModel).ToList();
     }
-    
+
+
 
     public List<DomainIngredient> GetIngredientsFromRecipe(int recipeId) {
         var dataIngredients = _context.RecipeIngredient

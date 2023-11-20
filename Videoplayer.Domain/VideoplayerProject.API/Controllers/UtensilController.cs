@@ -20,7 +20,7 @@ namespace VideoplayerProject.API.Controllers {
             _utensilManager = utensilManager ?? throw new ArgumentNullException(nameof(utensilManager));
         }
 
-        [HttpGet("{utensilId}")]
+        [HttpGet("{utensilId}", Name = "GetUtensilById"),]
         public ActionResult<UtensilsOutputDTO> GetUtensilById(int utensilId) {
             try {
                 var utensil = _utensilManager.GetUtensilById(utensilId);
@@ -37,10 +37,10 @@ namespace VideoplayerProject.API.Controllers {
             }
         }
 
-        [HttpGet]
-        public ActionResult<UtensilsOutputDTO> GetUtensils() {
+        [HttpGet(Name = "GetAllUtensils")]
+        public ActionResult<IEnumerable<UtensilsOutputDTO>> GetAllUtensils() {
             try {
-                var utensilsData = _utensilManager.GetAllUtensils();
+                var utensilsData = _utensilManager.GetUtensils();
                 var utensilsDomain = utensilsData
                     .Select(utensil => MapFromDomain.MapFromUtensilsDomain(Url.Content("~/"), utensil)).ToList();
                 if (utensilsDomain == null) {
@@ -50,6 +50,28 @@ namespace VideoplayerProject.API.Controllers {
                 return Ok(utensilsDomain);
             }
             catch (Exception e) {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet("filter/{filter?}", Name = "GetUtensils")]
+        public ActionResult<IEnumerable<UtensilsOutputDTO>> GetUtensils(string? filter = null)
+        {
+            try
+            {
+                var utensilData = _utensilManager.GetUtensils(filter);
+                var utensilDomain = utensilData
+                    .Select(utensil => MapFromDomain.MapFromUtensilsDomain(Url.Content("~/"), utensil))
+                    .ToList();
+                if (utensilDomain == null)
+                {
+                    return NotFound("Utensils not found.");
+                }
+
+                return Ok(utensilDomain);
+            }
+            catch (Exception e)
+            {
                 return BadRequest(e.Message);
             }
         }

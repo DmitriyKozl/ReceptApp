@@ -40,7 +40,7 @@ public class IngredientController : ControllerBase
     {
         try
         {
-            var ingredientsData = _ingredientManager.GetIngredients("");
+            var ingredientsData = _ingredientManager.GetIngredients();
             var ingredientsDomain = ingredientsData
                 .Select(ingredient => MapFromDomain.MapFromIngredientDomain(Url.Content("~/"), ingredient))
                 .ToList();

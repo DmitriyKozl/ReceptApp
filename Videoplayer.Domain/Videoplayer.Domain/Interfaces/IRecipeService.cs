@@ -3,8 +3,7 @@
 namespace VideoplayerProject.Domain.Interfaces;
 
 public interface IRecipeService {
-    List<Recipe> GetAllRecipes();
-    List<Recipe> GetFilteredRecipes(string filter);
+    List<Recipe> GetRecipes(string? filter = null);
     Recipe GetRecipeById(int id);
 
     Recipe CreateRecipe(Recipe recipe);

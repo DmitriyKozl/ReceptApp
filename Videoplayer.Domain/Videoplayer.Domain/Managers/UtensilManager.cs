@@ -14,25 +14,18 @@ namespace VideoplayerProject.Domain.Managers {
             _utensilRepository = repo;
         }
 
-
-
-        public List<Utensil> GetAllUtensils()
+        public List<Utensil> GetUtensils(string? filter = null)
         {
-            return _utensilRepository.GetAllUtensils();
+            return _utensilRepository.GetUtensils(filter);
         }
         public List<Utensil> GetUtensilsFromRecipe(int recipeId)
         {
             return _utensilRepository.GetUtensilsFromRecipe(recipeId);
         }
-        
+
         public Utensil GetUtensilById(int id)
         {
             return _utensilRepository.GetUtensilById(id);
-        }
-        
-        public List<Utensil> GetFilteredUtensils(string filter)
-        {
-            return _utensilRepository.GetFilteredUtensils(filter);
         }
         
         public Utensil CreateUtensil(Utensil utensil)

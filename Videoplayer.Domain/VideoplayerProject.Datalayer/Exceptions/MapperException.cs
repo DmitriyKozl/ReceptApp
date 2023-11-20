@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace VideoplayerProject.Datalayer.Exceptions
 {
     [Serializable]
-    internal class MapperException : Exception
+    public class MapperException : Exception
     {
         public MapperException()
         {

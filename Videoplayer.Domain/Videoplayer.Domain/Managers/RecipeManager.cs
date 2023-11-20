@@ -12,12 +12,8 @@ public class RecipeManager : IRecipeService {
         _recipeRepository = recipeRepository;
     }
 
-    public List<Recipe> GetAllRecipes() {
-        return _recipeRepository.GetAllRecipes();
-    }
-
-    public List<Recipe> GetFilteredRecipes(string filter) {
-        return _recipeRepository.GetFilteredRecipes(filter);
+    public List<Recipe> GetRecipes(string? filter = null) {
+        return _recipeRepository.GetRecipes(filter);
     }
 
     public Recipe GetRecipeById(int id) {
@@ -39,7 +35,7 @@ public class RecipeManager : IRecipeService {
     }
 
     public bool ExistingRecipe(string videolink) {
-        return _recipeRepository.GetAllRecipes().Find(r =>r.VideoLink == videolink) != null;
+        return _recipeRepository.GetRecipes().Find(r =>r.VideoLink == videolink) != null;
     }
 
     public void RemoveRecipe(int id) {

@@ -3,10 +3,9 @@
 namespace VideoplayerProject.Domain.Interfaces;
 
 public interface IUtensilService {
-    List<Utensil> GetAllUtensils();
     Utensil GetUtensilById(int id);
     List<Utensil> GetUtensilsFromRecipe(int recipeId);
-    List<Utensil> GetFilteredUtensils(string filter);
+    List<Utensil> GetUtensils(string? filter = null);
 
     Utensil CreateUtensil(Utensil utensil);
     

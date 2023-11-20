@@ -2,7 +2,7 @@
 
 namespace VideoplayerProject.Domain.Interfaces; 
 public interface IIngredientService {
-    public List<Ingredient> GetIngredients(string filter);
+    public List<Ingredient> GetIngredients(string? filter = null);
     public Ingredient GetIngredientById(int id);
     public List<Ingredient> GetIngredientsFromRecipe(int recipeId);
     

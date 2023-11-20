@@ -3,6 +3,7 @@ using VideoplayerProject.API.Mappers;
 using VideoplayerProject.API.Models;
 using VideoplayerProject.API.Models.Output;
 using VideoplayerProject.Domain.Interfaces;
+using VideoplayerProject.Domain.Managers;
 using VideoplayerProject.Domain.Models;
 
 
@@ -22,9 +23,9 @@ public class RecipeController : ControllerBase {
         _utensilService = utensilService ?? throw new ArgumentNullException(nameof(utensilService));
     }
 
-    [HttpGet]
-    public ActionResult<RecipeOutputDTO> GetAllRecipes() {
-        var recipesData = _recipeManager.GetAllRecipes();
+    [HttpGet(Name = "GetAllRecipes")]
+    public ActionResult<RecipeOutputDTO> GetRecipes() {
+        var recipesData = _recipeManager.GetRecipes();
         var recipesDomain = recipesData.Select(recipe => MapFromDomain.MapFromRecipeDomain(Url.Content("~/"), recipe))
             .ToList();
 
@@ -34,8 +35,29 @@ public class RecipeController : ControllerBase {
 
         return Ok(recipesDomain);
     }
+    [HttpGet("filter/{filter?}", Name = "GetRecipes")]
+    public ActionResult<IEnumerable<UtensilsOutputDTO>> GetRecipes(string? filter = null)
+    {
+        try
+        {
+            var recipeData = _recipeManager.GetRecipes(filter);
+            var recipeDomain = recipeData
+                .Select(recipe => MapFromDomain.MapFromRecipeDomain(Url.Content("~/"), recipe))
+                .ToList();
+            if (recipeDomain == null)
+            {
+                return NotFound("Utensils not found.");
+            }
 
-    [HttpGet("{recipeId}")]
+            return Ok(recipeDomain);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+    [HttpGet("{recipeId}", Name = "GetRecipesById")]
     public ActionResult<RecipeOutputDTO> GetRecipeById(int recipeId) {
         try {
             var recipe = _recipeManager.GetRecipeById(recipeId);
