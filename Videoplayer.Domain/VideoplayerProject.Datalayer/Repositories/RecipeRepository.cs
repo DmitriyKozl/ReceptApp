@@ -29,104 +29,149 @@ public class RecipeRepository : IRecipeRepository {
 
     public List<Recipe> GetRecipes(string? filter = null)
     {
-        var query = _context.Recipes
-            .Include(r => r.RecipeIngredients)
-            .ThenInclude(ri => ri.Ingredient)
-            .Include(r => r.RecipeUtensils)
-            .ThenInclude(ru => ru.Utensil)
-            .AsNoTracking();
-
-        if (!string.IsNullOrEmpty(filter))
+        try
         {
-            query = query.Where(r => r.RecipeName.Contains(filter));
+            var query = _context.Recipes
+                .Include(r => r.RecipeIngredients)
+                .ThenInclude(ri => ri.Ingredient)
+                .Include(r => r.RecipeUtensils)
+                .ThenInclude(ru => ru.Utensil)
+                .AsNoTracking();
+
+            if (!string.IsNullOrEmpty(filter))
+            {
+                query = query.Where(r => r.RecipeName.Contains(filter));
+            }
+
+            return query
+                .Select(r => RecipeMapper.MapToDomainModel(r))
+                .ToList();
+        }
+        catch (Exception ex)
+        {
+            throw new RecipeRepositoryException("Error in GetRecipes. ", ex);
         }
 
-        return query
-            .Select(r => RecipeMapper.MapToDomainModel(r))
-            .ToList();
     }
 
 
     public Recipe GetRecipeById(int id) {
-        var dataRecipe = _context.Recipes
-            .Include(r => r.RecipeIngredients)
-            .ThenInclude(ri => ri.Ingredient)
-            .Include(r => r.RecipeUtensils)
-            .ThenInclude(ru => ru.Utensil)
-            .AsNoTracking()
-            .FirstOrDefault(r => r.RecipeID == id);
+        try
+        {
+            var dataRecipe = _context.Recipes
+                .Include(r => r.RecipeIngredients)
+                .ThenInclude(ri => ri.Ingredient)
+                .Include(r => r.RecipeUtensils)
+                .ThenInclude(ru => ru.Utensil)
+                .AsNoTracking()
+                .FirstOrDefault(r => r.RecipeID == id);
 
-        if (dataRecipe == null) return null;
+            if (dataRecipe == null) throw new ArgumentNullException($"No Recipe with id {id}");
 
-        return RecipeMapper.MapToDomainModel(dataRecipe);
+            return RecipeMapper.MapToDomainModel(dataRecipe);
+        }
+        catch (Exception ex)
+        {
+            throw new RecipeRepositoryException("Error in GetRecipeById. ", ex);
+        }
+
     }
 
     public void CreateRecipe(Recipe domainRecipe) {
-        if (domainRecipe == null) throw new ArgumentNullException(nameof(domainRecipe));
-        if (ExistingRecipe(domainRecipe.VideoLink)) throw new MapperException($"{domainRecipe.Name} already exists.");
+        try
+        {
+            if (domainRecipe == null) throw new ArgumentNullException(nameof(domainRecipe));
+            if (ExistingRecipe(domainRecipe.VideoLink)) throw new MapperException($"{domainRecipe.Name} already exists.");
 
-        try {
             _context.Recipes.Add(RecipeMapper.MapToDataEntity(domainRecipe, _context));
             SaveAndClear();
         }
-        catch (Exception e) {
-            throw new MapperException("CreateRecipe failed", e);
+        catch (Exception ex)
+        {
+            throw new RecipeRepositoryException("Error creating recipe. ", ex);
         }
     }
 
 
     public void RemoveRecipe(int id) {
-        var recipe = _context.Recipes
-            .Include(r => r.RecipeIngredients)
-            .Include(r => r.RecipeUtensils)
-            .FirstOrDefault(r => r.RecipeID == id);
-        
-        if(recipe == null) throw new RecipeRepositoryException("No recipe found");
+        try
+        {
+            var recipe = _context.Recipes
+                .Include(r => r.RecipeIngredients)
+                .Include(r => r.RecipeUtensils)
+                .FirstOrDefault(r => r.RecipeID == id);
 
-        _context.RecipeIngredient.RemoveRange(recipe.RecipeIngredients);
-        _context.RecipeUtensils.RemoveRange(recipe.RecipeUtensils);
-        _context.Recipes.Remove(recipe);
-        SaveAndClear();
+            if (recipe == null) throw new RecipeRepositoryException("No recipe found");
+
+            _context.RecipeIngredient.RemoveRange(recipe.RecipeIngredients);
+            _context.RecipeUtensils.RemoveRange(recipe.RecipeUtensils);
+            _context.Recipes.Remove(recipe);
+            SaveAndClear();
+        }
+        catch (Exception ex)
+        {
+            throw new RecipeRepositoryException("Error removing recipe. ", ex);
+        }
     }
 
 
     public void AddIngredientWithTimeStamp(Recipe recipe, Ingredient ingredient, Timestamp timestamp) {
-        if (recipe == null) throw new ArgumentNullException(nameof(recipe));
+        try
+        {
+            if (recipe == null) throw new ArgumentNullException(nameof(recipe));
 
-        // Check if ingredient exists
-        var existingRecipeIngredient = _context.RecipeIngredient
-            .FirstOrDefault(ri => ri.RecipeID == recipe.Id
-                                  && ri.IngredientID == ingredient.Id
-                                  && ri.BeginTime == timestamp.StartTime);
+            // Check if ingredient exists
+            var existingRecipeIngredient = _context.RecipeIngredient
+                .FirstOrDefault(ri => ri.RecipeID == recipe.Id
+                                      && ri.IngredientID == ingredient.Id
+                                      && ri.BeginTime == timestamp.StartTime);
 
-        if (existingRecipeIngredient == null) {
-            var recipeIngredient = new RecipeIngredient
-            { RecipeID = recipe.Id,
-              IngredientID = ingredient.Id,
-              BeginTime = timestamp.StartTime,
-              EndTime = timestamp.EndTime };
-            _context.RecipeIngredient.Add(recipeIngredient);
-            SaveAndClear();
+            if (existingRecipeIngredient == null)
+            {
+                var recipeIngredient = new RecipeIngredient
+                {
+                    RecipeID = recipe.Id,
+                    IngredientID = ingredient.Id,
+                    BeginTime = timestamp.StartTime,
+                    EndTime = timestamp.EndTime
+                };
+                _context.RecipeIngredient.Add(recipeIngredient);
+                SaveAndClear();
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new RecipeRepositoryException("Error in AddIngredientWithTimeStamp. ", ex);
         }
     }
 
     public void AddUtensilWithTimeStamp(Recipe recipe, Utensil utensil, Timestamp timestamp) {
-        if (recipe == null) throw new ArgumentNullException(nameof(recipe));
+        try
+        {
+            if (recipe == null) throw new ArgumentNullException(nameof(recipe));
 
-        // Check if ingredient exists
-        var existingRecipeUtensil = _context.RecipeUtensils
-            .FirstOrDefault(ri => ri.RecipeID == recipe.Id
-                                  && ri.UtensilID == utensil.Id
-                                  && ri.BeginTime == timestamp.StartTime);
+            // Check if ingredient exists
+            var existingRecipeUtensil = _context.RecipeUtensils
+                .FirstOrDefault(ri => ri.RecipeID == recipe.Id
+                                      && ri.UtensilID == utensil.Id
+                                      && ri.BeginTime == timestamp.StartTime);
 
-        if (existingRecipeUtensil == null) {
-            var recipeUtensil = new RecipeUtensil
-            { RecipeID = recipe.Id,
-              UtensilID = utensil.Id,
-              BeginTime = timestamp.StartTime,
-              EndTime = timestamp.EndTime };
-            _context.RecipeUtensils.Add(recipeUtensil);
-            SaveAndClear();
+            if (existingRecipeUtensil == null)
+            {
+                var recipeUtensil = new RecipeUtensil
+                {
+                    RecipeID = recipe.Id,
+                    UtensilID = utensil.Id,
+                    BeginTime = timestamp.StartTime,
+                    EndTime = timestamp.EndTime
+                };
+                _context.RecipeUtensils.Add(recipeUtensil);
+                SaveAndClear();
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new RecipeRepositoryException("Error in AddUtensilWithTimeStamp. ", ex);
         }
     }
 
@@ -139,27 +184,42 @@ public class RecipeRepository : IRecipeRepository {
         }
         catch (Exception ex)
         {
-            throw new RecipeRepositoryException("UpdateRecipe", ex);
+            throw new RecipeRepositoryException("Error in UpdateRecipe. ", ex);
         }
     }
 
    public Ingredient GetIngredientsWithTimestamps(int recipeId, int ingredientId) {
-        var recipeIngredient = _context.RecipeIngredient
-            .Include(ri => ri.Ingredient)
-            .FirstOrDefault(ri => ri.RecipeID == recipeId && ri.IngredientID == ingredientId);
+       try
+       {
+           var recipeIngredient = _context.RecipeIngredient
+               .Include(ri => ri.Ingredient)
+               .FirstOrDefault(ri => ri.RecipeID == recipeId && ri.IngredientID == ingredientId);
 
-        if (recipeIngredient == null) throw new ArgumentNullException(nameof(recipeIngredient));
+           if (recipeIngredient == null) throw new ArgumentNullException(nameof(recipeIngredient));
 
-        return IngredientMapper.MapToDomainModel(recipeIngredient.Ingredient);
+           return IngredientMapper.MapToDomainModel(recipeIngredient.Ingredient);
+       }
+       catch (Exception ex)
+       {
+           throw new RecipeRepositoryException("Error in GetIngredientsWithTimestamps. ", ex);
+       }
+
     }   
    public Utensil GetUtensilWithTimestamps(int recipeId, int UtensilId) {
-        var recipeUtensil = _context.RecipeUtensils
-            .Include(ri => ri.Utensil)
-            .FirstOrDefault(ri => ri.RecipeID == recipeId && ri.UtensilID == UtensilId);
+       try
+       {
+           var recipeUtensil = _context.RecipeUtensils
+               .Include(ri => ri.Utensil)
+               .FirstOrDefault(ri => ri.RecipeID == recipeId && ri.UtensilID == UtensilId);
 
-        if (recipeUtensil == null) throw new ArgumentNullException(nameof(recipeUtensil));
+           if (recipeUtensil == null) throw new ArgumentNullException(nameof(recipeUtensil));
 
-        return UtensilMapper.MapToDomainModel(recipeUtensil.Utensil);
+           return UtensilMapper.MapToDomainModel(recipeUtensil.Utensil);
+       }
+       catch (Exception ex)
+       {
+           throw new RecipeRepositoryException("Error in GetUtensilWithTimeStamps. ", ex);
+       }
     }
 }
 /*
