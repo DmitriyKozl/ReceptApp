@@ -40,7 +40,7 @@ export const TimingPopup = (props) => {
     method: 'GET',
   });
   const [{ data: dataIngredient, loading: loadingIngredient }] = useAxios({
-    url: `/Ingredient/${values.id} || ''`,
+    url: `/Ingredient`,
     method: 'GET',
   });
 
