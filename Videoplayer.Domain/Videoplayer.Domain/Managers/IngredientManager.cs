@@ -1,5 +1,4 @@
-﻿using VideoplayerProject.Datalayer.Interfaces;
-using VideoplayerProject.Domain.Interfaces;
+﻿using VideoplayerProject.Domain.Interfaces;
 using VideoplayerProject.Domain.Models;
 
     
@@ -15,31 +14,39 @@ namespace VideoplayerProject.Domain.Managers
             _ingredientRepo = ingredientRepo;
         }
 
-
-        public void CreateIngredient(string name, string brand)
+        public List<Ingredient> GetAllIngredients()
         {
-            _ingredientRepo.CreateIngredient(name, brand);
+            return _ingredientRepo.GetAllIngredients();
         }
-
-        public List<Ingredient> GetIngredients(string filter) {
-            return _ingredientRepo.GetIngredients(filter);
+        
+        public List<Ingredient> GetFilteredIngredients(string filter) {
+            return _ingredientRepo.GetFilteredIngredients(filter);
         }
 
         public List<Ingredient> GetIngredientsFromRecipe(int recipeId)
         {
             return _ingredientRepo.GetIngredientsFromRecipe(recipeId);
         }
-
+        
+        public Ingredient GetIngredientById(int id)
+        {
+            return _ingredientRepo.GetIngredientById(id);
+        }
+        
+        public void CreateIngredient(Ingredient ingredient)
+        {
+            _ingredientRepo.CreateIngredient(ingredient);
+        }
+        
         public void RemoveIngredient(int id)
         {
             _ingredientRepo.RemoveIngredient(id);
         }
 
-        public void UpdateIngredient(int id, string newName, string newBrand)
+        public void UpdateIngredient(Ingredient ingredient)
         {
-            _ingredientRepo.UpdateIngredient(id, newName, newBrand);
+            _ingredientRepo.UpdateIngredient(ingredient);
         }
-        
     }
 
 }

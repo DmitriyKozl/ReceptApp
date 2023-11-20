@@ -24,6 +24,8 @@ POST /ingredients
 
 ```json
 {
+"img": "https://images.unsplash.com/photo-1571748982800-fa51082c2224?auto=format&fit=crop&q=80&w=2071&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+"brandImg": "https://images.unsplash.com/photo-1571748982800-fa51082c2224?auto=format&fit=crop&q=80&w=2071&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
 "name": "Oatmeal",
 "brand": "HealthyOats"
 }
@@ -42,6 +44,7 @@ Location: {{host}}/Ingredients/{{id}}
 ```json
 {
 "id": 1,
+"img": "https://images.unsplash.com/photo-1571748982800-fa51082c2224?auto=format&fit=crop&q=80&w=2071&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D","brandImg": "https://images.unsplash.com/photo-1571748982800-fa51082c2224?auto=format&fit=crop&q=80&w=2071&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
 "name": "Oatmeal",
 "brand": "HealthyOats"
 }
@@ -65,11 +68,13 @@ GET /ingredients
 [
 {
 "id": 1,
+"img": "https://images.unsplash.com/photo-1571748982800-fa51082c2224?auto=format&fit=crop&q=80&w=2071&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D","brandImg": "https://images.unsplash.com/photo-1571748982800-fa51082c2224?auto=format&fit=crop&q=80&w=2071&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
 "name": "Oatmeal",
 "brand": "HealthyOats"
 },
 {
 "id": 2,
+"img": "https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?auto=format&fit=crop&q=80&w=1975&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D","brandImg": "https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?auto=format&fit=crop&q=80&w=1975&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
 "name": "Avocado",
 "brand": "AvocadoBrand"
 }
@@ -86,6 +91,8 @@ PUT /ingredients/{{id}}
 
 ```json
 {
+"img": "https://images.unsplash.com/photo-1571748982800-fa51082c2224?auto=format&fit=crop&q=80&w=2071&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+"brandImg": "https://images.unsplash.com/photo-1571748982800-fa51082c2224?auto=format&fit=crop&q=80&w=2071&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
 "name": "Organic Oatmeal",
 "brand": "HealthyOats"
 }
@@ -100,11 +107,13 @@ PUT /ingredients/{{id}}
 ```json
 {
 "id": 1,
+"img": "https://images.unsplash.com/photo-1571748982800-fa51082c2224?auto=format&fit=crop&q=80&w=2071&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+"brandImg": "https://images.unsplash.com/photo-1571748982800-fa51082c2224?auto=format&fit=crop&q=80&w=2071&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
 "name": "Organic Oatmeal",
 "brand": "HealthyOats"
 }
 ```
-
+[RecipeApi.md](RecipeApi.md)
 ## Delete Ingredient
 
 ### Delete Ingredient Request

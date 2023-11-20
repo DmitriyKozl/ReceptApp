@@ -1,60 +1,101 @@
 import React, { useState } from 'react'
-import { Box, DialogContent, DialogTitle, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material'
+import moment from 'moment'
+import {
+  DialogContent,
+  DialogTitle,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Stack,
+} from '@mui/material'
+import { TimeField } from '@mui/x-date-pickers/TimeField'
 
 export const TimingPopup = (props) => {
   const { values } = props
 
-  const [name, setName] = useState(values?.name)
-  const [brand, setBrand] = useState(values?.brand)
+  const [id, setId] = useState(values?.id)
   const [from, setFrom] = useState(values?.from)
   const [till, setTill] = useState(values?.till)
-  const [selected, setSelected] = useState()
 
   return (
     <React.Fragment>
-      <DialogTitle>Ingredient</DialogTitle>
-      <DialogContent dividers='true'>
-        <Box display={'grid'}>
-          {!values?.new ? (
-            <>
-              <TextField label='name' value={name} disabled variant='filled' margin='normal' sx={{ width: 500 }} />
-              <TextField label='brand' value={brand} disabled variant='filled' margin='normal' sx={{ width: 500 }} />
-            </>
-          ) : (
-            <FormControl>
-              <InputLabel>name - brand</InputLabel>
-              <Select
-                value={selected}
-                onChange={(e) => {
-                  setSelected(e.target.value)
-                }}
-                variant='filled'
-                margin='normal'
-              >
-                <MenuItem value={1}>choclade - boni</MenuItem>
-                <MenuItem value={2}>gehakt - boni</MenuItem>
-                <MenuItem value={3}>aardbeien - boni</MenuItem>
-              </Select>
-            </FormControl>
-          )}
-
-          <TextField
+      <DialogTitle variant='h4' m={1}>
+        Timing
+      </DialogTitle>
+      <DialogContent>
+        <Stack justifyContent='space-evenly' alignItems='stretch' spacing={3} width={550}>
+          <FormControl>
+            <InputLabel>name</InputLabel>
+            <Select
+              label='name'
+              value={id}
+              onChange={(e) => {
+                setId(e.target.value)
+                setId(e.target.value)
+              }}
+              sx={{ borderRadius: '20px' }}
+            >
+              <MenuItem value={1}>choclade</MenuItem>
+              <MenuItem value={2}>gehakt</MenuItem>
+              <MenuItem value={3}>aardbeien</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl>
+            <InputLabel>brand</InputLabel>
+            <Select
+              label='brand'
+              value={id}
+              onChange={(e) => {
+                setId(e.target.value)
+                setId(e.target.value)
+              }}
+              sx={{ borderRadius: '20px' }}
+            >
+              <MenuItem value={1}>boni</MenuItem>
+              <MenuItem value={2}>boni</MenuItem>
+              <MenuItem value={3}>boni</MenuItem>
+            </Select>
+          </FormControl>
+          <TimeField
             label='from'
-            value={from}
-            onChange={(e) => setFrom(e.target.value)}
-            variant='filled'
-            margin='normal'
-            sx={{ width: 500 }}
+            value={moment(from, 'mm:ss')}
+            onChange={(e) => setFrom(e.format('mm:ss'))}
+            format='mm:ss'
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderRadius: '20px',
+                },
+                '&:hover fieldset': {
+                  borderRadius: '20px',
+                },
+                '&.Mui-focused fieldset': {
+                  borderRadius: '20px',
+                },
+              },
+            }}
           />
-          <TextField
+          <TimeField
             label='till'
-            value={till}
-            onChange={(e) => setTill(e.target.value)}
-            variant='filled'
-            margin='normal'
-            sx={{ width: 500 }}
+            value={moment(till, 'mm:ss')}
+            onChange={(e) => setTill(e.format('mm:ss'))}
+            format='mm:ss'
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderRadius: '20px',
+                },
+                '&:hover fieldset': {
+                  borderRadius: '20px',
+                },
+                '&.Mui-focused fieldset': {
+                  borderRadius: '20px',
+                },
+              },
+            }}
           />
-        </Box>
+        </Stack>
       </DialogContent>
     </React.Fragment>
   )

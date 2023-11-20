@@ -1,41 +1,63 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using VideoplayerProject.Domain.Models;
+using Microsoft.Extensions.Logging;
+using VideoplayerProject.Datalayer.Models;
+using Ingredient = VideoplayerProject.Datalayer.Models.Ingredient;
+using Recipe = VideoplayerProject.Datalayer.Models.Recipe;
 
 namespace VideoplayerProject.Datalayer.Data;
 
 public class RecipeDbContext : DbContext {
     public RecipeDbContext(DbContextOptions<RecipeDbContext> options)
-        : base(options)
-    {
-    }
+        : base(options) { }
 
-    public DbSet<Ingredient>? Ingredients { get; set; }
-    public DbSet<Recipe>? Recipes { get; set; }
-    public DbSet<Utensils>? Utensils { get; set; }
-    public DbSet<RecipeIngredient>? RecipeIngredient { get; set; }
-    public DbSet<RecipeUtensil>? RecipeUtensils { get; set; }
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
+    
+    public DbSet<Ingredient> Ingredients { get; set; }
+    public DbSet<Recipe> Recipes { get; set; }
+    public DbSet<Utensils> Utensils { get; set; }
+    public DbSet<RecipeIngredient> RecipeIngredient { get; set; }
+    public DbSet<RecipeUtensil> RecipeUtensils { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder) {
+        modelBuilder.Entity<Recipe>()
+            .Property(r => r.RecipeID)
+            .ValueGeneratedOnAdd();
         modelBuilder.Entity<RecipeIngredient>()
             .HasKey(ri => new { ri.RecipeID, ri.IngredientID, ri.BeginTime });
 
-        // Define relationships
+
+
         modelBuilder.Entity<RecipeIngredient>()
             .HasOne(ri => ri.Recipe)
-            .WithMany(r => r.RecipeIngredients) // Assuming the Recipe entity has a collection of RecipeIngredients
+            .WithMany(r => r.RecipeIngredients)
+            .OnDelete(DeleteBehavior.Cascade)
             .HasForeignKey(ri => ri.RecipeID);
 
         modelBuilder.Entity<RecipeIngredient>()
             .HasOne(ri => ri.Ingredient)
-            .WithMany(i => i.RecipeIngredients) // Assuming the Ingredient entity has a collection of RecipeIngredients
+            .WithMany(i => i.RecipeIngredients)
+            .OnDelete(DeleteBehavior.Cascade)
             .HasForeignKey(ri => ri.IngredientID);
 
-        // Utensils configuration
-        modelBuilder.Entity<Utensils>()
-            .HasKey(u => u.UtensilId);
+
+        // RecipeUtensil configuration
         modelBuilder.Entity<RecipeUtensil>()
-            .HasKey(ru => new { ru.RecipeID, ru.UtensilID });
+            .HasKey(ru => new { ru.RecipeID, ru.UtensilID, ru.BeginTime });
+
+
+        modelBuilder.Entity<RecipeUtensil>()
+            .HasOne(ru => ru.Recipe)
+            .WithMany(r => r.RecipeUtensils)
+            .OnDelete(DeleteBehavior.Cascade)
+            .HasForeignKey(ru => ru.RecipeID);
+
+
+        modelBuilder.Entity<RecipeUtensil>()
+            .HasOne(ru => ru.Utensil)
+            .WithMany(u => u.RecipeUtensils)
+            .OnDelete(DeleteBehavior.Cascade)
+            .HasForeignKey(ru => ru.UtensilID);
+
+
     }
 
-    
 }
