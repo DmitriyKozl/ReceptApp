@@ -5,6 +5,7 @@ using DomainUtensil = VideoplayerProject.Domain.Models.Utensil;
 using DataUtensil = VideoplayerProject.Datalayer.Models.Utensils;
 using Microsoft.EntityFrameworkCore;
 using VideoplayerProject.Datalayer.Exceptions;
+using VideoplayerProject.Datalayer.Models;
 
 namespace VideoplayerProject.Datalayer.Repositories;
 
@@ -101,6 +102,13 @@ public class UtensilsRepository : IUtensilsRepository
             {
                 throw new UtensilRepositoryException("Utensil not found.");
             }
+
+            var existingEntry = _context.ChangeTracker.Entries<Utensils>().FirstOrDefault(e => e.Entity.UtensilID == dataUtensil.UtensilID);
+            if (existingEntry != null)
+            {
+                existingEntry.State = EntityState.Detached;
+            }
+
             _context.Utensils.Update(dataUtensil);
             _context.SaveChanges();
         }

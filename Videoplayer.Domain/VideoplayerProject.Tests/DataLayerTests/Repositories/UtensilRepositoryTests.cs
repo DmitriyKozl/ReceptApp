@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using VideoplayerProject.Datalayer.Data;
+using VideoplayerProject.Datalayer.Exceptions;
 using VideoplayerProject.Datalayer.Repositories;
 using VideoplayerProject.Domain.Interfaces;
 namespace VideoplayerProject.Tests.DataLayerTests.Repositories;
@@ -98,7 +99,7 @@ public class UtensilsRepositoryTests
     {
         var invalidUtensilId = 999;
 
-        Assert.Throws<ArgumentNullException>(() => _utensilsRepository.GetUtensilById(invalidUtensilId));
+        Assert.Throws<UtensilRepositoryException>(() => _utensilsRepository.GetUtensilById(invalidUtensilId));
     }
 
     [Fact]
@@ -133,6 +134,6 @@ public class UtensilsRepositoryTests
     {
         var nonExistingUtensil = new DomainUtensil(999, "NonExistingUtensil", "imgurl");
 
-        Assert.Throws<ArgumentNullException>(() => _utensilsRepository.UpdateUtensil(nonExistingUtensil));
+        Assert.Throws<UtensilRepositoryException>(() => _utensilsRepository.UpdateUtensil(nonExistingUtensil));
     }
 }
