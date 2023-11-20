@@ -69,16 +69,15 @@ public class IngredientRepository : IIngredientRepository {
     public void CreateIngredient(DomainIngredient ingredient) {
         try
         {
-
+            var dataIngredient = IngredientMapper.MapToDataModel(ingredient);
+            _context.Ingredients.Add(dataIngredient);
+            _context.SaveChanges();
         }
         catch (Exception ex)
         {
             throw new IngredientRepositoryException("Error Creating ingredient. ", ex);
 
         }
-        var dataIngredient = IngredientMapper.MapToDataModel(ingredient);
-        _context.Ingredients.Add(dataIngredient);
-        _context.SaveChanges();
     }
     
     public void RemoveIngredient(int id) {
