@@ -96,6 +96,28 @@ public class RecipeRepositoryTests
         Assert.True(result.All(recipe => recipe.Name.Contains(filter)));
     }
     [Fact]
+    public void GetRecipeById_ShouldThrowException_WhenInvalidId()
+    {
+        var invalidRecipeId = int.MaxValue;
+
+        Assert.Throws<RecipeRepositoryException>(() => _recipeRepository.GetRecipeById(invalidRecipeId));
+    }
+    [Fact]
+    public void GetRecipeById_ShouldReturnCorrectRecipe_WithValidId()
+    {
+        var existingRecipe = _dbContext.Recipes.First();
+
+        var result = _recipeRepository.GetRecipeById(existingRecipe.RecipeID);
+
+        Assert.NotNull(result);
+        Assert.Equal(existingRecipe.RecipeID, result.Id);
+        Assert.Equal(existingRecipe.RecipeName, result.Name);
+        Assert.Equal(existingRecipe.Servings, result.Servings);
+        Assert.Equal(existingRecipe.VideoLink, result.VideoLink);
+        Assert.Equal(existingRecipe.CookingTime, result.CookingTime);
+    }
+
+    [Fact]
     public void CreateRecipe_ShouldAddNewRecipe()
     {
         var newRecipe = new DomainRecipe("DomainName", 1, "Lifenk", new TimeSpan(1));
@@ -160,5 +182,114 @@ public class RecipeRepositoryTests
 
         Assert.Throws<RecipeRepositoryException>(() => _recipeRepository.CreateRecipe(duplicateRecipe));
     }
+    [Fact]
+    public void GetIngredientsWithTimestamps_ShouldReturnCorrectIngredient()
+    {
+        var recipeId = 1; 
+        var ingredientId = 1;
+
+        _dbContext.RecipeIngredient.Add(new RecipeIngredient
+        {
+            RecipeID = recipeId,
+            IngredientID = ingredientId,
+            BeginTime = new TimeSpan(1),  
+            EndTime = new TimeSpan(1) 
+        });
+        var existingIngredient = _dbContext.Ingredients
+            .AsNoTracking()
+            .FirstOrDefault(i => i.IngredientID == ingredientId);
+
+        Assert.NotNull(existingIngredient);
+        _dbContext.SaveChanges();
+
+        var result = _recipeRepository.GetIngredientsWithTimestamps(recipeId, ingredientId);
+
+        Assert.NotNull(result);
+        Assert.Equal(ingredientId, result.Id); 
+        Assert.Equal("Filter1", result.Name);
+        Assert.Equal("TestBrand", result.Brand);
+    }
+    [Fact]
+    public void GetIngredientsWithTimestamps_ShouldThrowException_WhenRecipeIngredientNotFound()
+    {
+        var recipeId = 1;
+        var ingredientId = 1;
+
+        var existingRecipeIngredient = _dbContext.RecipeIngredient
+            .FirstOrDefault(ri => ri.RecipeID == recipeId && ri.IngredientID == ingredientId);
+
+        if (existingRecipeIngredient != null)
+        {
+            _dbContext.RecipeIngredient.Remove(existingRecipeIngredient);
+            _dbContext.SaveChanges();
+        }
+
+        Assert.Throws<RecipeRepositoryException>(() => _recipeRepository.GetIngredientsWithTimestamps(recipeId, ingredientId));
+    }
+    [Fact]
+    public void GetUtensilsWithTimestamps_ShouldReturnCorrectUtensil()
+    {
+        var recipeId = 1;
+        var utensilId = 1;
+
+        _dbContext.RecipeUtensils.Add(new RecipeUtensil
+        {
+            RecipeID = recipeId,
+            UtensilID = utensilId,
+            BeginTime = new TimeSpan(1), 
+            EndTime = new TimeSpan(1) 
+        });
+
+        var existingUtensil = _dbContext.Utensils
+            .AsNoTracking()
+            .FirstOrDefault(u => u.UtensilID == utensilId);
+
+        Assert.NotNull(existingUtensil);
+        _dbContext.SaveChanges();
+
+        var result = _recipeRepository.GetUtensilWithTimestamps(recipeId, utensilId);
+
+        Assert.NotNull(result);
+        Assert.Equal(utensilId, result.Id);
+    }
+    [Fact]
+    public void GetUtensilsWithTimestamps_ShouldThrowException_WhenRecipeUtensilNotFound()
+    {
+        var recipeId = 1;
+        var utensilId = 1;
+        var existingRecipeUtensil = _dbContext.RecipeUtensils
+            .FirstOrDefault(ru => ru.RecipeID == recipeId && ru.UtensilID == utensilId);
+
+        if (existingRecipeUtensil != null)
+        {
+            _dbContext.RecipeUtensils.Remove(existingRecipeUtensil);
+            _dbContext.SaveChanges();
+        }
+
+        Assert.Throws<RecipeRepositoryException>(() => _recipeRepository.GetUtensilWithTimestamps(recipeId, utensilId));
+    }
+
+    [Fact]
+    public void AddIngredientWithTimeStamp_ShouldAddIngredientWithTimestamp()
+    {
+        var recipeId = 1;
+        var ingredientId = 1;
+
+        var timestamp = new Timestamp(TimeSpan.Zero, TimeSpan.FromMinutes(5), ingredientId);
+
+        var recipe = new DomainRecipe(recipeId, "RecipeName", 4, "TestLink", TimeSpan.FromMinutes(30));
+        var ingredient = new DomainIngredient(ingredientId, "TestIngredientName", 1, "TestImg", "");
+
+        _recipeRepository.AddIngredientWithTimeStamp(recipe, ingredient, timestamp);
+
+        var result = _dbContext.RecipeIngredient.FirstOrDefault(ri =>
+            ri.RecipeID == recipeId &&
+            ri.IngredientID == ingredientId &&
+            ri.BeginTime == timestamp.StartTime &&
+            ri.EndTime == timestamp.EndTime);
+
+        Assert.NotNull(result);
+    }
 
 }
+

@@ -175,11 +175,23 @@ public class RecipeRepository : IRecipeRepository {
         }
     }
 
-    public void UpdateRecipe(Domain.Models.Recipe updatedDomainRecipe) {
-        
-        try 
+    public void UpdateRecipe(Domain.Models.Recipe updatedDomainRecipe)
+    {
+        try
         {
-            _context.Recipes.Update(RecipeMapper.MapToDataEntity(updatedDomainRecipe, _context));
+            var dataRecipe = RecipeMapper.MapToDataEntity(updatedDomainRecipe, _context);
+            if (dataRecipe == null)
+            {
+                throw new RecipeRepositoryException($"Recipe with id {updatedDomainRecipe.Id} not found.");
+            }
+
+            var existingEntry = _context.ChangeTracker.Entries<Recipe>().FirstOrDefault(e => e.Entity.Id == dataRecipe.RecipeID);
+            if (existingEntry != null)
+            {
+                existingEntry.State = EntityState.Detached;
+            }
+
+            _context.Recipes.Update(dataRecipe);
             SaveAndClear();
         }
         catch (Exception ex)
@@ -188,7 +200,8 @@ public class RecipeRepository : IRecipeRepository {
         }
     }
 
-   public Ingredient GetIngredientsWithTimestamps(int recipeId, int ingredientId) {
+
+    public Ingredient GetIngredientsWithTimestamps(int recipeId, int ingredientId) {
        try
        {
            var recipeIngredient = _context.RecipeIngredient

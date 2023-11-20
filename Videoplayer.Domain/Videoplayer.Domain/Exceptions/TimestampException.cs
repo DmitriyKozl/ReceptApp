@@ -2,7 +2,6 @@
 
 namespace VideoplayerProject.Domain.Exceptions
 {
-    [Serializable]
     public class TimestampException : Exception
     {
         public TimestampException()
