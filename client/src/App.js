@@ -1,13 +1,13 @@
-import React from 'react'
-import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom'
-import { createTheme } from '@mui/material/styles'
-import { ThemeProvider } from '@mui/material/styles'
-import { LocalizationProvider } from '@mui/x-date-pickers'
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
-import Home from './pages/Home'
-import Login from './pages/Login'
-import Admin from './pages/Admin'
-import { Topbar } from './components/Topbar'
+import React from 'react';
+import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom';
+import { createTheme } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import Home from './pages/Home';
+import Login from './pages/Login'; 
+import Admin from './pages/Admin';
+import { Topbar } from './components/Topbar';
 
 const App = () => {
   const theme = createTheme({
@@ -22,7 +22,7 @@ const App = () => {
       },
     },
     typography: { fontFamily: ['Red Hat Display', 'sans-serif'].join(',') },
-  })
+  });
 
   return (
     <LocalizationProvider dateAdapter={AdapterMoment}>
@@ -37,26 +37,18 @@ const App = () => {
                 element={
                   <>
                     <Topbar />
-                    <Home/>
+                    <Home />
                   </>
                 }
               />
-              <Route
-                path='/login'
-                element={
-                  <>
-                    <Topbar />
-                    <Login />
-                  </>
-                }
-              />
+              <Route path='/login' element={<Login />} />
               <Route path='/:title' element={<Admin />} />
             </Routes>
           </BrowserRouter>
         </React.Fragment>
       </ThemeProvider>
     </LocalizationProvider>
-  )
-}
+  );
+};
 
-export default App
+export default App;
