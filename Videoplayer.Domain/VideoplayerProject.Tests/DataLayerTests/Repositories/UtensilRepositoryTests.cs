@@ -2,6 +2,7 @@
 using VideoplayerProject.Datalayer.Data;
 using VideoplayerProject.Datalayer.Repositories;
 using VideoplayerProject.Domain.Interfaces;
+namespace VideoplayerProject.Tests.DataLayerTests.Repositories;
 
 public class UtensilsRepositoryTests
 {
@@ -61,44 +62,77 @@ public class UtensilsRepositoryTests
     [Fact]
     public void GetUtensils_ShouldReturnFilteredUtensils()
     {
-        // Arrange
-        var filter = "FilterKeyword";
+        var filter = "Utensil2";
 
-        // Act
         var result = _utensilsRepository.GetUtensils(filter);
 
-        // Assert
         Assert.NotNull(result);
-        // Add assertions based on your specific filter criteria
+        Assert.NotEmpty(result);
+        Assert.True(result.All(utensil => utensil.Name.Contains(filter)));
     }
+
 
     [Fact]
     public void GetUtensilsFromRecipe_ShouldReturnUtensilsForRecipe()
     {
-        // Arrange
-        var recipeId = 1; // Replace with an actual recipe ID
+        var recipeId = 1;
 
-        // Act
         var result = _utensilsRepository.GetUtensilsFromRecipe(recipeId);
 
-        // Assert
         Assert.NotNull(result);
-        // Add assertions based on the expected utensils for the given recipe
+        Assert.Empty(result);
     }
 
     [Fact]
-    public void GetUtensilById_ShouldReturnUtensil()
+    public void GetUtensilById_ShouldReturnUtensilForValidId()
     {
-        // Arrange
-        var utensilId = 1; // Replace with an actual utensil ID
+        var utensilId = 1;
 
-        // Act
         var result = _utensilsRepository.GetUtensilById(utensilId);
 
-        // Assert
         Assert.NotNull(result);
-        // Add more assertions based on the expected utensil properties
     }
 
+    [Fact]
+    public void GetUtensilById_ShouldThrowExceptionForInvalidId()
+    {
+        var invalidUtensilId = 999;
 
+        Assert.Throws<ArgumentNullException>(() => _utensilsRepository.GetUtensilById(invalidUtensilId));
+    }
+
+    [Fact]
+    public void CreateUtensil_ShouldAddNewUtensil()
+    {
+        var newUtensil = new DomainUtensil("NewUtensil", "NewTestImg");
+
+        _utensilsRepository.CreateUtensil(newUtensil);
+
+        var result = _dbContext.Utensils.FirstOrDefault(u => u.UtensilName == newUtensil.Name);
+        Assert.NotNull(result);
+        Assert.Equal(newUtensil.Name, result.UtensilName);
+    }
+
+    [Fact]
+    public void UpdateUtensil_ShouldUpdateExistingUtensil()
+    {
+        var existingUtensil = _dbContext.Utensils.First();
+        var updatedDomainUtensil = new DomainUtensil(existingUtensil.UtensilID,"NewUtensil", "NewTestImg");
+
+
+        _utensilsRepository.UpdateUtensil(updatedDomainUtensil);
+
+        var result = _dbContext.Utensils.Find(existingUtensil.UtensilID);
+        Assert.NotNull(result);
+        Assert.Equal(updatedDomainUtensil.Name, result.UtensilName);
+        Assert.Equal(updatedDomainUtensil.ImgUrl, result.ImgUrl);
+    }
+
+    [Fact]
+    public void UpdateUtensil_ShouldThrowExceptionForNonExistingUtensil()
+    {
+        var nonExistingUtensil = new DomainUtensil(999, "NonExistingUtensil", "imgurl");
+
+        Assert.Throws<ArgumentNullException>(() => _utensilsRepository.UpdateUtensil(nonExistingUtensil));
+    }
 }

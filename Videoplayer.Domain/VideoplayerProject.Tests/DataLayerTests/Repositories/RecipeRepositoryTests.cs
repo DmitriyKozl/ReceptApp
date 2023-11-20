@@ -84,7 +84,17 @@ public class RecipeRepositoryTests
         Assert.NotEmpty(result);
         Assert.Equal(_dbContext.Recipes.Count(), result.Count);
     }
+    [Fact]
+    public void GetRecipes_ShouldReturnFilteredResults()
+    {
+        var filter = "Recipe2";
 
+        var result = _recipeRepository.GetRecipes(filter);
+
+        Assert.NotNull(result);
+        Assert.NotEmpty(result);
+        Assert.True(result.All(recipe => recipe.Name.Contains(filter)));
+    }
     [Fact]
     public void CreateRecipe_ShouldAddNewRecipe()
     {
