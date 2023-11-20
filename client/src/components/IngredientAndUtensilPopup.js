@@ -29,7 +29,7 @@ export const IngredientAndUntensilPopup = (props) => {
 
   // Fetch data for the existing Ingredient or Utensil based on 'values.id'
   const [{ data: ingredient, loading: ingredientLoading, error: ingredientError }] = useAxios({
-    url: `/Ingredient/${values.id}`,
+    url: `/Ingredient/${values.id} || ''`,
     method: 'GET',
   })
 

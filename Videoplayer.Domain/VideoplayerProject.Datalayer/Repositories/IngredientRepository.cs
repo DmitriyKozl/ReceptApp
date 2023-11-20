@@ -16,14 +16,10 @@ public class IngredientRepository : IIngredientRepository {
     }
 
     public List<DomainIngredient> GetIngredients(string filter) {
-        var dataIngredients = string.IsNullOrEmpty(filter)
+        var dataIngredients = string.IsNullOrWhiteSpace(filter)
             ? _context.Ingredients.ToList()
             : _context.Ingredients.Where(i => i.IngredientName.Contains(filter)).ToList();
-        
-        if (dataIngredients.Select(IngredientMapper.MapToDomainModel).ToList().IsNullOrEmpty())
-        {
-            throw new IngredientException($"Ingredient with a name containing: {filter} does not exist");
-        }
+
             return dataIngredients.Select(IngredientMapper.MapToDomainModel).ToList();
     }
     

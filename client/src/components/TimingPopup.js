@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import moment from 'moment'
+import React, { useState } from 'react';
+import moment from 'moment';
 import {
   Button,
   Dialog,
@@ -14,35 +14,35 @@ import {
   Select,
   Stack,
   Typography,
-} from '@mui/material'
-import { TimeField } from '@mui/x-date-pickers/TimeField'
-import useAxios, { configure } from 'axios-hooks'
-import apiUrl from '../common/apiUrl'
-import CloseIcon from '@mui/icons-material/Close'
+} from '@mui/material';
+import { TimeField } from '@mui/x-date-pickers/TimeField';
+import useAxios, { configure } from 'axios-hooks';
+import apiUrl from '../common/apiUrl';
+import CloseIcon from '@mui/icons-material/Close';
 
 // Component for the Popup used for adding/editing Timings (Ingredient or Utensil)
 export const TimingPopup = (props) => {
-  const { values, openTimingPopup, handleClose } = props
+  const { values, openTimingPopup, handleClose } = props;
 
   // Axios configuration using axios-hooks
-  const axios = apiUrl()
-  configure({ axios })
+  const axios = apiUrl();
+  configure({ axios });
 
   // State variables to manage form fields
-  const [id, setId] = useState(values?.id)
-  const [brand, setBrand] = useState(values?.brand)
-  const [from, setFrom] = useState(values?.from ? values.from : '00:00:00')
-  const [till, setTill] = useState(values?.till ? values.till : '00:00:00')
+  const [id, setId] = useState(values?.id);
+  const [brand, setBrand] = useState(values?.brand);
+  const [from, setFrom] = useState(values?.from ? values.from : '00:00:00');
+  const [till, setTill] = useState(values?.till ? values.till : '00:00:00');
 
   // Use axios-hooks for fetching Utensil and Ingredient data
   const [{ data: dataUtensil, loading: loadingUtensil }] = useAxios({
     url: `/Utensil`,
     method: 'GET',
-  })
+  });
   const [{ data: dataIngredient, loading: loadingIngredient }] = useAxios({
-    url: `/Ingredient`,
+    url: `/Ingredient/${values.id} || ''`,
     method: 'GET',
-  })
+  });
 
   // Use axios-hooks for making POST requests for Ingredient and Utensil
   const [{ data: postIngredientData }, executeIngredientPost] = useAxios(
@@ -51,20 +51,20 @@ export const TimingPopup = (props) => {
       method: 'POST',
     },
     { manual: true }
-  )
+  );
   const [{ data: postUtensilData }, executeUtensilPost] = useAxios(
     {
       url: `/Recipe/${values.recipeId}/utensil/${id}`,
       method: 'POST',
     },
     { manual: true }
-  )
+  );
 
   // Loading check
-  if (loadingUtensil || loadingIngredient) return <Typography>LOADING</Typography>
+  if (loadingUtensil || loadingIngredient) return <Typography>Loading...</Typography>;
 
   // JSX for rendering the Popup
-    return (
+  return (
     <Dialog open={openTimingPopup} onClose={handleClose} PaperProps={{ sx: { borderRadius: '20px' } }}>
       <IconButton sx={{ position: 'absolute', alignSelf: 'end' }} onClick={handleClose}>
         <CloseIcon fontSize='large' />
@@ -81,13 +81,23 @@ export const TimingPopup = (props) => {
               label='name'
               value={id}
               onChange={(e) => {
-                setId(e.target.value)
+                setId(e.target.value);
               }}
               sx={{ borderRadius: '20px' }}
             >
-              {values?.title === 'utensil'
-                ? dataUtensil.map((e) => <MenuItem value={e.id}>{e.name}</MenuItem>)
-                : dataIngredient.map((e) => <MenuItem value={e.id}>{e.name}</MenuItem>)}
+              {values?.title === 'utensil' && dataUtensil?.length > 0 ? (
+                dataUtensil.map((e) => (
+                  <MenuItem key={e.id} value={e.id}>
+                    {e.name}
+                  </MenuItem>
+                ))
+              ) : values?.title === 'ingredient' && dataIngredient?.length > 0 ? (
+                dataIngredient.map((e) => (
+                  <MenuItem key={e.id} value={e.id}>
+                    {e.name}
+                  </MenuItem>
+                ))
+              ) : null}
             </Select>
           </FormControl>
           {/* Display brand for Ingredient */}
@@ -145,14 +155,14 @@ export const TimingPopup = (props) => {
           onClick={() => {
             // Execute POST request based on Ingredient or Utensil type
             if (values.title === 'ingredient') {
-              executeIngredientPost({ data: { from: from, till: till } })
-              console.log(postIngredientData)
+              executeIngredientPost({ data: { from: from, till: till } });
+              console.log(postIngredientData);
             }
             if (values.title === 'utensil') {
-              executeUtensilPost({ data: { from: from, till: till } })
-              console.log(postUtensilData)
+              executeUtensilPost({ data: { from: from, till: till } });
+              console.log(postUtensilData);
             }
-            handleClose()
+            handleClose();
           }}
           sx={{
             p: '10px 50px',
@@ -166,5 +176,5 @@ export const TimingPopup = (props) => {
         </Button>
       </DialogActions>
     </Dialog>
-  )
-}
+  );
+};

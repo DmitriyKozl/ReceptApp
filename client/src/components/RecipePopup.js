@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import moment from 'moment'
+import React, { useEffect, useState } from 'react';
+import moment from 'moment';
 import {
   Button,
   Dialog,
@@ -12,53 +12,49 @@ import {
   OutlinedInput,
   Stack,
   Typography,
-} from '@mui/material'
-import { TimeField } from '@mui/x-date-pickers/TimeField'
-import { VisuallyHiddenInput } from './VisuallyHiddenInput'
-import CloudUploadIcon from '@mui/icons-material/CloudUpload'
-import useAxios, { configure } from 'axios-hooks'
-import apiUrl from '../common/apiUrl'
-import CloseIcon from '@mui/icons-material/Close'
+} from '@mui/material';
+import { TimeField } from '@mui/x-date-pickers/TimeField';
+import { VisuallyHiddenInput } from './VisuallyHiddenInput';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import useAxios, { configure } from 'axios-hooks';
+import apiUrl from '../common/apiUrl';
+import CloseIcon from '@mui/icons-material/Close';
 
 // Component for the Popup used for adding/editing Recipes
 export const RecipePopup = (props) => {
-  const { values, openRecipePopup, handleClose } = props
+  const { values, openRecipePopup, handleClose } = props;
 
   // Axios configuration using axios-hooks
-  const axios = apiUrl()
-  configure({ axios })
+  const axios = apiUrl();
+  configure({ axios });
 
   // Use axios-hooks for fetching existing Recipe data and making POST requests
   const [{ data, loading, error }] = useAxios({
-    url: `/Recipe/{recipeId}`,
+    url: `/Recipe/${values.recipeId}`,
     method: 'GET',
-  })
+  });
 
   const [{ data: postData }, executePost] = useAxios(
     {
-      url: `/Recipe`,
+      url: '/Recipe',
       method: 'POST',
     },
     { manual: true }
-  )
+  );
 
   // State variables to manage form fields
-  const [name, setName] = useState()
-  const [videoLink, setVideoLink] = useState()
-  const [servings, setServings] = useState()
-  const [cookingtime, setCookingtime] = useState()
+  const [name, setName] = useState('');
+  const [videoLink, setVideoLink] = useState('');
+  const [servings, setServings] = useState(0);
+  const [cookingtime, setCookingtime] = useState('00:00:00');
 
   // Set initial form values based on existing Recipe data
   useEffect(() => {
-    setName(data?.name)
-    setVideoLink(data?.videoLink)
-    setServings(data?.servings)
-    setCookingtime(data?.cookingTime ? data.cookingTime : '00:00:00')
-  }, [data])
-
-  // Loading and error handling
-  if (loading) return <Typography>LOADING</Typography>
-  if (values.id && error) return <Typography>ERROR</Typography>
+    setName(data?.name || '');
+    setVideoLink(data?.videoLink || '');
+    setServings(data?.servings || 0);
+    setCookingtime(data?.cookingTime || '00:00:00');
+  }, [data]);
 
   // JSX for rendering the Popup
   return (
@@ -143,13 +139,19 @@ export const RecipePopup = (props) => {
       {/* Save button */}
       <DialogActions sx={{ justifyContent: 'center' }}>
         <Button
-          onClick={() => {
-            // Execute POST request to update/create Recipe
-            executePost({
-              data: { name: name, img: '', videoLink: videoLink, servings: servings, cookingTime: cookingtime },
-            })
-            console.log(postData)
-            handleClose()
+          onClick={async () => {
+            try {
+              // Execute POST request to update/create Recipe
+              const response = await executePost({
+                data: { name, img: '', videoLink, servings, cookingTime: cookingtime },
+              });
+              console.log(response.data);
+              handleClose();
+            } catch (error) {
+              console.error('Error:', error);
+              // Display a user-friendly error message
+              alert('Failed to save recipe. Please try again.');
+            }
           }}
           sx={{
             p: '10px 50px',
@@ -162,6 +164,12 @@ export const RecipePopup = (props) => {
           save
         </Button>
       </DialogActions>
+      {/* Display detailed error information */}
+      {error && (
+        <DialogContent sx={{ color: 'error.main', textAlign: 'center' }}>
+          <Typography variant='body2'>Error: {error.message}</Typography>
+        </DialogContent>
+      )}
     </Dialog>
-  )
-}
+  );
+};

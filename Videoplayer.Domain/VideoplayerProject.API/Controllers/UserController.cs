@@ -16,7 +16,7 @@ public class UserController : ControllerBase
 {
     private readonly UserDbContext _dbContext;
     private readonly IUserRepository _userRepository;
-    private bool loginEnabled = true;
+    private bool loginEnabled = false;
 
     const string Issuer = "ReceptApp";
     const string Audience = "ReceptAppAudience";
