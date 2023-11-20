@@ -136,4 +136,13 @@ public class UtensilsRepositoryTests
 
         Assert.Throws<UtensilRepositoryException>(() => _utensilsRepository.UpdateUtensil(nonExistingUtensil));
     }
+    [Fact]
+    public void CreateUtensil_ShouldThrowException_WhenUtensilAlreadyExists()
+    {
+        var existingUtensil = _dbContext.Utensils.First();
+        var duplicateUtensil = new DomainUtensil(existingUtensil.UtensilID, "NewUtensil", "NewImageUrl");
+
+        Assert.Throws<UtensilRepositoryException>(() => _utensilsRepository.CreateUtensil(duplicateUtensil));
+
+    }
 }

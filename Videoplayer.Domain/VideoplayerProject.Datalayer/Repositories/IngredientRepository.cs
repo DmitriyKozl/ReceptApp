@@ -6,6 +6,7 @@ using VideoplayerProject.Domain.Exceptions;
 using VideoplayerProject.Domain.Interfaces;
 using DomainIngredient = VideoplayerProject.Domain.Models.Ingredient;
 using DataIngredient = VideoplayerProject.Datalayer.Models.Ingredient;
+using Microsoft.EntityFrameworkCore;
 
 namespace VideoplayerProject.Datalayer.Repositories;
 
@@ -101,15 +102,25 @@ public class IngredientRepository : IIngredientRepository {
         try
         {
             var dataIngredient = IngredientMapper.MapToDataModel(ingredient);
-
-            if (dataIngredient == null) return;
+            if (dataIngredient == null)
+            {
+                throw new IngredientRepositoryException($"Ingredient with id {ingredient.Id} not found.");
+            }
+            
+            var existingEntry = _context.ChangeTracker.Entries<DataIngredient>().FirstOrDefault(i => i.Entity.IngredientID == dataIngredient.IngredientID);
+            if (existingEntry != null)
+            {
+                existingEntry.State = EntityState.Detached;
+            }
 
             _context.Ingredients.Update(dataIngredient);
             _context.SaveChanges();
+
         }
         catch (Exception ex)
         {
             throw new IngredientRepositoryException("Error updating ingredient. ", ex);
         }
     }
+
 }

@@ -133,9 +133,7 @@ public class RecipeRepositoryTests
 
         _recipeRepository.RemoveRecipe(existingRecipeId);
 
-        var result = _recipeRepository.GetRecipeById(existingRecipeId);
-
-        Assert.Null(result);
+        Assert.Throws<RecipeRepositoryException>(() => _recipeRepository.GetRecipeById(existingRecipeId));
     }
 
     [Fact]
@@ -160,7 +158,7 @@ public class RecipeRepositoryTests
         var existingRecipe = _dbContext.Recipes.First();
         var duplicateRecipe = new DomainRecipe(1, existingRecipe.RecipeName, 1, "DuplicateLink", TimeSpan.FromMinutes(20));
 
-        Assert.Throws<MapperException>(() => _recipeRepository.CreateRecipe(duplicateRecipe));
+        Assert.Throws<RecipeRepositoryException>(() => _recipeRepository.CreateRecipe(duplicateRecipe));
     }
 
 }

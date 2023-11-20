@@ -82,6 +82,12 @@ public class UtensilsRepository : IUtensilsRepository
         try
         {
             var dataUtensil = UtensilMapper.MapToDataModel(utensil);
+
+            if (_context.Utensils.Any(u => u.UtensilID == dataUtensil.UtensilID))
+            {
+                throw new UtensilRepositoryException($"Utensil with ID {dataUtensil.UtensilID} already exists.");
+            }
+
             _context.Utensils.Add(dataUtensil);
             _context.SaveChanges();
         }
