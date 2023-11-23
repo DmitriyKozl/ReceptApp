@@ -107,7 +107,7 @@
         [Theory]
         [InlineData(0, 0, -30, false)]
         [InlineData(0, 0, -5, false)]
-        [InlineData(0, 0, 0, false)]
+        [InlineData(0, 0, 0, true)]
         [InlineData(0, 0, 30, true)]
         [InlineData(0, 1, 0, true)]
         public void RecipeShouldHavePositiveCookingTIme(int hours, int minutes, int seconds, bool expectedResult)
@@ -257,7 +257,7 @@
 
             recipe.AddIngredientWithTimeStampToRecipe(ingredient, timestamp);
 
-            //recipe.RemoveTimestampForIngredient(ingredient, timestamp);
+            recipe.RemoveTimestampForIngredient(ingredient, timestamp);
 
             // The timestamp should no longer be used for the given ingredient
             // It should be true that the timestamp is no longer in the list

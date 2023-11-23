@@ -15,13 +15,13 @@
             // In the 2 cases, Id's are not positive, so an exception should be thrown            
             if (!expectedResult)
             {
-                Assert.Throws<UtensilException>(() => new Utensil("TestName", "ImgUrl"));
+                Assert.Throws<UtensilException>(() => new Utensil(id,"TestName", "ImgUrl"));
             }
 
             // The last two cases, the Id's are positive, so the object should be created (not null)
             else
             {
-                Utensil sut = new Utensil("TestName", "ImgUrl");
+                Utensil sut = new Utensil(id,"TestName", "ImgUrl");
                 Assert.Equal(sut.Id, id);
             }
         }

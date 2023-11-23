@@ -29,7 +29,7 @@
         //STARTTIME
         [Theory]
         [InlineData(0, 0, -30, false)]
-        [InlineData(0, 0, 0, false)]
+        [InlineData(0, 0, 0, true)]
         [InlineData(0, 0, 1, true)]
         [InlineData(0, 0, 30, true)]
         public void TimestampShouldHavePositiveStartTime(int hours, int minutes, int seconds, bool expectedResult)

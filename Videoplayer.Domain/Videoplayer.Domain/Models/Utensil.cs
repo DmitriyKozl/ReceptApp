@@ -20,8 +20,8 @@ namespace VideoplayerProject.Domain.Models {
 
         public void SetId(int id)
         {
-            if (id <= 0) throw new IngredientException("Invalid ID!");
-            if (Id != 0) throw new IngredientException("Ingredient already has an ID!"); 
+            if (id <= 0) throw new UtensilException("Invalid ID!");
+            if (Id != 0) throw new UtensilException("Ingredient already has an ID!"); 
             
             Id = id;
         }
@@ -45,7 +45,7 @@ namespace VideoplayerProject.Domain.Models {
         public string Name {
             get { return _name; }
             set {
-                if (!string.IsNullOrEmpty(value)) {
+                if (!string.IsNullOrEmpty(value.Trim())) {
                     _name = value;
                 } else {
                     throw new UtensilException("Please enter an Utensil name");

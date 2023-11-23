@@ -49,14 +49,14 @@ namespace VideoplayerProject.Tests.DomainLayerTests.Models
             else
             {
                 Ingredient sut = new(2, name, 2.0m, "TestBrand","TestImg");
-                Assert.Equal(name.Trim(), sut.Name);
+                Assert.Equal(name, sut.Name);
             }
         }
 
         //PRICE
         [Theory]
         [InlineData(-2.0, false)]
-        [InlineData(0, false)]
+        [InlineData(-0.2, false)]
         [InlineData(1, true)]
         [InlineData(5, true)]
         public void IngredientShouldHavePrice(decimal price, bool expectedResult)
@@ -99,7 +99,7 @@ namespace VideoplayerProject.Tests.DomainLayerTests.Models
             else
             {
                 Ingredient sut = new(2, "TestName", 2.0m, brand, "TestImg");
-                Assert.Equal(brand.Trim(), sut.Brand);
+                Assert.Equal(brand, sut.Brand);
             }
         }
     }

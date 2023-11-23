@@ -151,7 +151,3 @@ public class IngredientRepositoryTests
         Assert.Equal(newIngredient.Img, createdIngredient.Img);
     }
 }
-
-
-
-

@@ -33,7 +33,7 @@ namespace VideoplayerProject.Domain.Models {
         public string Name {
             get { return _name; }
             set {
-                if (!string.IsNullOrEmpty(value)) {
+                if (!string.IsNullOrEmpty(value.Trim())) {
                     _name = value;
                 }
                 else {
@@ -62,7 +62,7 @@ namespace VideoplayerProject.Domain.Models {
         public string? Brand {
             get { return _brand; }
             set {
-                if (!string.IsNullOrEmpty(value)) {
+                if (!string.IsNullOrEmpty(value.Trim())) {
                     _brand = value;
                 }
                 else {

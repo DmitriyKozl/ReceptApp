@@ -23,7 +23,7 @@ namespace VideoplayerProject.Domain.Models {
             get { return _ingredientId; }
             set
             {
-                if (value >= 0)
+                if (value > 0)
                 {
                     _ingredientId = value;
                 }

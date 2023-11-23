@@ -22,8 +22,8 @@ namespace VideoplayerProject.Domain.Models {
 
         public void SetId(int id)
         {
-            if (id <= 0) throw new IngredientException("Invalid ID!");
-            if (Id != 0) throw new IngredientException("Ingredient already has an ID!");
+            if (id <= 0) throw new RecipeException("Invalid ID!");
+            if (Id != 0) throw new RecipeException("Ingredient already has an ID!");
             Id = id;
         }
 
