@@ -8,19 +8,19 @@
     "net7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\ncorn\\.nuget\\packages\\": {}
+    "C:\\Users\\Dmitriy\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ncorn\\Desktop\\Projectwerk\\Latest\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\VideoplayerProject.Domain.csproj",
+      "projectUniqueName": "D:\\CursusPB\\Jaar_2\\Projectwerk\\RecipeApp\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\VideoplayerProject.Domain.csproj",
       "projectName": "VideoplayerProject.Domain",
-      "projectPath": "C:\\Users\\ncorn\\Desktop\\Projectwerk\\Latest\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\VideoplayerProject.Domain.csproj",
-      "packagesPath": "C:\\Users\\ncorn\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ncorn\\Desktop\\Projectwerk\\Latest\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\obj\\",
+      "projectPath": "D:\\CursusPB\\Jaar_2\\Projectwerk\\RecipeApp\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\VideoplayerProject.Domain.csproj",
+      "packagesPath": "C:\\Users\\Dmitriy\\.nuget\\packages\\",
+      "outputPath": "D:\\CursusPB\\Jaar_2\\Projectwerk\\RecipeApp\\receptapp\\Videoplayer.Domain\\Videoplayer.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\ncorn\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Dmitriy\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -61,7 +61,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -1,0 +1,11 @@
+.product__list {
+  background-color: #fff;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  padding: 0;
+  width: 100%;
+}
+.product__list-row {
+  border-radius: 100px;
+}/*# sourceMappingURL=List.css.map */

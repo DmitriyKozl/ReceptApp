@@ -1,0 +1,33 @@
+*
+{
+  margin: 0;
+  padding: 0;
+}
+.Banner{
+    background-image: url(../assets/background.jpeg);
+    background-size: cover;
+    background-position: bottom;
+    background-repeat: no-repeat;
+    min-height: 800px;
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: end;
+    flex-direction: column;
+    color: white;
+    font-weight: 700;
+    font-size: 4rem;
+    text-align: left;
+    text-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+    position: relative;
+}
+h2{
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    font-family: 'Montserrat', sans-serif;	
+}
+.MuiContainer-root	{
+    padding: 0 !important;
+   
+}
