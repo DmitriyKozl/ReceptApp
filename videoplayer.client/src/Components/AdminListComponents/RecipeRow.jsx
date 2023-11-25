@@ -25,8 +25,8 @@ import { border, borderRadius } from "@mui/system";
 import axios from "axios";
 
 const fetchUnsplashImage = async (query) => {
-  const accessKey = 'SU50t0MEv1tBO1IKLPaMgUd_Zfd0PIqrZpGc1mwhAPU';
-  const url = `https://api.unsplash.com/search/photos?query=${query}&client_id=${accessKey}`;
+  const accessKey = '';
+  const url = ``;
   try {
     const response = await axios.get(url);
     return response.data.results[0].urls.regular; // Get the first image's URL
